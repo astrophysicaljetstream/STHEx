@@ -142,7 +142,7 @@
 		var bundleDiameter = outerDiameter*Math.pow((nTube/requiredK1),(1/requiredn1))
 		var shellsideDiameter = bundleDiameter + shellClearance
 		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter + " m<br>"
-		document.getElementById('results').innerHTML += "Shell side diameter, Ds: " + shellsideDiameter + "m<br>"
+		document.getElementById('results').innerHTML += "Shell side diameter, Ds: " + shellsideDiameter + " m<br>"
 		
 		var heatTransferFactor = eval(document.getElementById("heatTransFac").value)
 		var reynoldsNumber = tubeStreamMeanDensity*tubeVelocity*innerDiameter/tubeStreamMeanViscosity
