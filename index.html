@@ -141,12 +141,27 @@
 		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter*1e3 + " mm<br>"
 		document.getElementById('results').innerHTML += "Shell side diameter calculation currently unavailable.<br>"
 		
+		var heatTransferFactor = eval(document.getElementById("heatTransFac").value)
 		var reynoldsNumber = tubeStreamMeanDensity*tubeVelocity*innerDiameter/tubeStreamMeanViscosity
 		var prandtlNumber = tubeStreamMeanSHC*tubeStreamMeanViscosity/tubeStreamMeanTC
 		var lengthOverInnerDiameter = tubeLength/innerDiameter
-		document.getElementById('results').innerHTML += "<br>Reynold's number, Re: " + reynoldsNumber + "<br>"
-		document.getElementById('results').innerHTML += "Prandtl's number, Pr: " + prandtlNumber + "<br>"
+		// Need to figure out Nusselt number in the three flow types.
+		var nusseltNumber = heatTransferFactor * reynoldsNumber * Math.pow(prandtlNumber,.33)
+		var insideCoefficient = nusseltNumber/innerDiameter*tubeStreamMeanTC
+		var flowType
+		if (reynoldsNumber>1e4){
+			flowType = "turbulent"
+		} else if (reynoldsNumber<2e3){
+			flowType = "laminar"
+		} else {
+			flowType = "transition"
+			
+		}
+		document.getElementById('results').innerHTML += "<br>Reynolds number, Re: " + reynoldsNumber + " (hence, " + flowType + " region)<br>"
+		document.getElementById('results').innerHTML += "Prandtl number, Pr: " + prandtlNumber + "<br>"
 		document.getElementById('results').innerHTML += "Ratio of tube length to tube inner diameter: " + lengthOverInnerDiameter + "<br>"
+		document.getElementById('results').innerHTML += "Nusselt number, Pr: " + nusseltNumber + "<br>"
+		document.getElementById('results').innerHTML += "Inside coefficient, hi: " + insideCoefficient + "W/m °C<br>"
 		
 	}
 	</script>
@@ -197,6 +212,7 @@
 		<option value="triangular">Triangular</option>
 		<option value="square">Square</option>
 	</select><br>
+	Heat Transfer Factor, jh: <input type="text" class="inputText" id="heatTransFac" value="3.2e-3"><br>
 	
 	<br><input type=button value="Calculate" onClick="calculate_this()"><br>
 	<br><span id="results">(click "Calculate")</span>
