@@ -143,7 +143,7 @@
 		
 		var reynoldsNumber = tubeStreamMeanDensity*tubeVelocity*innerDiameter/tubeStreamMeanViscosity
 		var prandtlNumber = tubeStreamMeanSHC*tubeStreamMeanViscosity/tubeStreamMeanTC
-		var lengthOverInnerDiameter = tubeLength/innerDiamater
+		var lengthOverInnerDiameter = tubeLength/innerDiameter
 		document.getElementById('results').innerHTML += "<br>Reynold's number, Re: " + reynoldsNumber + "<br>"
 		document.getElementById('results').innerHTML += "Prandtl's number, Pr: " + prandtlNumber + "<br>"
 		document.getElementById('results').innerHTML += "Ratio of tube length to tube inner diameter: " + lengthOverInnerDiameter + "<br>"
