@@ -65,9 +65,14 @@
 		var U = eval(document.getElementById("estOverCoeff").value)
 		var Ft = eval(document.getElementById("Ft").value)
 		var dTm = Ft*LMTD
-		var heatTransferArea = duty/(U*Ft*LMTD)
+		var heatTransferArea = Math.abs(duty/(U*Ft*LMTD))
 		document.getElementById('results').innerHTML += "Actual Temperature Difference, ΔTm: " + dTm + " °C<br>"
 		document.getElementById('results').innerHTML += "Heat Transfer Area: " + heatTransferArea + " m^2<br>"
+		
+		var nShell = eval(document.getElementById("nShellPass").value)
+		var nTube = eval(document.getElementById("nTubePass").value)
+		document.getElementById('results').innerHTML += "For a heat exchanger with " + nShell + " shell passes and "
+		document.getElementById('results').innerHTML += nTube + " tube passes:<br>"
 	}
 	</script>
 	
@@ -92,7 +97,9 @@
 		<option value="counterCurrent">Counter-current</option>
 		<option value="coCurrent">Co-current</option>
 	</select><br>
-	Correction Factor (get from chart using R and S, must be more than 0.85), Ft: <input type="text" class="inputText" id="Ft" value="0.85"><br>
+	Correction Factor (get from chart using R and S, must be more than 0.85), Ft: <input type="text" class="inputText" id="Ft" value="0.9"><br>
+	Number of shell passes, m:<input type="text" class="inputText" id="nShellPass" value="1"><br>
+	Number of tube passes, n:<input type="text" class="inputText" id="nTubePass" value="2"><br>
 	
 	<br><input type=button value="Calculate" onClick="calculate_this()"><br>
 	<br><span id="results">(click "Calculate")</span>
