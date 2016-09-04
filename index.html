@@ -48,6 +48,10 @@
 			var Snumerator = stream2OutletTemp-stream2InletTemp
 			var Sdenominator = stream1InletTemp-stream2InletTemp
 		}
+		if (currentMode=="coCurrent"){
+			var LMTDnumerator = (stream1InletTemp - stream2InletTemp) - (stream1OutletTemp - stream2OutletTemp)
+			var LMTDdenominator = Math.log((stream1InletTemp - stream2InletTemp) / (stream1OutletTemp - stream2OutletTemp))
+		}
 		var R = Rnumerator/Rdenominator
 		var S = Snumerator/Sdenominator
 		var LMTD = LMTDnumerator/LMTDdenominator
