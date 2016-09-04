@@ -55,7 +55,7 @@
 		var R = Rnumerator/Rdenominator
 		var S = Snumerator/Sdenominator
 		var LMTD = LMTDnumerator/LMTDdenominator
-		document.getElementById('results').innerHTML += "Log Mean Temperature Difference: " + LMTD + " °C<br>"
+		document.getElementById('results').innerHTML += "Log Mean Temperature Difference, ΔTLM: " + LMTD + " °C<br>"
 		document.getElementById('results').innerHTML += "R: " + R.toPrecision(3) + "<br>"
 		document.getElementById('results').innerHTML += "S (aka P on chart): " + S.toPrecision(3) + "<br><br>"
 		
@@ -63,7 +63,7 @@
 		var Ft = eval(document.getElementById("Ft").value)
 		var dTm = Ft*LMTD
 		var heatTransferArea = duty/(U*Ft*LMTD)
-		document.getElementById('results').innerHTML += "Actual Temperature Difference: " + dTm + " °C<br>"
+		document.getElementById('results').innerHTML += "Actual Temperature Difference, ΔTm: " + dTm + " °C<br>"
 		document.getElementById('results').innerHTML += "Heat Transfer Area: " + heatTransferArea + " m^2<br>"
 	}
 	</script>
