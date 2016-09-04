@@ -138,7 +138,7 @@
 		document.getElementById('results').innerHTML += "n1 = " + requiredn1 + "<br>"
 		
 		var bundleDiameter = outerDiameter*Math.pow((nTube/requiredK1),(1/requiredn1))
-		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter*1e3 + " mm<br>"
+		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter + " m<br>"
 		document.getElementById('results').innerHTML += "Shell side diameter calculation currently unavailable.<br>"
 		
 		var heatTransferFactor = eval(document.getElementById("heatTransFac").value)
