@@ -69,44 +69,62 @@
 		document.getElementById('results').innerHTML += "Actual Temperature Difference, ΔTm: " + dTm + " °C<br>"
 		document.getElementById('results').innerHTML += "Heat Transfer Area: " + heatTransferArea + " m^2<br>"
 		
-		var nShell = eval(document.getElementById("nShellPass").value)
-		var nTube = eval(document.getElementById("nTubePass").value)
+		var nShellPass = eval(document.getElementById("nShellPass").value)
+		var nTubePass = eval(document.getElementById("nTubePass").value)
 		var foo = Math.sqrt(Math.pow(R,2) + 1)
 		var Ftnumerator = foo*Math.log((1-S)/(1-R*S))
 		var Ftdenominator = (R-1)*Math.log((2-S*(R+ 1 - foo))/(2-S*(R+ 1 + foo)))
 		var FtCalculated = Ftnumerator/Ftdenominator
-		document.getElementById('results').innerHTML += "<br>For a heat exchanger with " + nShell + " shell passes and "
-		document.getElementById('results').innerHTML += nTube + " tube passes:<br>"
+		document.getElementById('results').innerHTML += "<br>For a heat exchanger with " + nShellPass + " shell passes and "
+		document.getElementById('results').innerHTML += nTubePass + " tube passes:<br>"
 		if (nShell==1&&nTube==2){
 			document.getElementById('results').innerHTML += "Calculated Ft: " + FtCalculated + "<br>"
 		}
+		
+		var outerDiameter = eval(document.getElementById("outerDiameter").value)*1e-3
+		var tubeLength = eval(document.getElementById("tubeLength").value)
+		var areaPerTube = outerDiameter * Math.PI * tubeLength
+		var nTube = Math.ceil(heatTransferArea/areaPerTube)
+		for (i=0;i<nTubePass;i++){
+			var nTubePerPass = nTube/nTubePass
+			if (nTubePerPass%1==0){
+				break;
+			} else {
+				nTube++
+			}
+		}
+		document.getElementById('results').innerHTML += "Area of one tube, neglecting thickness of tube sheet: " + areaPerTube + " m^2<br>"
+		document.getElementById('results').innerHTML += "Number of tubes required: " + nTube + "<br>"
+		document.getElementById('results').innerHTML += "For " + nTubePass + " passes, tubes per pass: " + nTubePerPass + "<br>"
 	}
 	</script>
 	
 	<br>Properties of Stream 1 (Shellside) [This stream cools down]<br>
-	Mass Flow: <input type="text" class="inputText" id="stream1MassFlow" value="5e3/3600"> kg/s<br>
+	Mass Flow: <input type="text" class="inputText" id="stream1MassFlow" value="2e4/3600"> kg/s<br>
 	Inlet Temperature, T1: <input type="text" class="inputText" id="stream1InletTemp" value="200"> °C<br>
-	Outlet Temperature, T2: <input type="text" class="inputText" id="stream1OutletTemp" value="80"> °C<br>
+	Outlet Temperature, T2: <input type="text" class="inputText" id="stream1OutletTemp" value="90"> °C<br>
 	
-	Inlet Spec Heat Capacity, C1: <input type="text" class="inputText" id="stream1InletSHC" value="2176"> J/kgK<br>
-	Outlet Spec Heat Capacity, C2: <input type="text" class="inputText" id="stream1OutletSHC" value="2176"> J/kgK<br>
+	Inlet Spec Heat Capacity, C1: <input type="text" class="inputText" id="stream1InletSHC" value="2470"> J/kgK<br>
+	Outlet Spec Heat Capacity, C2: <input type="text" class="inputText" id="stream1OutletSHC" value="2470"> J/kgK<br>
 	
 	<br>Properties of Stream 2 (Tubeside) [This stream heats up]<br>
-	Mass Flow: <input type="text" class="inputText" id="stream2MassFlow" value="12e3/3600"> kg/s<br>
-	Inlet Temperature, t1: <input type="text" class="inputText" id="stream2InletTemp" value="20"> °C<br>
+	Mass Flow: <input type="text" class="inputText" id="stream2MassFlow" value="7e4/3600"> kg/s<br>
+	Inlet Temperature, t1: <input type="text" class="inputText" id="stream2InletTemp" value="40"> °C<br>
 	
-	Inlet Spec Heat Capacity, c1: <input type="text" class="inputText" id="stream2InletSHC" value="4200"> J/kgK<br>
-	Outlet Spec Heat Capacity, c2: <input type="text" class="inputText" id="stream2OutletSHC" value="4.2e3"> J/kgK<br>
+	Inlet Spec Heat Capacity, c1: <input type="text" class="inputText" id="stream2InletSHC" value="2010"> J/kgK<br>
+	Outlet Spec Heat Capacity, c2: <input type="text" class="inputText" id="stream2OutletSHC" value="2010"> J/kgK<br>
 	
 	<br>Heat Exchanger<br>
-	Estimated Overall Coefficient, U: <input type="text" class="inputText" id="estOverCoeff" value="600"> W/m^2 °C<br>
+	Estimated Overall Coefficient, U: <input type="text" class="inputText" id="estOverCoeff" value="300"> W/m^2 °C<br>
 	Mode: <select id = "currentMode">
 		<option value="counterCurrent">Counter-current</option>
 		<option value="coCurrent">Co-current</option>
 	</select><br>
-	Correction Factor (get from chart using R and S, must be more than 0.85), Ft: <input type="text" class="inputText" id="Ft" value="0.9"><br>
+	Correction Factor (get from chart using R and S, must be more than 0.85), Ft: <input type="text" class="inputText" id="Ft" value="0.88"><br>
 	Number of shell passes, m: <input type="text" class="inputText" id="nShellPass" value="1"><br>
 	Number of tube passes, n (preferably an even number): <input type="text" class="inputText" id="nTubePass" value="2"><br>
+	Outer diameter, do: <input type="text" class="inputText" id="outerDiameter" value="19.05"> mm<br>
+	Tube length, l: <input type="text" class="inputText" id="tubeLength" value="5"> m<br>
 	
 	<br><input type=button value="Calculate" onClick="calculate_this()"><br>
 	<br><span id="results">(click "Calculate")</span>
