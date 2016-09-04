@@ -134,7 +134,8 @@
 		var index = listedPassesInTable12point3.indexOf(nTubePass)
 		var requiredK1 = Klist[index]
 		var requiredn1 = nlist[index]
-		document.getElementById('results').innerHTML += "<br>K1 = " + requiredK1 + "<br>"
+		document.getElementById('results').innerHTML += "<br>For " + nTubePass + "-pass " + currentPitch + " pitch:<br>"
+		document.getElementById('results').innerHTML += "K1 = " + requiredK1 + "<br>"
 		document.getElementById('results').innerHTML += "n1 = " + requiredn1 + "<br>"
 		
 		var bundleDiameter = outerDiameter*Math.pow((nTube/requiredK1),(1/requiredn1))
@@ -212,6 +213,7 @@
 		<option value="triangular">Triangular</option>
 		<option value="square">Square</option>
 	</select><br>
+	Shell clearance: <input type="text" class="inputText" id="shellClear" value="56"> mm<br>
 	Heat Transfer Factor, jh: <input type="text" class="inputText" id="heatTransFac" value="3.2e-3"><br>
 	
 	<br><input type=button value="Calculate" onClick="calculate_this()"><br>
