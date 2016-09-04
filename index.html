@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<LINK href="stylesheets/stylesheet.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+	<script>
+	
+	function calculate_this() {
+		var stream1MassFlow = eval(document.getElementById("stream1MassFlow").value)
+		
+		var stream1MinTemp = Math.min(eval(document.getElementById("stream1InletTemp").value),eval(document.getElementById("stream1OutletTemp").value))
+		var stream1MaxTemp = Math.max(eval(document.getElementById("stream1InletTemp").value),eval(document.getElementById("stream1OutletTemp").value))
+		var stream1MeanTemp=0.5*(stream1MinTemp+stream1MaxTemp)
+		var stream1TempDiff = stream1MaxTemp - stream1MinTemp
+		document.getElementById('results').innerHTML = "Stream 1 Mean Temperature: " + stream1MeanTemp + "C<br>"
+		
+		var stream1MinSHC = Math.min(eval(document.getElementById("stream1MinTempSHC").value),eval(document.getElementById("stream1MaxTempSHC").value))
+		var stream1MaxSHC = Math.max(eval(document.getElementById("stream1MinTempSHC").value),eval(document.getElementById("stream1MaxTempSHC").value))
+		var stream1MeanSHC=0.5*(stream1MinSHC+stream1MaxSHC)
+		document.getElementById('results').innerHTML += "Stream 1 Mean Spec Heat Capacity: " + stream1MeanSHC + "J/kgK<br>"
+		
+		var duty = stream1MassFlow*stream1MeanSHC*stream1TempDiff
+		document.getElementById('results').innerHTML += "Duty: " + duty + "W<br><br>"
+		
+		var stream2MinTemp = Math.min(eval(document.getElementById("stream2InletTemp").value),eval(document.getElementById("stream2OutletTemp").value))
+		var stream2MaxTemp = Math.max(eval(document.getElementById("stream2InletTemp").value),eval(document.getElementById("stream2OutletTemp").value))
+		var stream2MeanTemp=0.5*(stream2MinTemp+stream2MaxTemp)
+		var stream2TempDiff = stream2MaxTemp - stream2MinTemp
+		document.getElementById('results').innerHTML += "Stream 2 Mean Temperature: " + stream2MeanTemp + "C<br>"
+		
+		var stream2MinSHC = Math.min(eval(document.getElementById("stream2MinTempSHC").value),eval(document.getElementById("stream2MaxTempSHC").value))
+		var stream2MaxSHC = Math.max(eval(document.getElementById("stream2MinTempSHC").value),eval(document.getElementById("stream2MaxTempSHC").value))
+		var stream2MeanSHC=0.5*(stream2MinSHC+stream2MaxSHC)
+		document.getElementById('results').innerHTML += "Stream 2 Mean Spec Heat Capacity: " + stream2MeanSHC + "J/kgK<br>"
+		
+		var stream2MassFlow = duty/stream2MeanSHC/stream2TempDiff
+		document.getElementById('results').innerHTML += "Stream 2 Mass Flow: " + stream2MassFlow + "kg/s<br><br>"
+		
+		var stream1InTemp = eval(document.getElementById("stream1InletTemp").value)
+		var stream2InTemp = eval(document.getElementById("stream2InletTemp").value)
+		var stream1OutTemp = eval(document.getElementById("stream1OutletTemp").value)
+		var stream2OutTemp = eval(document.getElementById("stream2OutletTemp").value)
+		
+		var counterCurrentMode = eval(document.getElementById("currentMode").value)
+		if (counterCurrentMode==true){
+			var LMTDnumerator = (stream1InTemp - stream2OutTemp) - (stream1OutTemp - stream2InTemp)
+			var LMTDdenominator = Math.log((stream1InTemp - stream2OutTemp) / (stream1OutTemp - stream2InTemp))
+			
+			var Rnumerator = stream1InTemp-stream1OutTemp
+			var Rdenominator = stream2OutTemp-stream2InTemp
+			
+			var Snumerator = stream2OutTemp-stream2InTemp
+			var Sdenominator = stream1InTemp-stream2InTemp
+		}
+		var R = Rnumerator/Rdenominator
+		var S = Snumerator/Sdenominator
+		var LMTD = LMTDnumerator/LMTDdenominator
+		document.getElementById('results').innerHTML += "Log Mean Temperature Difference: " + LMTD + "C<br>"
+		document.getElementById('results').innerHTML += "R: " + R + "<br>"
+		document.getElementById('results').innerHTML += "S (aka P on chart): " + S + "<br><br>"
+		
+		var U = eval(document.getElementById("estOverCoeff").value)
+		var Ft = eval(document.getElementById("Ft").value)
+		var dTm = Ft*LMTD
+		var heatTransferArea = duty/(U*Ft*LMTD)
+		document.getElementById('results').innerHTML += "Actual Temperature Difference: " + dTm + "C<br>"
+		document.getElementById('results').innerHTML += "Heat Transfer Area: " + heatTransferArea + "m^2<br>"
+	}
+	</script>
+	
+	<br>Properties of Stream 1 (Shellside) [This stream cools down]<br>
+	Mass Flow: <input type="text" id="stream1MassFlow" value="1e5/3600"> kg/s<br>
+	Inlet Temperature: <input type="text" id="stream1InletTemp" value="95"> C<br>
+	Outlet Temperature: <input type="text" id="stream1OutletTemp" value="40"> C<br>
+	
+	Max Temperature Spec Heat Capacity, cH: <input type="text" id="stream1MaxTempSHC" value="2.84e3"> J/kgK<br>
+	Min Temperature Spec Heat Capacity, cL: <input type="text" id="stream1MinTempSHC" value="2.84e3"> J/kgK<br>
+	
+	<br>Properties of Stream 2 (Tubeside) [This stream heats up]<br>
+	Inlet Temperature: <input type="text" id="stream2InletTemp" value="25"> C<br>
+	Outlet Temperature: <input type="text" id="stream2OutletTemp" value="40"> C<br>
+	
+	Max Temperature Spec Heat Capacity, cH: <input type="text" id="stream2MaxTempSHC" value="4.2e3"> J/kgK<br>
+	Min Temperature Spec Heat Capacity, cL: <input type="text" id="stream2MinTempSHC" value="4.2e3"> J/kgK<br>
+	
+	<br>Other<br>
+	Estimated Overall Coefficient, U: <input type="text" id="estOverCoeff" value="600"> W/m^2 C<br>
+	Counter-current? <input type="text" id="currentMode" value="true"><br>
+	Correction Factor (get from chart using R and S, must be more than 0.85), Ft: <input type="text" id="Ft" value="0.85"><br>
+	
+	<br><input type=button value="Calculate" onClick="calculate_this()"><br>
+	<br><span id="results">(click "Calculate")</span>
+	
+	</body>
+</html>
