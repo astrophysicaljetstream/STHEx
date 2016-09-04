@@ -71,8 +71,15 @@
 		
 		var nShell = eval(document.getElementById("nShellPass").value)
 		var nTube = eval(document.getElementById("nTubePass").value)
+		var foo = Math.sqrt(Math.pow(R,2) + 1)
+		var Ftnumerator = foo*Math.log((1-S)/(1-R*S))
+		var Ftdenominator = (R-1)*Math.log((2-S*(R+ 1 - foo))/(2-S*(R+ 1 + foo)))
+		var FtCalculated = Ftnumerator/Ftdenominator
 		document.getElementById('results').innerHTML += "<br>For a heat exchanger with " + nShell + " shell passes and "
 		document.getElementById('results').innerHTML += nTube + " tube passes:<br>"
+		if (nShell==1&&nTube==2){
+			document.getElementById('results').innerHTML += "Calculated Ft: " + FtCalculated + "<br>"
+		}
 	}
 	</script>
 	
