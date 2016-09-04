@@ -21,7 +21,7 @@
 		document.getElementById('results').innerHTML += "Stream 1 Mean Spec Heat Capacity: " + stream1MeanSHC + " J/kgK<br>"
 		
 		var duty = stream1MassFlow*stream1MeanSHC*stream1TempDiff
-		document.getElementById('results').innerHTML += "Duty: " + Math.abs(duty) + " W<br><br>"
+		document.getElementById('results').innerHTML += "Duty: " + duty + " W<br><br>"
 		
 		var stream2MassFlow = eval(document.getElementById("stream2MassFlow").value)
 		var stream2InletTemp = eval(document.getElementById("stream2InletTemp").value)
