@@ -38,7 +38,9 @@
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Temperature: " + stream2MeanTemp + " °C<br>"
 		
 		var currentMode = document.getElementById("currentMode").value
+		var currentModeString
 		if (currentMode=="counterCurrent"){
+			var currentModeString = "Counter-current "
 			var LMTDnumerator = (stream1InletTemp - stream2OutletTemp) - (stream1OutletTemp - stream2InletTemp)
 			var LMTDdenominator = Math.log((stream1InletTemp - stream2OutletTemp) / (stream1OutletTemp - stream2InletTemp))
 			
@@ -49,13 +51,14 @@
 			var Sdenominator = stream1InletTemp-stream2InletTemp
 		}
 		if (currentMode=="coCurrent"){
+			var currentModeString = "Co-current "
 			var LMTDnumerator = (stream1InletTemp - stream2InletTemp) - (stream1OutletTemp - stream2OutletTemp)
 			var LMTDdenominator = Math.log((stream1InletTemp - stream2InletTemp) / (stream1OutletTemp - stream2OutletTemp))
 		}
 		var R = Rnumerator/Rdenominator
 		var S = Snumerator/Sdenominator
 		var LMTD = LMTDnumerator/LMTDdenominator
-		document.getElementById('results').innerHTML += "Log Mean Temperature Difference, ΔTLM: " + LMTD + " °C<br>"
+		document.getElementById('results').innerHTML += "<br>" + currentModeString + "Log Mean Temperature Difference, ΔTLM: " + LMTD + " °C<br>"
 		document.getElementById('results').innerHTML += "R: " + R.toPrecision(3) + "<br>"
 		document.getElementById('results').innerHTML += "S (aka P on chart): " + S.toPrecision(3) + "<br><br>"
 		
