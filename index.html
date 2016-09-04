@@ -42,8 +42,8 @@
 		var stream1OutTemp = eval(document.getElementById("stream1OutletTemp").value)
 		var stream2OutTemp = eval(document.getElementById("stream2OutletTemp").value)
 		
-		var counterCurrentMode = eval(document.getElementById("currentMode").value)
-		if (counterCurrentMode==true){
+		var currentMode = document.getElementById("currentMode").value
+		if (currentMode=="counterCurrent"){
 			var LMTDnumerator = (stream1InTemp - stream2OutTemp) - (stream1OutTemp - stream2InTemp)
 			var LMTDdenominator = Math.log((stream1InTemp - stream2OutTemp) / (stream1OutTemp - stream2InTemp))
 			
@@ -86,7 +86,10 @@
 	
 	<br>Other<br>
 	Estimated Overall Coefficient, U: <input type="text" id="estOverCoeff" value="600"> W/m^2 C<br>
-	Counter-current? <input type="text" id="currentMode" value="true"><br>
+	Mode: <select id = "currentMode">
+		<option value="counterCurrent">Counter-current</option>
+		<option value="coCurrent">Co-current</option>
+	</select><br>
 	Correction Factor (get from chart using R and S, must be more than 0.85), Ft: <input type="text" id="Ft" value="0.85"><br>
 	
 	<br><input type=button value="Calculate" onClick="calculate_this()"><br>
