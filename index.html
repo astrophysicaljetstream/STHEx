@@ -13,12 +13,12 @@
 		var stream1OutletTemp = eval(document.getElementById("stream1OutletTemp").value)
 		var stream1MeanTemp=(stream1InletTemp+stream1OutletTemp)/2
 		var stream1TempDiff = stream1OutletTemp - stream1InletTemp
-		document.getElementById('results').innerHTML = "Stream 1 Mean Temperature: " + stream1MeanTemp + " °C<br>"
+		document.getElementById('results').innerHTML = "Stream 1 [Shellside] Mean Temperature: " + stream1MeanTemp + " °C<br>"
 		
 		var stream1InSHC = eval(document.getElementById("stream1InletSHC").value)
 		var stream1OutSHC = eval(document.getElementById("stream1OutletSHC").value)
 		var stream1MeanSHC=(stream1InSHC+stream1OutSHC)/2
-		document.getElementById('results').innerHTML += "Stream 1 Mean Spec Heat Capacity: " + stream1MeanSHC + " J/kgK<br>"
+		document.getElementById('results').innerHTML += "Stream 1 [Shellside] Mean Spec Heat Capacity: " + stream1MeanSHC + " J/kgK<br>"
 		
 		var duty = Math.abs(stream1MassFlow*stream1MeanSHC*stream1TempDiff)
 		document.getElementById('results').innerHTML += "Duty: " + duty + " W<br><br>"
@@ -29,13 +29,13 @@
 		var stream2InSHC = eval(document.getElementById("stream2InletSHC").value)
 		var stream2OutSHC = eval(document.getElementById("stream2OutletSHC").value)
 		var stream2MeanSHC=(stream2InSHC+stream2OutSHC)/2
-		document.getElementById('results').innerHTML += "Stream 2 Mean Spec Heat Capacity: " + stream2MeanSHC + " J/kgK<br>"
+		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Spec Heat Capacity: " + stream2MeanSHC + " J/kgK<br>"
 		
 		var stream2OutletTemp = stream2InletTemp+(duty/(stream2MassFlow*stream2MeanSHC))
 		var stream2MeanTemp=(stream2InletTemp+stream2OutletTemp)/2
 		var stream2TempDiff = stream2OutletTemp - stream2InletTemp
-		document.getElementById('results').innerHTML += "Stream 2 Outlet Temperature: " + stream2OutletTemp + " °C<br>"
-		document.getElementById('results').innerHTML += "Stream 2 Mean Temperature: " + stream2MeanTemp + " °C<br>"
+		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Outlet Temperature: " + stream2OutletTemp + " °C<br>"
+		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Temperature: " + stream2MeanTemp + " °C<br>"
 		
 		var currentMode = document.getElementById("currentMode").value
 		if (currentMode=="counterCurrent"){
