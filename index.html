@@ -20,7 +20,7 @@
 		var stream1MeanSHC=(stream1InSHC+stream1OutSHC)/2
 		document.getElementById('results').innerHTML += "Stream 1 Mean Spec Heat Capacity: " + stream1MeanSHC + " J/kgK<br>"
 		
-		var duty = Math.abs(stream1MassFlow*stream1MeanSHC*stream1TempDiff)
+		var duty = Math.abs(stream1MassFlow*stream1MeanSHC*stream1TempDiff).toPrecision(4)
 		document.getElementById('results').innerHTML += "Duty: " + duty + " W<br><br>"
 		
 		var stream2MassFlow = eval(document.getElementById("stream2MassFlow").value)
