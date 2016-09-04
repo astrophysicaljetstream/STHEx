@@ -138,9 +138,11 @@
 		document.getElementById('results').innerHTML += "K1 = " + requiredK1 + "<br>"
 		document.getElementById('results').innerHTML += "n1 = " + requiredn1 + "<br>"
 		
+		var shellClearance = eval(document.getElementById("shellClear").value)*1e3
 		var bundleDiameter = outerDiameter*Math.pow((nTube/requiredK1),(1/requiredn1))
+		var shellsideDiameter = bundleDiameter + shellClearance
 		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter + " m<br>"
-		document.getElementById('results').innerHTML += "Shell side diameter calculation currently unavailable.<br>"
+		document.getElementById('results').innerHTML += "Shell side diameter, Ds: " + shellsideDiameter + "m<br>"
 		
 		var heatTransferFactor = eval(document.getElementById("heatTransFac").value)
 		var reynoldsNumber = tubeStreamMeanDensity*tubeVelocity*innerDiameter/tubeStreamMeanViscosity
