@@ -99,7 +99,7 @@
 			}
 		}
 		document.getElementById('results').innerHTML += "<br>Area of one tube, neglecting thickness of tube sheet: " + areaPerTube + " m^2<br>"
-		document.getElementById('results').innerHTML += "Number of tubes required: " + nTube + "<br>"
+		document.getElementById('results').innerHTML += "Number of tubes required, Nt: " + nTube + "<br>"
 		document.getElementById('results').innerHTML += "For " + nTubePass + " passes, tubes per pass: " + nTubePerPass + "<br>"
 		
 		var innerDiameter = eval(document.getElementById("innerDiameter").value)*1e-3
@@ -110,7 +110,25 @@
 		document.getElementById('results').innerHTML += "<br>Tube Cross-sectional Area: " + tubeCrossArea + "m^2<br>"
 		document.getElementById('results').innerHTML += "Area per pass: " + areaPerPass + "m^2<br>"
 		document.getElementById('results').innerHTML += "Volumetric Flow of tubeside fluid: " + volumetricFlow + "m^3/s<br>"
-		document.getElementById('results').innerHTML += "Tubeside velocity: " + tubeVelocity + "m/s<br>"
+		document.getElementById('results').innerHTML += "Tubeside velocity: " + tubeVelocity + "m/s (hopefully between 1 and 2 m/s)<br>"
+		
+		var listedPassesInTable12point3 = [1,2,4,6,8]
+		var currentPitch = document.getElementById("currentPitch").value
+		if (currentPitch=="triangular"){
+			var Klist=[.319,.249,.175,.0743,.0365];
+			var nlist=[2.142,2.207,2.285,2.499,2.675];
+		} else if (currentPitch=="square"){
+			var Klist=[.215,.156,.158,.0402,.0331];
+			var nlist=[2.207,2.291,2.263,2.617,2.643];
+		}
+		var index = listedPassesInTable12point3.indexOf(nTubePass)
+		var requiredK1 = Klist[index]
+		var requiredn1 = nlist[index]
+		document.getElementById('results').innerHTML += "<br>K1 = " + requiredK1 + "<br>"
+		document.getElementById('results').innerHTML += "n1 = " + requiredn1 + "<br>"
+		
+		var bundleDiameter = outerDiameter*Math.pow((nTube/requiredK1),(1/requiredn1))
+		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter*1e3 + "mm<br>"
 	}
 	</script>
 	
@@ -140,10 +158,20 @@
 	</select><br>
 	Correction Factor (get from chart using R and S, must be more than 0.85), Ft: <input type="text" class="inputText" id="Ft" value="0.88"><br>
 	Number of shell passes, m: <input type="text" class="inputText" id="nShellPass" value="1"><br>
-	Number of tube passes, n (preferably an even number): <input type="text" class="inputText" id="nTubePass" value="2"><br>
+	Number of tube passes, n : <select id = "nTubePass">
+		<option value="1">1</option>
+		<option value="2" selected>2</option>
+		<option value="4">4</option>
+		<option value="6">6</option>
+		<option value="8">8</option>
+	</select><br>
 	Outer diameter, do: <input type="text" class="inputText" id="outerDiameter" value="19.05"> mm<br>
 	Inner diameter, di: <input type="text" class="inputText" id="innerDiameter" value="14.83"> mm<br>
 	Tube length, l: <input type="text" class="inputText" id="tubeLength" value="5"> m<br>
+	Pitch: <select id = "currentPitch">
+		<option value="triangular">Triangular</option>
+		<option value="square">Square</option>
+	</select><br>
 	
 	<br><input type=button value="Calculate" onClick="calculate_this()"><br>
 	<br><span id="results">(click "Calculate")</span>
