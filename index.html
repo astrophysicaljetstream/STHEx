@@ -88,10 +88,10 @@
 	
 	<br>Heat Exchanger<br>
 	Estimated Overall Coefficient, U: <input type="text" class="inputText" id="estOverCoeff" value="600"> W/m^2 °C<br>
-	Mode: <form id="currentMode">
-		<input type="radio" name="mode" value="counterCurrent" checked> Counter-current 
-		<input type="radio" name="mode" value="coCurrent"> Co-current
-	</form><br>
+	Mode: <select id = "currentMode">
+		<option value="counterCurrent">Counter-current</option>
+		<option value="coCurrent">Co-current</option>
+	</select><br>
 	Correction Factor (get from chart using R and S, must be more than 0.85), Ft: <input type="text" class="inputText" id="Ft" value="0.85"><br>
 	
 	<br><input type=button value="Calculate" onClick="calculate_this()"><br>
