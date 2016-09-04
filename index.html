@@ -32,6 +32,9 @@
 		document.getElementById('results').innerHTML += "Stream 2 Mean Spec Heat Capacity: " + stream2MeanSHC + " J/kgK<br>"
 		
 		var stream2OutletTemp = (duty/(stream2MassFlow*stream2MeanSHC))+stream2InletTemp
+		document.getElementById('results').innerHTML += "Stream 2 MF: " + stream2MassFlow + " °C<br>"
+		document.getElementById('results').innerHTML += "Stream 2 IT: " + stream2InletTemp + " °C<br>"
+		document.getElementById('results').innerHTML += "Stream 2 SHC: " + stream2MeanSHC + " °C<br>"
 		var stream2MeanTemp=(stream2InletTemp+stream2OutletTemp)/2
 		var stream2TempDiff = stream2OutletTemp - stream2InletTemp
 		document.getElementById('results').innerHTML += "Stream 2 Outlet Temperature: " + stream2OutletTemp + " °C<br>"
