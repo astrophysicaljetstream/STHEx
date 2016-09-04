@@ -31,10 +31,20 @@
 		var stream2MeanSHC=(stream2InSHC+stream2OutSHC)/2
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Spec Heat Capacity: " + stream2MeanSHC + " J/kgK<br>"
 		
+		var tubeStreamInletTC = eval(document.getElementById("stream2InletThermCond").value)
+		var tubeStreamOutletTC = eval(document.getElementById("stream2OutletThermCond").value)
+		var tubeStreamMeanTC=(stream2InTC+stream2OutTC)/2
+		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Thermal Conductivity: " + tubeStreamMeanTC + " W/m °C<br>"
+		
 		var tubeStreamInletDensity = eval(document.getElementById("stream2InletDensity").value)
 		var tubeStreamOutletDensity = eval(document.getElementById("stream2OutletDensity").value)
 		var tubeStreamMeanDensity = (tubeStreamInletDensity + tubeStreamOutletDensity)/2
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Density: " + tubeStreamMeanDensity + " kg/m^3<br>"
+		
+		var tubeStreamInletViscosity = eval(document.getElementById("stream2InletViscosity").value)
+		var tubeStreamOutletViscosity = eval(document.getElementById("stream2OutletViscosity").value)
+		var tubeStreamMeanViscosity = (tubeStreamInletViscosity + tubeStreamOutletViscosity)/2
+		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Viscosity: " + tubeStreamMeanViscosity + " Ns/m^2<br>"
 		
 		var stream2OutletTemp = stream2InletTemp-duty/(stream2MassFlow*stream2MeanSHC)
 		var stream2MeanTemp=(stream2InletTemp+stream2OutletTemp)/2
@@ -129,6 +139,15 @@
 		
 		var bundleDiameter = outerDiameter*Math.pow((nTube/requiredK1),(1/requiredn1))
 		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter*1e3 + " mm<br>"
+		document.getElementById('results').innerHTML += "Shell side diameter calculation currently unavailable.<br>"
+		
+		var reynoldsNumber = tubeStreamMeanDensity*tubeVelocity*innerDiameter/tubeStreamMeanViscosity
+		var prandtlNumber = tubeStreamMeanSHC*tubeStreamMeanViscosity/tubeStreamMeanTC
+		var lengthOverInnerDiameter = tubeLength/innerDiamater
+		document.getElementById('results').innerHTML += "<br>Reynold's number, Re: " + reynoldsNumber + "<br>"
+		document.getElementById('results').innerHTML += "Prandtl's number, Pr: " + prandtlNumber + "<br>"
+		document.getElementById('results').innerHTML += "Ratio of tube length to tube inner diameter: " + lengthOverInnerDiameter + "<br>"
+		
 	}
 	</script>
 	
@@ -147,8 +166,14 @@
 	Inlet Spec Heat Capacity, c1: <input type="text" class="inputText" id="stream2InletSHC" value="2010"> J/kgK<br>
 	Outlet Spec Heat Capacity, c2: <input type="text" class="inputText" id="stream2OutletSHC" value="2010"> J/kgK<br>
 	
+	Inlet Thermal Conductivity, k1: <input type="text" class="inputText" id="stream2InletThermCond" value=".135"> W/m °C<br>
+	Outlet Thermal Conductivity, k2: <input type="text" class="inputText" id="stream2OutletThermCond" value=".133"> W/m °C<br>
+	
 	Inlet Density, rho1: <input type="text" class="inputText" id="stream2InletDensity" value="840"> kg/m^3<br>
 	Outlet Density, rho2: <input type="text" class="inputText" id="stream2OutletDensity" value="800"> kg/m^3<br>
+	
+	Inlet Viscosity, mu1: <input type="text" class="inputText" id="stream2InletViscosity" value="4.3e-3"> Ns/m^2<br>
+	Outlet Viscosity, mu2: <input type="text" class="inputText" id="stream2OutletViscosity" value="2.4e-3"> Ns/m^2<br>
 	
 	<br>Heat Exchanger<br>
 	Estimated Overall Coefficient, U: <input type="text" class="inputText" id="estOverCoeff" value="300"> W/m^2 °C<br>
@@ -167,7 +192,7 @@
 	</select><br>
 	Outer diameter, do: <input type="text" class="inputText" id="outerDiameter" value="19.05"> mm<br>
 	Inner diameter, di: <input type="text" class="inputText" id="innerDiameter" value="14.83"> mm<br>
-	Tube length, l: <input type="text" class="inputText" id="tubeLength" value="5"> m<br>
+	Tube length, L: <input type="text" class="inputText" id="tubeLength" value="5"> m<br>
 	Pitch: <select id = "currentPitch">
 		<option value="triangular">Triangular</option>
 		<option value="square">Square</option>
