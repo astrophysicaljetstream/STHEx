@@ -26,10 +26,10 @@
 		var stream2MassFlow = eval(document.getElementById("stream2MassFlow").value)
 		var stream2InletTemp = eval(document.getElementById("stream2InletTemp").value)
 		
-		var stream2InSHC = eval(document.getElementById("stream2InletSHC").value)
-		var stream2OutSHC = eval(document.getElementById("stream2OutletSHC").value)
-		var stream2MeanSHC=(stream2InSHC+stream2OutSHC)/2
-		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Spec Heat Capacity: " + stream2MeanSHC + " J/kgK<br>"
+		var tubeStreamInletSHC = eval(document.getElementById("stream2InletSHC").value)
+		var tubeStreamOutletSHC = eval(document.getElementById("stream2OutletSHC").value)
+		var tubeStreamMeanSHC=(tubeStreamInletSHC+tubeStreamOutletSHC)/2
+		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Spec Heat Capacity: " + tubeStreamMeanSHC + " J/kgK<br>"
 		
 		var tubeStreamInletTC = eval(document.getElementById("stream2InletThermCond").value)
 		var tubeStreamOutletTC = eval(document.getElementById("stream2OutletThermCond").value)
