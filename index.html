@@ -107,10 +107,10 @@
 		var areaPerPass = tubeCrossArea*nTubePerPass
 		var volumetricFlow = stream2MassFlow/tubeStreamMeanDensity
 		var tubeVelocity = volumetricFlow/areaPerPass
-		document.getElementById('results').innerHTML += "<br>Tube Cross-sectional Area: " + tubeCrossArea + "m^2<br>"
-		document.getElementById('results').innerHTML += "Area per pass: " + areaPerPass + "m^2<br>"
-		document.getElementById('results').innerHTML += "Volumetric Flow of tubeside fluid: " + volumetricFlow + "m^3/s<br>"
-		document.getElementById('results').innerHTML += "Tubeside velocity: " + tubeVelocity + "m/s (hopefully between 1 and 2 m/s)<br>"
+		document.getElementById('results').innerHTML += "<br>Tube Cross-sectional Area: " + tubeCrossArea + " m^2<br>"
+		document.getElementById('results').innerHTML += "Area per pass: " + areaPerPass + " m^2<br>"
+		document.getElementById('results').innerHTML += "Volumetric Flow of tubeside fluid: " + volumetricFlow + " m^3/s<br>"
+		document.getElementById('results').innerHTML += "Tubeside velocity: " + tubeVelocity + " m/s (hopefully between 1 and 2 m/s)<br>"
 		
 		var listedPassesInTable12point3 = [1,2,4,6,8]
 		var currentPitch = document.getElementById("currentPitch").value
@@ -128,7 +128,7 @@
 		document.getElementById('results').innerHTML += "n1 = " + requiredn1 + "<br>"
 		
 		var bundleDiameter = outerDiameter*Math.pow((nTube/requiredK1),(1/requiredn1))
-		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter*1e3 + "mm<br>"
+		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter*1e3 + " mm<br>"
 	}
 	</script>
 	
