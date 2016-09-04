@@ -9,49 +9,44 @@
 	function calculate_this() {
 		var stream1MassFlow = eval(document.getElementById("stream1MassFlow").value)
 		
-		var stream1MinTemp = Math.min(eval(document.getElementById("stream1InletTemp").value),eval(document.getElementById("stream1OutletTemp").value))
-		var stream1MaxTemp = Math.max(eval(document.getElementById("stream1InletTemp").value),eval(document.getElementById("stream1OutletTemp").value))
-		var stream1MeanTemp=0.5*(stream1MinTemp+stream1MaxTemp)
-		var stream1TempDiff = stream1MaxTemp - stream1MinTemp
+		var stream1InletTemp = eval(document.getElementById("stream1InletTemp").value)
+		var stream1OutletTemp = eval(document.getElementById("stream1OutletTemp").value)
+		var stream1MeanTemp=(stream1InletTemp+stream1OutletTemp)/2
+		var stream1TempDiff = stream1OutletTemp - stream1InletTemp
 		document.getElementById('results').innerHTML = "Stream 1 Mean Temperature: " + stream1MeanTemp + " °C<br>"
 		
-		var stream1MinSHC = Math.min(eval(document.getElementById("stream1MinTempSHC").value),eval(document.getElementById("stream1MaxTempSHC").value))
-		var stream1MaxSHC = Math.max(eval(document.getElementById("stream1MinTempSHC").value),eval(document.getElementById("stream1MaxTempSHC").value))
-		var stream1MeanSHC=0.5*(stream1MinSHC+stream1MaxSHC)
+		var stream1InSHC = eval(document.getElementById("stream1InletSHC").value)
+		var stream1OutSHC = eval(document.getElementById("stream1OutletSHC").value)
+		var stream1MeanSHC=(stream1InSHC+stream1OutSHC)/2
 		document.getElementById('results').innerHTML += "Stream 1 Mean Spec Heat Capacity: " + stream1MeanSHC + " J/kgK<br>"
 		
 		var duty = stream1MassFlow*stream1MeanSHC*stream1TempDiff
-		document.getElementById('results').innerHTML += "Duty: " + duty + " W<br><br>"
+		document.getElementById('results').innerHTML += "Duty: " + Math.abs(duty) + " W<br><br>"
 		
-		var stream2MinTemp = Math.min(eval(document.getElementById("stream2InletTemp").value),eval(document.getElementById("stream2OutletTemp").value))
-		var stream2MaxTemp = Math.max(eval(document.getElementById("stream2InletTemp").value),eval(document.getElementById("stream2OutletTemp").value))
-		var stream2MeanTemp=0.5*(stream2MinTemp+stream2MaxTemp)
-		var stream2TempDiff = stream2MaxTemp - stream2MinTemp
-		document.getElementById('results').innerHTML += "Stream 2 Mean Temperature: " + stream2MeanTemp + " °C<br>"
+		var stream2MassFlow = eval(document.getElementById("stream2MassFlow").value)
+		var stream2InletTemp = eval(document.getElementById("stream2InletTemp").value)
 		
-		var stream2MinSHC = Math.min(eval(document.getElementById("stream2MinTempSHC").value),eval(document.getElementById("stream2MaxTempSHC").value))
-		var stream2MaxSHC = Math.max(eval(document.getElementById("stream2MinTempSHC").value),eval(document.getElementById("stream2MaxTempSHC").value))
-		var stream2MeanSHC=0.5*(stream2MinSHC+stream2MaxSHC)
+		var stream2InSHC = eval(document.getElementById("stream2InletSHC").value)
+		var stream2OutSHC = eval(document.getElementById("stream2OutletSHC").value)
+		var stream2MeanSHC=(stream2InSHC+stream2OutSHC)/2
 		document.getElementById('results').innerHTML += "Stream 2 Mean Spec Heat Capacity: " + stream2MeanSHC + " J/kgK<br>"
 		
-		var stream2MassFlow = duty/stream2MeanSHC/stream2TempDiff
-		document.getElementById('results').innerHTML += "Stream 2 Mass Flow: " + stream2MassFlow + " kg/s<br><br>"
-		
-		var stream1InTemp = eval(document.getElementById("stream1InletTemp").value)
-		var stream2InTemp = eval(document.getElementById("stream2InletTemp").value)
-		var stream1OutTemp = eval(document.getElementById("stream1OutletTemp").value)
-		var stream2OutTemp = eval(document.getElementById("stream2OutletTemp").value)
+		var stream2OutletTemp = duty/(stream2MassFlow*stream2MeanSHC)+stream2InletTemp
+		var stream2MeanTemp=(stream2InletTemp+stream2OutletTemp)/2
+		var stream2TempDiff = stream2OutletTemp - stream2InletTemp
+		document.getElementById('results').innerHTML += "Stream 2 Outlet Temperature: " + stream2OutletTemp + " °C<br>"
+		document.getElementById('results').innerHTML += "Stream 2 Mean Temperature: " + stream2MeanTemp + " °C<br>"
 		
 		var currentMode = document.getElementById("currentMode").value
 		if (currentMode=="counterCurrent"){
-			var LMTDnumerator = (stream1InTemp - stream2OutTemp) - (stream1OutTemp - stream2InTemp)
-			var LMTDdenominator = Math.log((stream1InTemp - stream2OutTemp) / (stream1OutTemp - stream2InTemp))
+			var LMTDnumerator = (stream1InletTemp - stream2OutletTemp) - (stream1OutletTemp - stream2InletTemp)
+			var LMTDdenominator = Math.log((stream1InletTemp - stream2OutletTemp) / (stream1OutletTemp - stream2InletTemp))
 			
-			var Rnumerator = stream1InTemp-stream1OutTemp
-			var Rdenominator = stream2OutTemp-stream2InTemp
+			var Rnumerator = stream1InletTemp-stream1OutletTemp
+			var Rdenominator = stream2OutletTemp-stream2InletTemp
 			
-			var Snumerator = stream2OutTemp-stream2InTemp
-			var Sdenominator = stream1InTemp-stream2InTemp
+			var Snumerator = stream2OutletTemp-stream2InletTemp
+			var Sdenominator = stream1InletTemp-stream2InletTemp
 		}
 		var R = Rnumerator/Rdenominator
 		var S = Snumerator/Sdenominator
@@ -74,15 +69,15 @@
 	Inlet Temperature: <input type="text" id="stream1InletTemp" value="95"> °C<br>
 	Outlet Temperature: <input type="text" id="stream1OutletTemp" value="40"> °C<br>
 	
-	Inlet Spec Heat Capacity, cH: <input type="text" id="stream1MaxTempSHC" value="2.84e3"> J/kgK<br>
-	Outlet Spec Heat Capacity, cL: <input type="text" id="stream1MinTempSHC" value="2.84e3"> J/kgK<br>
+	Inlet Spec Heat Capacity, cH: <input type="text" id="stream1InletSHC" value="2.84e3"> J/kgK<br>
+	Outlet Spec Heat Capacity, cL: <input type="text" id="stream1OutletSHC" value="2.84e3"> J/kgK<br>
 	
 	<br>Properties of Stream 2 (Tubeside) [This stream heats up]<br>
 	Mass Flow: <input type="text" id="stream2MassFlow" value="1e5/3600"> kg/s<br>
 	Inlet Temperature: <input type="text" id="stream2InletTemp" value="25"> °C<br>
 	
-	Inlet Spec Heat Capacity, cH: <input type="text" id="stream2MaxTempSHC" value="4.2e3"> J/kgK<br>
-	Outlet Spec Heat Capacity, cL: <input type="text" id="stream2MinTempSHC" value="4.2e3"> J/kgK<br>
+	Inlet Spec Heat Capacity, cH: <input type="text" id="stream2InletSHC" value="4.2e3"> J/kgK<br>
+	Outlet Spec Heat Capacity, cL: <input type="text" id="stream2OutletSHC" value="4.2e3"> J/kgK<br>
 	
 	<br>Other<br>
 	Estimated Overall Coefficient, U: <input type="text" id="estOverCoeff" value="600"> W/m^2 °C<br>
