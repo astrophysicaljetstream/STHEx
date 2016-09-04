@@ -57,8 +57,8 @@
 		var S = Snumerator/Sdenominator
 		var LMTD = LMTDnumerator/LMTDdenominator
 		document.getElementById('results').innerHTML += "Log Mean Temperature Difference: " + LMTD + "C<br>"
-		document.getElementById('results').innerHTML += "R: " + R + "<br>"
-		document.getElementById('results').innerHTML += "S (aka P on chart): " + S + "<br><br>"
+		document.getElementById('results').innerHTML += "R: " + R.toPrecision(3) + "<br>"
+		document.getElementById('results').innerHTML += "S (aka P on chart): " + S.toPrecision(3) + "<br><br>"
 		
 		var U = eval(document.getElementById("estOverCoeff").value)
 		var Ft = eval(document.getElementById("Ft").value)
