@@ -46,6 +46,12 @@
 		stream1MeanSHC = stream1MeanSHC.cutZero()
 		document.getElementById('results').innerHTML += "Stream 1 [Shellside] Mean Spec Heat Capacity: " + stream1MeanSHC.truncated() + " J/kgK<br>"
 		
+		var shellStreamInletDensity = eval(document.getElementById("stream1InletDensity").value)
+		var shellStreamOutletDensity = eval(document.getElementById("stream1OutletDensity").value)
+		var shellStreamMeanDensity = (shellStreamInletDensity + shellStreamOutletDensity)/2
+		shellStreamMeanDensity = shellStreamMeanDensity.cutZero()
+		document.getElementById('results').innerHTML += "Stream 1 [Shellside] Mean Density: " + shellStreamMeanDensity.truncated() + " kg/m^3<br>"
+		
 		var duty = stream1MassFlow*stream1MeanSHC*stream1TempDiff
 		duty = duty.cutZero()
 		document.getElementById('results').innerHTML += "Duty: " + (Math.abs(duty)).truncated() + " W<br><br>"
@@ -160,26 +166,34 @@
 		var innerDiameter = eval(document.getElementById("innerDiameter").value)*1e-3
 		var tubeCrossArea = Math.pow(innerDiameter,2)*Math.PI/4
 		var areaPerPass = tubeCrossArea*nTubePerPass
-		var volumetricFlow = stream2MassFlow/tubeStreamMeanDensity
-		var tubeVelocity = volumetricFlow/areaPerPass
+		var tubeVolumetricFlow = stream2MassFlow/tubeStreamMeanDensity
+		var tubeVelocity = tubeVolumetricFlow/areaPerPass
 		tubeCrossArea = tubeCrossArea.cutZero()
 		areaPerPass = areaPerPass.cutZero()
-		volumetricFlow = volumetricFlow.cutZero()
+		tubeVolumetricFlow = tubeVolumetricFlow.cutZero()
 		tubeVelocity = tubeVelocity.cutZero()
 		document.getElementById('results').innerHTML += "<br>Tube Cross-sectional Area: " + tubeCrossArea.truncated() + " m^2<br>"
 		document.getElementById('results').innerHTML += "Area per pass: " + areaPerPass.truncated() + " m^2<br>"
-		document.getElementById('results').innerHTML += "Volumetric Flow of tubeside fluid: " + volumetricFlow.truncated() + " m^3/s<br>"
+		document.getElementById('results').innerHTML += "Volumetric Flow of tubeside fluid: " + tubeVolumetricFlow.truncated() + " m^3/s<br>"
 		document.getElementById('results').innerHTML += "Tubeside velocity: " + tubeVelocity.truncated() + " m/s (hopefully between 1 and 2 m/s)<br>"
 		
 		var listedPassesInTable12point3 = [1,2,4,6,8]
 		var currentPitch = document.getElementById("currentPitch").value
+		var hyDiamNum
+		var hyDiamDenom
 		if (currentPitch=="triangular"){
 			var Klist=[.319,.249,.175,.0743,.0365];
 			var nlist=[2.142,2.207,2.285,2.499,2.675];
+			hyDiamNum = 4*(tubePitch/2*.87*tubePitch-outerDiameter*outerDiameter/2/4*Math.PI)
+			hyDiamDenom = outerDiameter/2*Math.PI
 		} else if (currentPitch=="square"){
 			var Klist=[.215,.156,.158,.0402,.0331];
 			var nlist=[2.207,2.291,2.263,2.617,2.643];
+			hyDiamNum = tubePitch*tubePitch-Math.PI*outerDiameter*outerDiameter*Math.PI
+			hyDiamDenom = outerDiameter*Math.PI
 		}
+		var hydraulicDiameter = hyDiamNum/hyDiamDenom
+		hydraulicDiameter = hydraulicDiameter.cutZero()
 		var index = listedPassesInTable12point3.indexOf(nTubePass)
 		var requiredK1 = Klist[index]
 		var requiredn1 = nlist[index]
@@ -195,28 +209,28 @@
 		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter.truncated() + " m<br>"
 		document.getElementById('results').innerHTML += "Shell side diameter, Ds: " + shellsideDiameter.truncated() + " m<br>"
 		
-		var heatTransferFactor = eval(document.getElementById("heatTransFac").value)
-		var reynoldsNumber = tubeStreamMeanDensity*tubeVelocity*innerDiameter/tubeStreamMeanViscosity
-		var prandtlNumber = tubeStreamMeanSHC*tubeStreamMeanViscosity/tubeStreamMeanTC
+		var tubeHeatTransferFactor = eval(document.getElementById("tubeHeatTransFac").value)
+		var tubeReynoldsNumber = tubeStreamMeanDensity*tubeVelocity*innerDiameter/tubeStreamMeanViscosity
+		var tubePrandtlNumber = tubeStreamMeanSHC*tubeStreamMeanViscosity/tubeStreamMeanTC
 		var lengthOverInnerDiameter = tubeLength/innerDiameter
 		// Need to figure out Nusselt number in the three flow types.
-		var nusseltNumber = heatTransferFactor * reynoldsNumber * Math.pow(prandtlNumber,.33)
+		var nusseltNumber = tubeHeatTransferFactor * tubeReynoldsNumber * Math.pow(tubePrandtlNumber,.33)
 		var insideCoefficient = nusseltNumber/innerDiameter*tubeStreamMeanTC
 		var flowType
-		if (reynoldsNumber>1e4){
+		if (tubeReynoldsNumber>1e4){
 			flowType = "turbulent"
-		} else if (reynoldsNumber<2e3){
+		} else if (tubeReynoldsNumber<2e3){
 			flowType = "laminar"
 		} else {
 			flowType = "transition"
 		}
-		reynoldsNumber = reynoldsNumber.cutZero()
-		prandtlNumber = prandtlNumber.cutZero()
+		tubeReynoldsNumber = tubeReynoldsNumber.cutZero()
+		tubePrandtlNumber = tubePrandtlNumber.cutZero()
 		lengthOverInnerDiameter = lengthOverInnerDiameter.cutZero()
 		nusseltNumber = nusseltNumber.cutZero()
 		insideCoefficient = insideCoefficient.cutZero()
-		document.getElementById('results').innerHTML += "<br>Reynolds number, Re: " + reynoldsNumber.truncated() + " (hence, " + flowType + " region)<br>"
-		document.getElementById('results').innerHTML += "Prandtl number, Pr: " + prandtlNumber.truncated() + "<br>"
+		document.getElementById('results').innerHTML += "<br>Reynolds number, Re: " + tubeReynoldsNumber.truncated() + " (hence, " + flowType + " region)<br>"
+		document.getElementById('results').innerHTML += "Prandtl number, Pr: " + tubePrandtlNumber.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Ratio of tube length to tube inner diameter: " + lengthOverInnerDiameter.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Nusselt number, Nu: " + nusseltNumber.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Inside coefficient, hi: " + insideCoefficient.truncated() + " W/m °C<br>"
@@ -226,8 +240,19 @@
 		baffleSpacing = baffleSpacing.cutZero()
 		var areaCrossFlow = (tubePitch - outerDiameter)*shellsideDiameter*baffleSpacing/tubePitch
 		areaCrossFlow = areaCrossFlow.cutZero()
+		var shellVolumetricFlow = stream1MassFlow/shellStreamMeanDensity
+		shellVolumetricFlow = shellVolumetricFlow.cutZero()
+		var shellVelocity = shellVolumetricFlow/areaCrossFlow
+		shellVelocity = shellVelocity.cutZero()
 		document.getElementById('results').innerHTML += "<br>Shellside Calculations<br>Baffle spacing, lB: " + baffleSpacing.truncated() + " m<br>"
 		document.getElementById('results').innerHTML += "Area for cross-flow, As: " + areaCrossFlow.truncated() + " m^2<br>"
+		document.getElementById('results').innerHTML += "Hydraulic Diameter, de: " + hydraulicDiameter.truncated() + " m<br>"
+		document.getElementById('results').innerHTML += "Volumetric Flow of shellside fluid: " + shellVolumetricFlow.truncated() + " m^3/s<br>"
+		document.getElementById('results').innerHTML += "Shellside velocity: " + shellVelocity.truncated() + " m/s (hopefully between 1 and 2 m/s)<br>"
+		
+		var shellHeatTransferFactor = eval(document.getElementById("shellHeatTransFac").value)
+		var shellReynoldsNumber = shellStreamMeanDensity*shellVelocity*innerDiameter/tubeStreamMeanViscosity
+		var shellPrandtlNumber = tubeStreamMeanSHC*tubeStreamMeanViscosity/tubeStreamMeanTC
 		
 	}
 	</script>
@@ -239,6 +264,9 @@
 	
 	Inlet Spec Heat Capacity, C1: <input type="text" class="inputText" id="stream1InletSHC" value="2470"> J/kgK<br>
 	Outlet Spec Heat Capacity, C2: <input type="text" class="inputText" id="stream1OutletSHC" value="2470"> J/kgK<br></p>
+	
+	Inlet Density, Rho1: <input type="text" class="inputText" id="stream1InletDensity" value="690"> kg/m^3<br>
+	Outlet Density, Rho2: <input type="text" class="inputText" id="stream1OutletDensity" value="770"> kg/m^3<br>
 	
 	<p class="coldFluid"><br>Properties of Stream 2 (Tubeside) [This stream heats up]<br>
 	<!--Mass Flow: <input type="text" class="inputText" id="stream2MassFlow" value="7e4/3600"> kg/s<br>-->
@@ -280,10 +308,11 @@
 		<option value="triangular">Triangular</option>
 		<option value="square">Square</option>
 	</select><br>
-	Heat Transfer Factor, jh: <input type="text" class="inputText" id="heatTransFac" value="3.2e-3"><br>
-	Shellside parameter<br>
+	Heat Transfer Factor, jh: <input type="text" class="inputText" id="tubeHeatTransFac" value="3.2e-3"><br>
+	Shellside parameters<br>
 	Shell clearance: <input type="text" class="inputText" id="shellClear" value="56"> mm<br>
 	Baffle spacing: <input type="text" class="inputText" id="baffleSpace" value="0.2"> Ds<br></p>
+	Heat Transfer Factor, jh: <input type="text" class="inputText" id="shellHeatTransFac" value="4.52e-3"><br>
 	
 	<p>Other<br>
 	Significant figures: <input type="text" class="inputText" id="signif" value="10"> (inaccurate for significant figures higher than 14)<br></p>
