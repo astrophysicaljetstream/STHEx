@@ -18,7 +18,7 @@
 	Number.prototype.cutZero = function(){
 		var numberString = this.toPrecision(15)
 		var n = 0
-		while (true){
+		while (numberString.indexOf(".")>0){
 			n++
 			var lastChar = numberString.slice(-1)
 			if (lastChar=="0"||lastChar=="."){
