@@ -6,23 +6,30 @@
 	<body>
 	<script>
 	
-	//Number.prototype.
+	function mult(a,b){
+		var forward = 1e5
+		var reverse = forward*forward
+		var number1 = a*forward
+		var number2 = b*forward
+		var number3 = number1*number2
+		return number3/reverse
+	}
 	
 	function calculate_this() {
 		var stream1MassFlow = eval(document.getElementById("stream1MassFlow").value)
 		
 		var stream1InletTemp = eval(document.getElementById("stream1InletTemp").value)
 		var stream1OutletTemp = eval(document.getElementById("stream1OutletTemp").value)
-		var stream1MeanTemp=(stream1InletTemp+stream1OutletTemp)/2
+		var stream1MeanTemp=mult(.5,(stream1InletTemp+stream1OutletTemp))
 		var stream1TempDiff = stream1OutletTemp - stream1InletTemp
 		document.getElementById('results').innerHTML = "Stream 1 [Shellside] Mean Temperature: " + stream1MeanTemp + " °C<br>"
 		
 		var stream1InSHC = eval(document.getElementById("stream1InletSHC").value)
 		var stream1OutSHC = eval(document.getElementById("stream1OutletSHC").value)
-		var stream1MeanSHC=(stream1InSHC+stream1OutSHC)/2
+		var stream1MeanSHC=mult(.5,(stream1InSHC+stream1OutSHC))
 		document.getElementById('results').innerHTML += "Stream 1 [Shellside] Mean Spec Heat Capacity: " + stream1MeanSHC + " J/kgK<br>"
 		
-		var duty = stream1MassFlow*stream1MeanSHC*stream1TempDiff
+		var duty = mult(mult(stream1MassFlow,stream1MeanSHC),stream1TempDiff)
 		document.getElementById('results').innerHTML += "Duty: " + Math.abs(duty) + " W<br><br>"
 		
 		var stream2MassFlow = eval(document.getElementById("stream2MassFlow").value)
@@ -30,26 +37,26 @@
 		
 		var tubeStreamInletSHC = eval(document.getElementById("stream2InletSHC").value)
 		var tubeStreamOutletSHC = eval(document.getElementById("stream2OutletSHC").value)
-		var tubeStreamMeanSHC=(tubeStreamInletSHC+tubeStreamOutletSHC)/2
+		var tubeStreamMeanSHC=mult((tubeStreamInletSHC+tubeStreamOutletSHC),.5)
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Spec Heat Capacity: " + tubeStreamMeanSHC + " J/kgK<br>"
 		
 		var tubeStreamInletTC = eval(document.getElementById("stream2InletThermCond").value)
 		var tubeStreamOutletTC = eval(document.getElementById("stream2OutletThermCond").value)
-		var tubeStreamMeanTC=(tubeStreamInletTC+tubeStreamOutletTC)/2
+		var tubeStreamMeanTC=mult((tubeStreamInletTC+tubeStreamOutletTC),.5)
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Thermal Conductivity: " + tubeStreamMeanTC + " W/m °C<br>"
 		
 		var tubeStreamInletDensity = eval(document.getElementById("stream2InletDensity").value)
 		var tubeStreamOutletDensity = eval(document.getElementById("stream2OutletDensity").value)
-		var tubeStreamMeanDensity = (tubeStreamInletDensity + tubeStreamOutletDensity)/2
+		var tubeStreamMeanDensity = mult((tubeStreamInletDensity + tubeStreamOutletDensity),.5)
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Density: " + tubeStreamMeanDensity + " kg/m^3<br>"
 		
 		var tubeStreamInletViscosity = eval(document.getElementById("stream2InletViscosity").value*1e-3)
 		var tubeStreamOutletViscosity = eval(document.getElementById("stream2OutletViscosity").value*1e-3)
-		var tubeStreamMeanViscosity = (tubeStreamInletViscosity + tubeStreamOutletViscosity)/2
+		var tubeStreamMeanViscosity = mult((tubeStreamInletViscosity + tubeStreamOutletViscosity),.5)
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Viscosity: " + tubeStreamMeanViscosity*1e3 + " mNs/m^2 [cP]<br>"
 		
 		var stream2OutletTemp = stream2InletTemp-duty/(stream2MassFlow*tubeStreamMeanSHC)
-		var stream2MeanTemp=(stream2InletTemp+stream2OutletTemp)/2
+		var stream2MeanTemp=mult((stream2InletTemp+stream2OutletTemp),.5)
 		var stream2TempDiff = stream2OutletTemp - stream2InletTemp
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Outlet Temperature: " + stream2OutletTemp + " °C<br>"
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Temperature: " + stream2MeanTemp + " °C<br>"
@@ -82,7 +89,7 @@
 		var U = eval(document.getElementById("estOverCoeff").value)
 		var Ft = eval(document.getElementById("Ft").value)
 		var dTm = Ft*LMTD
-		var heatTransferArea = Math.abs(duty/(U*Ft*LMTD))
+		var heatTransferArea = Math.abs(duty/mult(mult(U,Ft),LMTD))
 		document.getElementById('results').innerHTML += "Actual Temperature Difference, ΔTm: " + dTm + " °C<br>"
 		document.getElementById('results').innerHTML += "Heat Transfer Area: " + heatTransferArea + " m^2<br>"
 		
@@ -100,7 +107,7 @@
 		
 		var outerDiameter = eval(document.getElementById("outerDiameter").value)*1e-3
 		var tubeLength = eval(document.getElementById("tubeLength").value)
-		var areaPerTube = outerDiameter * Math.PI * tubeLength
+		var areaPerTube = mult(outerDiameter,tubeLength) * Math.PI
 		var nTube = Math.ceil(heatTransferArea/areaPerTube)
 		for (i=0;i<nTubePass;i++){
 			var nTubePerPass = nTube/nTubePass
@@ -115,8 +122,8 @@
 		document.getElementById('results').innerHTML += "For " + nTubePass + " passes, tubes per pass: " + nTubePerPass + "<br>"
 		
 		var innerDiameter = eval(document.getElementById("innerDiameter").value)*1e-3
-		var tubeCrossArea = Math.pow(innerDiameter,2)*Math.PI/4
-		var areaPerPass = tubeCrossArea*nTubePerPass
+		var tubeCrossArea = mult(Math.pow(innerDiameter,2),.25)*Math.PI
+		var areaPerPass = mult(tubeCrossArea,nTubePerPass)
 		var volumetricFlow = stream2MassFlow/tubeStreamMeanDensity
 		var tubeVelocity = volumetricFlow/areaPerPass
 		document.getElementById('results').innerHTML += "<br>Tube Cross-sectional Area: " + tubeCrossArea + " m^2<br>"
@@ -147,12 +154,12 @@
 		document.getElementById('results').innerHTML += "Shell side diameter, Ds: " + shellsideDiameter + " m<br>"
 		
 		var heatTransferFactor = eval(document.getElementById("heatTransFac").value)
-		var reynoldsNumber = tubeStreamMeanDensity*tubeVelocity*innerDiameter/tubeStreamMeanViscosity
-		var prandtlNumber = tubeStreamMeanSHC*tubeStreamMeanViscosity/tubeStreamMeanTC
+		var reynoldsNumber = mult(mult(tubeStreamMeanDensity,tubeVelocity),innerDiameter)/tubeStreamMeanViscosity
+		var prandtlNumber = mult(tubeStreamMeanSHC,tubeStreamMeanViscosity)/tubeStreamMeanTC
 		var lengthOverInnerDiameter = tubeLength/innerDiameter
 		// Need to figure out Nusselt number in the three flow types.
-		var nusseltNumber = heatTransferFactor * reynoldsNumber * Math.pow(prandtlNumber,.33)
-		var insideCoefficient = nusseltNumber/innerDiameter*tubeStreamMeanTC
+		var nusseltNumber = mult(heatTransferFactor,reynoldsNumber) * Math.pow(prandtlNumber,.33)
+		var insideCoefficient = mult(nusseltNumber,tubeStreamMeanTC)/innerDiameter
 		var flowType
 		if (reynoldsNumber>1e4){
 			flowType = "turbulent"
