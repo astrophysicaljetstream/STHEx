@@ -137,6 +137,8 @@
 		}
 		
 		var outerDiameter = eval(document.getElementById("outerDiameter").value)*1e-3
+		var tubePitch = outerDiameter*125/100
+		tubePitch = tubePitch.cutZero()
 		var tubeLength = eval(document.getElementById("tubeLength").value)
 		var areaPerTube = outerDiameter * tubeLength * Math.PI
 		areaPerTube = areaPerTube.cutZero()
@@ -150,6 +152,7 @@
 			}
 		}
 		document.getElementById('results').innerHTML += "<br>Tubeside Calculations<br>"
+		document.getElementById('results').innerHTML += "If pitch/diameter = 1.25, then pitch, pt: " + (tubePitch*1e3).truncated() + " mm<br>"
 		document.getElementById('results').innerHTML += "Area of one tube, neglecting thickness of tube sheet: " + areaPerTube.truncated() + " m^2<br>"
 		document.getElementById('results').innerHTML += "Number of tubes required, Nt: " + nTube + "<br>"
 		document.getElementById('results').innerHTML += "For " + nTubePass + " passes, number of tubes per pass: " + nTubePerPass + "<br>"
@@ -218,6 +221,14 @@
 		document.getElementById('results').innerHTML += "Nusselt number, Nu: " + nusseltNumber.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Inside coefficient, hi: " + insideCoefficient.truncated() + " W/m °C<br>"
 		
+		var baffleSpacingRatio = eval(document.getElementById("baffleSpace").value)
+		var baffleSpacing = baffleSpacingRatio*shellsideDiameter
+		baffleSpacing = baffleSpacing.cutZero()
+		var areaCrossFlow = (tubePitch - outerDiameter)*shellsideDiameter*baffleSpacing/tubePitch
+		areaCrossFlow = areaCrossFlow.cutZero()
+		document.getElementById('results').innerHTML += "Baffle spacing, lB: " + baffleSpacing.truncated() + " m<br>"
+		document.getElementById('results').innerHTML += "Area for cross-flow, As: " + areaCrossFlow.truncated() + " m<br>"
+		
 	}
 	</script>
 	
@@ -261,15 +272,18 @@
 		<option value="6">6</option>
 		<option value="8">8</option>
 	</select><br>
+	Tubeside parameters<br>
 	Outer diameter, do: <input type="text" class="inputText" id="outerDiameter" value="19.05"> mm<br>
 	Inner diameter, di: <input type="text" class="inputText" id="innerDiameter" value="14.83"> mm<br>
 	Tube length, L: <input type="text" class="inputText" id="tubeLength" value="5"> m<br>
-	Pitch: <select id = "currentPitch">
+	Pitch type: <select id = "currentPitch">
 		<option value="triangular">Triangular</option>
 		<option value="square">Square</option>
 	</select><br>
+	Heat Transfer Factor, jh: <input type="text" class="inputText" id="heatTransFac" value="3.2e-3"><br>
+	Shellside parameter<br>
 	Shell clearance: <input type="text" class="inputText" id="shellClear" value="56"> mm<br>
-	Heat Transfer Factor, jh: <input type="text" class="inputText" id="heatTransFac" value="3.2e-3"><br></p>
+	Baffle spacing: <input type="text" class="inputText" id="baffleSpace" value="0.2"> Ds<br></p>
 	
 	<p>Other<br>
 	Significant figures: <input type="text" class="inputText" id="signif" value="10"> (inaccurate for significant figures higher than 14)<br></p>
