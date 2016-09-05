@@ -16,7 +16,7 @@
 	}
 	
 	Number.prototype.cutZero = function(){
-		var numberString = this.toPrecision(15)
+		var numberString = this.toPrecision(sigFig)
 		var n = 0
 		while (n<1000){
 			n++
@@ -245,7 +245,7 @@
 	Shell clearance: <input type="text" class="inputText" id="shellClear" value="56"> mm<br>
 	Heat Transfer Factor, jh: <input type="text" class="inputText" id="heatTransFac" value="3.2e-3"><br></p>
 	
-	<p>Other
+	<p>Other<br>
 	Significant figures: <input type="text" class="inputText" id="signif" value="15"><br></p>
 	
 	<br><input type=button value="Calculate" onClick="calculate_this()"><br>
