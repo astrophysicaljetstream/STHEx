@@ -40,11 +40,11 @@
 		stream1MeanTemp = stream1MeanTemp.cutZero()
 		document.getElementById('results').innerHTML = "Stream 1 [Shellside] Mean Temperature: " + stream1MeanTemp.truncated() + " °C<br>"
 		
-		var stream1InSHC = eval(document.getElementById("stream1InletSHC").value)
-		var stream1OutSHC = eval(document.getElementById("stream1OutletSHC").value)
-		var stream1MeanSHC=(stream1InSHC+stream1OutSHC)/2
-		stream1MeanSHC = stream1MeanSHC.cutZero()
-		document.getElementById('results').innerHTML += "Stream 1 [Shellside] Mean Spec Heat Capacity: " + stream1MeanSHC.truncated() + " J/kgK<br>"
+		var shellStreamInletSHC = eval(document.getElementById("stream1InletSHC").value)
+		var shellStreamOutletSHC = eval(document.getElementById("stream1OutletSHC").value)
+		var shellStreamMeanSHC=(shellStreamInletSHC+shellStreamOutletSHC)/2
+		shellStreamMeanSHC = shellStreamMeanSHC.cutZero()
+		document.getElementById('results').innerHTML += "Stream 1 [Shellside] Mean Spec Heat Capacity: " + shellStreamMeanSHC.truncated() + " J/kgK<br>"
 		
 		var shellStreamInletTC = eval(document.getElementById("stream1InletThermCond").value)
 		var shellStreamOutletTC = eval(document.getElementById("stream1OutletThermCond").value)
@@ -64,7 +64,7 @@
 		shellStreamMeanViscosity = shellStreamMeanViscosity.cutZero()
 		document.getElementById('results').innerHTML += "Stream 1 [Shellside] Mean Viscosity: " + (shellStreamMeanViscosity*1e3).truncated() + " mNs/m^2 [cP]<br>"
 		
-		var duty = stream1MassFlow*stream1MeanSHC*stream1TempDiff
+		var duty = stream1MassFlow*shellStreamMeanSHC*stream1TempDiff
 		duty = duty.cutZero()
 		document.getElementById('results').innerHTML += "Duty: " + (Math.abs(duty)).truncated() + " W<br><br>"
 		
@@ -348,7 +348,8 @@
 		<option value="6">6</option>
 		<option value="8">8</option>
 	</select><br>
-	<br>Tubeside parameters<br>
+	
+	<br><u>Tubeside parameters</u><br>
 	Outer diameter, do: <input type="text" class="inputText" id="outerDiameter" value="19.05"> mm<br>
 	Inner diameter, di: <input type="text" class="inputText" id="innerDiameter" value="14.83"> mm<br>
 	Tube length, L: <input type="text" class="inputText" id="tubeLength" value="5"> m<br>
@@ -358,7 +359,8 @@
 	</select><br>
 	Heat Transfer Factor, jh: <input type="text" class="inputText" id="tubeHeatTransFac" value="3.2e-3"><br>
 	Tube wall material thermal conductivity, kw: <input type="text" class="inputText" id="tubeWallTC" value="55"> W/m °C<br>
-	<br>Shellside parameters<br>
+	
+	<br><u>Shellside parameters</u><br>
 	Shell clearance: <input type="text" class="inputText" id="shellClear" value="56"> mm<br>
 	Baffle spacing: <input type="text" class="inputText" id="baffleSpace" value="0.2"> Ds<br>
 	Heat Transfer Factor, jh: <input type="text" class="inputText" id="shellHeatTransFac" value="4.52e-3"><br></p>
