@@ -75,17 +75,17 @@
 		//var stream2OutletTemp = stream2InletTemp-duty/(stream2MassFlow*tubeStreamMeanSHC)
 		var stream2MeanTemp=(stream2InletTemp+stream2OutletTemp)/2
 		var stream2TempDiff = stream2OutletTemp - stream2InletTemp
+		
+		var tubeStreamInletSHC = eval(document.getElementById("stream2InletSHC").value)
+		var tubeStreamOutletSHC = eval(document.getElementById("stream2OutletSHC").value)
+		var tubeStreamMeanSHC=(tubeStreamInletSHC+tubeStreamOutletSHC)/2
+		tubeStreamMeanSHC=tubeStreamMeanSHC.cutZero()
 		var stream2MassFlow = -duty/(stream2TempDiff*tubeStreamMeanSHC) ////////////////////
 		stream2MeanTemp=stream2MeanTemp.cutZero()
 		stream2TempDiff = stream2TempDiff.cutZero()
 		document.getElementById('results').innerHTML += "<u>Stream 2</u> [Tubeside]<br>Mass Flow: " + stream2MassFlow.truncated() + " kg/s<br>"
 		//document.getElementById('results').innerHTML += "Outlet Temperature: " + stream2OutletTemp.truncated() + " °C<br>"
 		document.getElementById('results').innerHTML += "Mean Temperature: " + stream2MeanTemp.truncated() + " °C<br>"
-		
-		var tubeStreamInletSHC = eval(document.getElementById("stream2InletSHC").value)
-		var tubeStreamOutletSHC = eval(document.getElementById("stream2OutletSHC").value)
-		var tubeStreamMeanSHC=(tubeStreamInletSHC+tubeStreamOutletSHC)/2
-		tubeStreamMeanSHC=tubeStreamMeanSHC.cutZero()
 		document.getElementById('results').innerHTML += "Mean Spec Heat Capacity: " + tubeStreamMeanSHC.truncated() + " J/kgK<br>"
 		
 		var tubeStreamInletTC = eval(document.getElementById("stream2InletThermCond").value)
