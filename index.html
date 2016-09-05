@@ -314,7 +314,7 @@
 		document.getElementById('results').innerHTML += "<br>Reciprocal of U, 1/U: " + reciprU.truncated() + " (W/m^2 °C)^-1<br>"
 		document.getElementById('results').innerHTML += "Overall heat-transfer coefficient, U: " + overallCoefficient.truncated() + " W/m^2 °C<br>"
 		
-		document.getElementById('results').innerHTML += "<br>[Check and insert jF for tubeside from Figure 12.24]<br><br>"
+		document.getElementById('results').innerHTML += "<br>[Check and insert jF for tubeside from Figure 12.24]<br>"
 		
 		var tubeFrictionFactor = eval(document.getElementById("tubeFricFac").value)
 		var tubePressDrop = nTubePass * (8*tubeFrictionFactor*tubeLength/innerDiameter + 2.5) * tubeStreamInletDensity * tubeVelocity * tubeVelocity / 2
@@ -329,7 +329,7 @@
 			}
 		}
 		document.getElementById('results').innerHTML += "<br>Tubeside pressure drop, ΔPt: " + tubePressDrop.truncated() + " N/m^2<br>"
-		document.getElementById('results').innerHTML += "Possible number of tubes need: "
+		document.getElementById('results').innerHTML += "Possible number of tubes need: " + recommendedTubeNumber +"<br>"
 		
 		document.getElementById('results').innerHTML += "<br>[Does the pressure drop exceed specifications? If so, insert desired number of tubes]<br><br>"
 		
