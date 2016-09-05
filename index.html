@@ -152,7 +152,7 @@
 			}
 		}
 		document.getElementById('results').innerHTML += "<br>Tubeside Calculations<br>"
-		document.getElementById('results').innerHTML += "If pitch/diameter = 1.25, then pitch, pt: " + (tubePitch*1e3).truncated() + " mm<br>"
+		document.getElementById('results').innerHTML += "If pitch/diameter = 1.25, then tube pitch, pt = " + (tubePitch*1e3).truncated() + " mm<br>"
 		document.getElementById('results').innerHTML += "Area of one tube, neglecting thickness of tube sheet: " + areaPerTube.truncated() + " m^2<br>"
 		document.getElementById('results').innerHTML += "Number of tubes required, Nt: " + nTube + "<br>"
 		document.getElementById('results').innerHTML += "For " + nTubePass + " passes, number of tubes per pass: " + nTubePerPass + "<br>"
@@ -226,7 +226,7 @@
 		baffleSpacing = baffleSpacing.cutZero()
 		var areaCrossFlow = (tubePitch - outerDiameter)*shellsideDiameter*baffleSpacing/tubePitch
 		areaCrossFlow = areaCrossFlow.cutZero()
-		document.getElementById('results').innerHTML += "<br>Baffle spacing, lB: " + baffleSpacing.truncated() + " m<br>"
+		document.getElementById('results').innerHTML += "<br>Shellside Calculations<br>Baffle spacing, lB: " + baffleSpacing.truncated() + " m<br>"
 		document.getElementById('results').innerHTML += "Area for cross-flow, As: " + areaCrossFlow.truncated() + " m^2<br>"
 		
 	}
