@@ -226,6 +226,8 @@
 		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter.truncated() + " m<br>"
 		document.getElementById('results').innerHTML += "Shell side diameter, Ds: " + shellsideDiameter.truncated() + " m<br>"
 		
+		document.getElementById('results').innerHTML += "<br>[Insert clearance from Figure 12.10]<br><br>"
+		
 		var tubeHeatTransferFactor = eval(document.getElementById("tubeHeatTransFac").value)
 		var tubeReynoldsNumber = tubeStreamMeanDensity*tubeVelocity*innerDiameter/tubeStreamMeanViscosity
 		var tubePrandtlNumber = tubeStreamMeanSHC*tubeStreamMeanViscosity/tubeStreamMeanTC
