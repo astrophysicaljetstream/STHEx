@@ -43,10 +43,10 @@
 		var tubeStreamMeanDensity = (tubeStreamInletDensity + tubeStreamOutletDensity)/2
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Density: " + tubeStreamMeanDensity + " kg/m^3<br>"
 		
-		var tubeStreamInletViscosity = eval(document.getElementById("stream2InletViscosity").value)
-		var tubeStreamOutletViscosity = eval(document.getElementById("stream2OutletViscosity").value)
+		var tubeStreamInletViscosity = eval(document.getElementById("stream2InletViscosity").value*1e3)
+		var tubeStreamOutletViscosity = eval(document.getElementById("stream2OutletViscosity").value*1e3)
 		var tubeStreamMeanViscosity = (tubeStreamInletViscosity + tubeStreamOutletViscosity)/2
-		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Viscosity: " + tubeStreamMeanViscosity + " Ns/m^2<br>"
+		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Viscosity: " + tubeStreamMeanViscosity*1e-3 + " mNs/m^2 [cP]<br>"
 		
 		var stream2OutletTemp = stream2InletTemp-duty/(stream2MassFlow*tubeStreamMeanSHC)
 		var stream2MeanTemp=(stream2InletTemp+stream2OutletTemp)/2
@@ -171,15 +171,15 @@
 	}
 	</script>
 	
-	<br>Properties of Stream 1 (Shellside) [This stream cools down]<br>
+	<p class="hotFluid"><br>Properties of Stream 1 (Shellside) [This stream cools down]<br>
 	Mass Flow: <input type="text" class="inputText" id="stream1MassFlow" value="2e4/3600"> kg/s<br>
 	Inlet Temperature, T1: <input type="text" class="inputText" id="stream1InletTemp" value="200"> °C<br>
 	Outlet Temperature, T2: <input type="text" class="inputText" id="stream1OutletTemp" value="90"> °C<br>
 	
 	Inlet Spec Heat Capacity, C1: <input type="text" class="inputText" id="stream1InletSHC" value="2470"> J/kgK<br>
-	Outlet Spec Heat Capacity, C2: <input type="text" class="inputText" id="stream1OutletSHC" value="2470"> J/kgK<br>
+	Outlet Spec Heat Capacity, C2: <input type="text" class="inputText" id="stream1OutletSHC" value="2470"> J/kgK<br></p>
 	
-	<br>Properties of Stream 2 (Tubeside) [This stream heats up]<br>
+	<p class="coldFluid"><br>Properties of Stream 2 (Tubeside) [This stream heats up]<br>
 	Mass Flow: <input type="text" class="inputText" id="stream2MassFlow" value="7e4/3600"> kg/s<br>
 	Inlet Temperature, t1: <input type="text" class="inputText" id="stream2InletTemp" value="40"> °C<br>
 	
@@ -192,10 +192,10 @@
 	Inlet Density, rho1: <input type="text" class="inputText" id="stream2InletDensity" value="840"> kg/m^3<br>
 	Outlet Density, rho2: <input type="text" class="inputText" id="stream2OutletDensity" value="800"> kg/m^3<br>
 	
-	Inlet Viscosity, mu1: <input type="text" class="inputText" id="stream2InletViscosity" value="4.3e-3"> Ns/m^2<br>
-	Outlet Viscosity, mu2: <input type="text" class="inputText" id="stream2OutletViscosity" value="2.4e-3"> Ns/m^2<br>
+	Inlet Viscosity, mu1: <input type="text" class="inputText" id="stream2InletViscosity" value="4.3"> mNs/m^2 [cP]<br>
+	Outlet Viscosity, mu2: <input type="text" class="inputText" id="stream2OutletViscosity" value="2.4"> mNs/m^2 [cP]<br></p>
 	
-	<br>Heat Exchanger<br>
+	<p class="hEx"><br>Heat Exchanger<br>
 	Estimated Overall Coefficient, U: <input type="text" class="inputText" id="estOverCoeff" value="300"> W/m^2 °C<br>
 	Mode: <select id = "currentMode">
 		<option value="counterCurrent">Counter-current</option>
@@ -218,7 +218,7 @@
 		<option value="square">Square</option>
 	</select><br>
 	Shell clearance: <input type="text" class="inputText" id="shellClear" value="56"> mm<br>
-	Heat Transfer Factor, jh: <input type="text" class="inputText" id="heatTransFac" value="3.2e-3"><br>
+	Heat Transfer Factor, jh: <input type="text" class="inputText" id="heatTransFac" value="3.2e-3"><br></p>
 	
 	<br><input type=button value="Calculate" onClick="calculate_this()"><br>
 	<br><span id="results">(click "Calculate")</span>
