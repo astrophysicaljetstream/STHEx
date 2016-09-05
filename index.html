@@ -40,7 +40,7 @@
 		var stream1OutletTemp = eval(document.getElementById("stream1OutletTemp").value)
 		var stream1MeanTemp=mult(.5,(stream1InletTemp+stream1OutletTemp))
 		var stream1TempDiff = stream1OutletTemp - stream1InletTemp
-		document.getElementById('results').innerHTML = "Stream 1 [Shellside] Mean Temperature: " + (stream1MeanTemp.cutZero()).toPrecision(sigFig) + " °C<br>"
+		document.getElementById('results').innerHTML = "Stream 1 [Shellside] Mean Temperature: " + stream1MeanTemp.cutZero() + " °C<br>"
 		
 		var stream1InSHC = eval(document.getElementById("stream1InletSHC").value)
 		var stream1OutSHC = eval(document.getElementById("stream1OutletSHC").value)
