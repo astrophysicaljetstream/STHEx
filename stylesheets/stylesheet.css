@@ -15,7 +15,7 @@ body {
     background-color: black;
     font-family: Avant Garde,Avantgarde,Century Gothic,CenturyGothic,AppleGothic,sans-serif;
     font-size:150%;
-    color: hotpink;
+    color: aquamarine;
 }
 
 a {
@@ -26,6 +26,18 @@ a {
 
 .inputText {
   width: 100px;
+}
+
+.hotFluid {
+  color: hotpink;
+}
+
+.coldFluid {
+  color: skyblue;
+}
+
+.hEx {
+  color: fuschia;
 }
 
 .btn {
