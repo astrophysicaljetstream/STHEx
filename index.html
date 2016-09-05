@@ -102,8 +102,8 @@
 		var Ftnumerator = foo*Math.log((1-S)/(1-R*S))
 		var Ftdenominator = (R-1)*Math.log((2-S*(R+ 1 - foo))/(2-S*(R+ 1 + foo)))
 		var FtCalculated = Ftnumerator/Ftdenominator
-		document.getElementById('results').innerHTML += "<br>For a heat exchanger with " + nShellPass.toPrecision(sigFig) + " shell passes and "
-		document.getElementById('results').innerHTML += nTubePass.toPrecision(sigFig) + " tube passes:<br>"
+		document.getElementById('results').innerHTML += "<br>For a heat exchanger with " + nShellPass + " shell passes and "
+		document.getElementById('results').innerHTML += nTubePass + " tube passes:<br>"
 		if (nShellPass==1&&nTubePass==2){
 			document.getElementById('results').innerHTML += "Calculated Ft: " + FtCalculated.toPrecision(sigFig) + "<br>"
 		}
@@ -153,8 +153,8 @@
 		var shellClearance = eval(document.getElementById("shellClear").value)*1e-3
 		var bundleDiameter = outerDiameter*Math.pow((nTube/requiredK1),(1/requiredn1))
 		var shellsideDiameter = bundleDiameter + shellClearance
-		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter + " m<br>"
-		document.getElementById('results').innerHTML += "Shell side diameter, Ds: " + shellsideDiameter + " m<br>"
+		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter.toPrecision(sigFig) + " m<br>"
+		document.getElementById('results').innerHTML += "Shell side diameter, Ds: " + shellsideDiameter.toPrecision(sigFig) + " m<br>"
 		
 		var heatTransferFactor = eval(document.getElementById("heatTransFac").value)
 		var reynoldsNumber = mult(mult(tubeStreamMeanDensity,tubeVelocity),innerDiameter)/tubeStreamMeanViscosity
