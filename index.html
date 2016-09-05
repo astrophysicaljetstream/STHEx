@@ -6,11 +6,7 @@
 	<body>
 	<script>
 	
-	var sigFigs = Math.round(eval(document.getElementById("sigFig").value))
-	
-	Number.prototype.corrected = function(){
-		this = this.toPrecision(sigFigs)
-	}
+	//Number.prototype.
 	
 	function calculate_this() {
 		var stream1MassFlow = eval(document.getElementById("stream1MassFlow").value)
@@ -19,17 +15,14 @@
 		var stream1OutletTemp = eval(document.getElementById("stream1OutletTemp").value)
 		var stream1MeanTemp=(stream1InletTemp+stream1OutletTemp)/2
 		var stream1TempDiff = stream1OutletTemp - stream1InletTemp
-		stream1MeanTemp.corrected()
 		document.getElementById('results').innerHTML = "Stream 1 [Shellside] Mean Temperature: " + stream1MeanTemp + " °C<br>"
 		
 		var stream1InSHC = eval(document.getElementById("stream1InletSHC").value)
 		var stream1OutSHC = eval(document.getElementById("stream1OutletSHC").value)
 		var stream1MeanSHC=(stream1InSHC+stream1OutSHC)/2
-		stream1MeanSHC.corrected()
 		document.getElementById('results').innerHTML += "Stream 1 [Shellside] Mean Spec Heat Capacity: " + stream1MeanSHC + " J/kgK<br>"
 		
 		var duty = stream1MassFlow*stream1MeanSHC*stream1TempDiff
-		duty.corrected()
 		document.getElementById('results').innerHTML += "Duty: " + Math.abs(duty) + " W<br><br>"
 		
 		var stream2MassFlow = eval(document.getElementById("stream2MassFlow").value)
@@ -38,31 +31,25 @@
 		var tubeStreamInletSHC = eval(document.getElementById("stream2InletSHC").value)
 		var tubeStreamOutletSHC = eval(document.getElementById("stream2OutletSHC").value)
 		var tubeStreamMeanSHC=(tubeStreamInletSHC+tubeStreamOutletSHC)/2
-		tubeStreamMeanSHC.corrected()
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Spec Heat Capacity: " + tubeStreamMeanSHC + " J/kgK<br>"
 		
 		var tubeStreamInletTC = eval(document.getElementById("stream2InletThermCond").value)
 		var tubeStreamOutletTC = eval(document.getElementById("stream2OutletThermCond").value)
 		var tubeStreamMeanTC=(tubeStreamInletTC+tubeStreamOutletTC)/2
-		tubeStreamMeanTC.corrected()
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Thermal Conductivity: " + tubeStreamMeanTC + " W/m °C<br>"
 		
 		var tubeStreamInletDensity = eval(document.getElementById("stream2InletDensity").value)
 		var tubeStreamOutletDensity = eval(document.getElementById("stream2OutletDensity").value)
 		var tubeStreamMeanDensity = (tubeStreamInletDensity + tubeStreamOutletDensity)/2
-		tubeStreamMeanDensity.corrected()
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Density: " + tubeStreamMeanDensity + " kg/m^3<br>"
 		
 		var tubeStreamInletViscosity = eval(document.getElementById("stream2InletViscosity").value*1e-3)
 		var tubeStreamOutletViscosity = eval(document.getElementById("stream2OutletViscosity").value*1e-3)
 		var tubeStreamMeanViscosity = (tubeStreamInletViscosity + tubeStreamOutletViscosity)/2
-		tubeStreamMeanViscosity.corrected()
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Viscosity: " + tubeStreamMeanViscosity*1e3 + " mNs/m^2 [cP]<br>"
 		
 		var stream2OutletTemp = stream2InletTemp-duty/(stream2MassFlow*tubeStreamMeanSHC)
-		stream2OutletTemp.corrected()
 		var stream2MeanTemp=(stream2InletTemp+stream2OutletTemp)/2
-		stream2MeanTemp.corrected()
 		var stream2TempDiff = stream2OutletTemp - stream2InletTemp
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Outlet Temperature: " + stream2OutletTemp + " °C<br>"
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Temperature: " + stream2MeanTemp + " °C<br>"
@@ -88,7 +75,6 @@
 		var R = Rnumerator/Rdenominator
 		var S = Snumerator/Sdenominator
 		var LMTD = LMTDnumerator/LMTDdenominator
-		LMTD.corrected()
 		document.getElementById('results').innerHTML += "<br>" + currentModeString + "Log Mean Temperature Difference, ΔTLM: " + LMTD + " °C<br>"
 		document.getElementById('results').innerHTML += "R: " + R.toPrecision(3) + "<br>"
 		document.getElementById('results').innerHTML += "S (aka P on chart): " + S.toPrecision(3) + "<br><br>"
@@ -96,9 +82,7 @@
 		var U = eval(document.getElementById("estOverCoeff").value)
 		var Ft = eval(document.getElementById("Ft").value)
 		var dTm = Ft*LMTD
-		dTm.corrected()
 		var heatTransferArea = Math.abs(duty/(U*Ft*LMTD))
-		heatTransferArea.corrected()
 		document.getElementById('results').innerHTML += "Actual Temperature Difference, ΔTm: " + dTm + " °C<br>"
 		document.getElementById('results').innerHTML += "Heat Transfer Area: " + heatTransferArea + " m^2<br>"
 		
@@ -187,7 +171,7 @@
 	}
 	</script>
 	
-	<p class="hotFluid"><br>Conditions and Properties of Stream 1 (Shellside) [This stream cools down]<br>
+	<p class="hotFluid"><br>Properties of Stream 1 (Shellside) [This stream cools down]<br>
 	Mass Flow: <input type="text" class="inputText" id="stream1MassFlow" value="2e4/3600"> kg/s<br>
 	Inlet Temperature, T1: <input type="text" class="inputText" id="stream1InletTemp" value="200"> °C<br>
 	Outlet Temperature, T2: <input type="text" class="inputText" id="stream1OutletTemp" value="90"> °C<br>
@@ -195,7 +179,7 @@
 	Inlet Spec Heat Capacity, C1: <input type="text" class="inputText" id="stream1InletSHC" value="2470"> J/kgK<br>
 	Outlet Spec Heat Capacity, C2: <input type="text" class="inputText" id="stream1OutletSHC" value="2470"> J/kgK<br></p>
 	
-	<p class="coldFluid"><br>Conditions and Properties of Stream 2 (Tubeside) [This stream heats up]<br>
+	<p class="coldFluid"><br>Properties of Stream 2 (Tubeside) [This stream heats up]<br>
 	Mass Flow: <input type="text" class="inputText" id="stream2MassFlow" value="7e4/3600"> kg/s<br>
 	Inlet Temperature, t1: <input type="text" class="inputText" id="stream2InletTemp" value="40"> °C<br>
 	
@@ -235,9 +219,6 @@
 	</select><br>
 	Shell clearance: <input type="text" class="inputText" id="shellClear" value="56"> mm<br>
 	Heat Transfer Factor, jh: <input type="text" class="inputText" id="heatTransFac" value="3.2e-3"><br></p>
-	
-	<p>Other<br>
-	Significant figures: <input type="text" class="inputText" id="sigFig" value="16"><br></p>
 	
 	<br><input type=button value="Calculate" onClick="calculate_this()"><br>
 	<br><span id="results">(click "Calculate")</span>
