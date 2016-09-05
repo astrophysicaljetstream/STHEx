@@ -15,6 +15,21 @@
 		return number3/reverse
 	}
 	
+	Number.prototype.cutZero = function(){
+		var numberString = this.toPrecision(15)
+		var n = 0
+		while (n<1000){
+			n++
+			var lastChar = numberString.slice(-1)
+			if (lastChar=="0"){
+				numberString=numberString.slice(0,-1)
+			} else {
+				break
+			}
+		}
+		return numberString
+	}
+	
 	function calculate_this() {
 		
 		var sigFig = parseInt(document.getElementById("signif").value)
@@ -25,15 +40,15 @@
 		var stream1OutletTemp = eval(document.getElementById("stream1OutletTemp").value)
 		var stream1MeanTemp=mult(.5,(stream1InletTemp+stream1OutletTemp))
 		var stream1TempDiff = stream1OutletTemp - stream1InletTemp
-		document.getElementById('results').innerHTML = "Stream 1 [Shellside] Mean Temperature: " + stream1MeanTemp.toPrecision(sigFig) + " °C<br>"
+		document.getElementById('results').innerHTML = "Stream 1 [Shellside] Mean Temperature: " + stream1MeanTemp.cutZero() + " °C<br>"
 		
 		var stream1InSHC = eval(document.getElementById("stream1InletSHC").value)
 		var stream1OutSHC = eval(document.getElementById("stream1OutletSHC").value)
 		var stream1MeanSHC=mult(.5,(stream1InSHC+stream1OutSHC))
-		document.getElementById('results').innerHTML += "Stream 1 [Shellside] Mean Spec Heat Capacity: " + stream1MeanSHC.toPrecision(sigFig) + " J/kgK<br>"
+		document.getElementById('results').innerHTML += "Stream 1 [Shellside] Mean Spec Heat Capacity: " + stream1MeanSHC.cutZero() + " J/kgK<br>"
 		
 		var duty = mult(mult(stream1MassFlow,stream1MeanSHC),stream1TempDiff)
-		document.getElementById('results').innerHTML += "Duty: " + Math.abs(duty).toPrecision(sigFig) + " W<br><br>"
+		document.getElementById('results').innerHTML += "Duty: " + Math.abs(duty).cutZero() + " W<br><br>"
 		
 		var stream2MassFlow = eval(document.getElementById("stream2MassFlow").value)
 		var stream2InletTemp = eval(document.getElementById("stream2InletTemp").value)
@@ -41,28 +56,28 @@
 		var tubeStreamInletSHC = eval(document.getElementById("stream2InletSHC").value)
 		var tubeStreamOutletSHC = eval(document.getElementById("stream2OutletSHC").value)
 		var tubeStreamMeanSHC=mult((tubeStreamInletSHC+tubeStreamOutletSHC),.5)
-		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Spec Heat Capacity: " + tubeStreamMeanSHC.toPrecision(sigFig) + " J/kgK<br>"
+		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Spec Heat Capacity: " + tubeStreamMeanSHC.cutZero() + " J/kgK<br>"
 		
 		var tubeStreamInletTC = eval(document.getElementById("stream2InletThermCond").value)
 		var tubeStreamOutletTC = eval(document.getElementById("stream2OutletThermCond").value)
 		var tubeStreamMeanTC=mult((tubeStreamInletTC+tubeStreamOutletTC),.5)
-		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Thermal Conductivity: " + tubeStreamMeanTC.toPrecision(sigFig) + " W/m °C<br>"
+		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Thermal Conductivity: " + tubeStreamMeanTC.cutZero() + " W/m °C<br>"
 		
 		var tubeStreamInletDensity = eval(document.getElementById("stream2InletDensity").value)
 		var tubeStreamOutletDensity = eval(document.getElementById("stream2OutletDensity").value)
 		var tubeStreamMeanDensity = mult((tubeStreamInletDensity + tubeStreamOutletDensity),.5)
-		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Density: " + tubeStreamMeanDensity.toPrecision(sigFig) + " kg/m^3<br>"
+		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Density: " + tubeStreamMeanDensity.cutZero() + " kg/m^3<br>"
 		
 		var tubeStreamInletViscosity = eval(document.getElementById("stream2InletViscosity").value*1e-3)
 		var tubeStreamOutletViscosity = eval(document.getElementById("stream2OutletViscosity").value*1e-3)
 		var tubeStreamMeanViscosity = mult((tubeStreamInletViscosity + tubeStreamOutletViscosity),.5)
-		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Viscosity: " + (tubeStreamMeanViscosity*1e3).toPrecision(sigFig) + " mNs/m^2 [cP]<br>"
+		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Viscosity: " + (tubeStreamMeanViscosity*1e3).cutZero() + " mNs/m^2 [cP]<br>"
 		
 		var stream2OutletTemp = stream2InletTemp-duty/(stream2MassFlow*tubeStreamMeanSHC)
 		var stream2MeanTemp=mult((stream2InletTemp+stream2OutletTemp),.5)
 		var stream2TempDiff = stream2OutletTemp - stream2InletTemp
-		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Outlet Temperature: " + stream2OutletTemp.toPrecision(sigFig) + " °C<br>"
-		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Temperature: " + stream2MeanTemp.toPrecision(sigFig) + " °C<br>"
+		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Outlet Temperature: " + stream2OutletTemp.cutZero() + " °C<br>"
+		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Temperature: " + stream2MeanTemp.cutZero() + " °C<br>"
 		
 		var currentMode = document.getElementById("currentMode").value
 		var currentModeString
@@ -85,7 +100,7 @@
 		var R = Rnumerator/Rdenominator
 		var S = Snumerator/Sdenominator
 		var LMTD = LMTDnumerator/LMTDdenominator
-		document.getElementById('results').innerHTML += "<br>" + currentModeString + "Log Mean Temperature Difference, ΔTLM: " + LMTD.toPrecision(sigFig) + " °C<br>"
+		document.getElementById('results').innerHTML += "<br>" + currentModeString + "Log Mean Temperature Difference, ΔTLM: " + LMTD.cutZero() + " °C<br>"
 		document.getElementById('results').innerHTML += "R: " + R.toPrecision(3) + "<br>"
 		document.getElementById('results').innerHTML += "S (aka P on chart): " + S.toPrecision(3) + "<br><br>"
 		
@@ -93,8 +108,8 @@
 		var Ft = eval(document.getElementById("Ft").value)
 		var dTm = Ft*LMTD
 		var heatTransferArea = Math.abs(duty/mult(mult(U,Ft),LMTD))
-		document.getElementById('results').innerHTML += "Actual Temperature Difference, ΔTm: " + dTm.toPrecision(sigFig) + " °C<br>"
-		document.getElementById('results').innerHTML += "Heat Transfer Area: " + heatTransferArea.toPrecision(sigFig) + " m^2<br>"
+		document.getElementById('results').innerHTML += "Actual Temperature Difference, ΔTm: " + dTm.cutZero() + " °C<br>"
+		document.getElementById('results').innerHTML += "Heat Transfer Area: " + heatTransferArea.cutZero() + " m^2<br>"
 		
 		var nShellPass = eval(document.getElementById("nShellPass").value)
 		var nTubePass = eval(document.getElementById("nTubePass").value)
@@ -105,7 +120,7 @@
 		document.getElementById('results').innerHTML += "<br>For a heat exchanger with " + nShellPass + " shell passes and "
 		document.getElementById('results').innerHTML += nTubePass + " tube passes:<br>"
 		if (nShellPass==1&&nTubePass==2){
-			document.getElementById('results').innerHTML += "Calculated Ft: " + FtCalculated.toPrecision(sigFig) + "<br>"
+			document.getElementById('results').innerHTML += "Calculated Ft: " + FtCalculated.cutZero() + "<br>"
 		}
 		
 		var outerDiameter = eval(document.getElementById("outerDiameter").value)*1e-3
@@ -120,7 +135,7 @@
 				nTube++
 			}
 		}
-		document.getElementById('results').innerHTML += "<br>Area of one tube, neglecting thickness of tube sheet: " + areaPerTube.toPrecision(sigFig) + " m^2<br>"
+		document.getElementById('results').innerHTML += "<br>Area of one tube, neglecting thickness of tube sheet: " + areaPerTube.cutZero() + " m^2<br>"
 		document.getElementById('results').innerHTML += "Number of tubes required, Nt: " + nTube + "<br>"
 		document.getElementById('results').innerHTML += "For " + nTubePass + " passes, tubes per pass: " + nTubePerPass + "<br>"
 		
@@ -129,10 +144,10 @@
 		var areaPerPass = mult(tubeCrossArea,nTubePerPass)
 		var volumetricFlow = stream2MassFlow/tubeStreamMeanDensity
 		var tubeVelocity = volumetricFlow/areaPerPass
-		document.getElementById('results').innerHTML += "<br>Tube Cross-sectional Area: " + tubeCrossArea.toPrecision(sigFig) + " m^2<br>"
-		document.getElementById('results').innerHTML += "Area per pass: " + areaPerPass.toPrecision(sigFig) + " m^2<br>"
-		document.getElementById('results').innerHTML += "Volumetric Flow of tubeside fluid: " + volumetricFlow.toPrecision(sigFig) + " m^3/s<br>"
-		document.getElementById('results').innerHTML += "Tubeside velocity: " + tubeVelocity.toPrecision(sigFig) + " m/s (hopefully between 1 and 2 m/s)<br>"
+		document.getElementById('results').innerHTML += "<br>Tube Cross-sectional Area: " + tubeCrossArea.cutZero() + " m^2<br>"
+		document.getElementById('results').innerHTML += "Area per pass: " + areaPerPass.cutZero() + " m^2<br>"
+		document.getElementById('results').innerHTML += "Volumetric Flow of tubeside fluid: " + volumetricFlow.cutZero() + " m^3/s<br>"
+		document.getElementById('results').innerHTML += "Tubeside velocity: " + tubeVelocity.cutZero() + " m/s (hopefully between 1 and 2 m/s)<br>"
 		
 		var listedPassesInTable12point3 = [1,2,4,6,8]
 		var currentPitch = document.getElementById("currentPitch").value
@@ -153,8 +168,8 @@
 		var shellClearance = eval(document.getElementById("shellClear").value)*1e-3
 		var bundleDiameter = outerDiameter*Math.pow((nTube/requiredK1),(1/requiredn1))
 		var shellsideDiameter = bundleDiameter + shellClearance
-		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter.toPrecision(sigFig) + " m<br>"
-		document.getElementById('results').innerHTML += "Shell side diameter, Ds: " + shellsideDiameter.toPrecision(sigFig) + " m<br>"
+		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter.cutZero() + " m<br>"
+		document.getElementById('results').innerHTML += "Shell side diameter, Ds: " + shellsideDiameter.cutZero() + " m<br>"
 		
 		var heatTransferFactor = eval(document.getElementById("heatTransFac").value)
 		var reynoldsNumber = mult(mult(tubeStreamMeanDensity,tubeVelocity),innerDiameter)/tubeStreamMeanViscosity
@@ -172,11 +187,11 @@
 			flowType = "transition"
 			
 		}
-		document.getElementById('results').innerHTML += "<br>Reynolds number, Re: " + reynoldsNumber.toPrecision(sigFig) + " (hence, " + flowType + " region)<br>"
-		document.getElementById('results').innerHTML += "Prandtl number, Pr: " + prandtlNumber.toPrecision(sigFig) + "<br>"
-		document.getElementById('results').innerHTML += "Ratio of tube length to tube inner diameter: " + lengthOverInnerDiameter.toPrecision(sigFig) + "<br>"
-		document.getElementById('results').innerHTML += "Nusselt number, Nu: " + nusseltNumber.toPrecision(sigFig) + "<br>"
-		document.getElementById('results').innerHTML += "Inside coefficient, hi: " + insideCoefficient.toPrecision(sigFig) + " W/m °C<br>"
+		document.getElementById('results').innerHTML += "<br>Reynolds number, Re: " + reynoldsNumber.cutZero() + " (hence, " + flowType + " region)<br>"
+		document.getElementById('results').innerHTML += "Prandtl number, Pr: " + prandtlNumber.cutZero() + "<br>"
+		document.getElementById('results').innerHTML += "Ratio of tube length to tube inner diameter: " + lengthOverInnerDiameter.cutZero() + "<br>"
+		document.getElementById('results').innerHTML += "Nusselt number, Nu: " + nusseltNumber.cutZero() + "<br>"
+		document.getElementById('results').innerHTML += "Inside coefficient, hi: " + insideCoefficient.cutZero() + " W/m °C<br>"
 		
 	}
 	</script>
