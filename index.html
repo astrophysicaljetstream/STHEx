@@ -277,6 +277,21 @@
 		document.getElementById('results').innerHTML += "Nusselt number, Nu: " + shellNusseltNumber.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Heat-transfer coefficient, hs: " + shellHeatTransCoeff.truncated() + " W/m^2 °C<br>"
 		
+		var shellFoulFactor = eval(document.getElementById("stream1FoulFact").value)
+		var tubeFoulFactor = eval(document.getElementById("stream2FoulFact").value)
+		var tubeWallTC = eval(document.getElementById("tubeWallTC").value)
+		var reciprUtermTube = (1/tubeInsideCoefficient+tubeFoulFactor)*outerDiameter/innerDiameter
+		var reciprUtermShell = 1/shellHeatTransCoeff+shellFoulFactor
+		var reciprUtermHEx = outerDiameter*Math.log(outerDiameter/innerDiameter)/(2*tubeWallTC)
+		reciprUtermTube = reciprUtermTube.cutZero()
+		reciprUtermShell = reciprUtermShell.cutZero()
+		reciprUtermHEx = reciprUtermHEx.cutZero()
+		var reciprU = reciprUtermTube + reciprUtermShell + reciprUtermHEx
+		reciprU = reciprU.cutZero()
+		var overallCoefficient = 1/reciprU
+		overallCoefficient = overallCoefficient.cutZero()
+		document.getElementById('results').innerHTML += "<br>Reciprocal of U, 1/U: " + reciprU.truncated() + " (W/m^2 °C)^-1<br>"
+		document.getElementById('results').innerHTML += "Overall heat-transfer coefficient, U: " + overallCoefficient.truncated() + " W/m^2 °C<br>"
 	}
 	</script>
 	
@@ -295,7 +310,9 @@
 	Outlet Density, Rho2: <input type="text" class="inputText" id="stream1OutletDensity" value="770"> kg/m^3<br>
 	
 	Inlet Viscosity, Mu1: <input type="text" class="inputText" id="stream1InletViscosity" value="0.22"> mNs/m^2 [cP]<br>
-	Outlet Viscosity, Mu2: <input type="text" class="inputText" id="stream1OutletViscosity" value="0.80"> mNs/m^2 [cP]<br></p>
+	Outlet Viscosity, Mu2: <input type="text" class="inputText" id="stream1OutletViscosity" value="0.80"> mNs/m^2 [cP]<br>
+	
+	Fouling factor: <input type="text" class="inputText" id="stream1FoulFact" value="0.0002"> (W/m^2 °C)^-1<br></p>
 	
 	<p class="coldFluid"><br><b>Stream 2 (Tubeside) Properties and Conditions</b> [This stream heats up]<br>
 	<!--Mass Flow: <input type="text" class="inputText" id="stream2MassFlow" value="7e4/3600"> kg/s<br>-->
@@ -312,7 +329,9 @@
 	Outlet Density, rho2: <input type="text" class="inputText" id="stream2OutletDensity" value="800"> kg/m^3<br>
 	
 	Inlet Viscosity, mu1: <input type="text" class="inputText" id="stream2InletViscosity" value="4.3"> mNs/m^2 [cP]<br>
-	Outlet Viscosity, mu2: <input type="text" class="inputText" id="stream2OutletViscosity" value="2.4"> mNs/m^2 [cP]<br></p>
+	Outlet Viscosity, mu2: <input type="text" class="inputText" id="stream2OutletViscosity" value="2.4"> mNs/m^2 [cP]<br>
+	
+	Fouling factor: <input type="text" class="inputText" id="stream2FoulFact" value="0.00035"> (W/m^2 °C)^-1<br></p>
 	
 	<p class="hEx"><br><b>Heat Exchanger</b><br>
 	Estimated Overall Coefficient, U: <input type="text" class="inputText" id="estOverCoeff" value="300"> W/m^2 °C<br>
@@ -338,6 +357,7 @@
 		<option value="square">Square</option>
 	</select><br>
 	Heat Transfer Factor, jh: <input type="text" class="inputText" id="tubeHeatTransFac" value="3.2e-3"><br>
+	Tube wall material thermal conductivity, kw: <input type="text" class="inputText" id="tubeWallTC" value="55"> W/m °C<br>
 	<br>Shellside parameters<br>
 	Shell clearance: <input type="text" class="inputText" id="shellClear" value="56"> mm<br>
 	Baffle spacing: <input type="text" class="inputText" id="baffleSpace" value="0.2"> Ds<br>
