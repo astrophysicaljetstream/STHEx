@@ -228,20 +228,20 @@
 		// Need to figure out Nusselt number in the three flow types.
 		var tubeNusseltNumber = tubeHeatTransferFactor * tubeReynoldsNumber * Math.pow(tubePrandtlNumber,.33)
 		var tubeInsideCoefficient = tubeNusseltNumber/innerDiameter*tubeStreamMeanTC
-		var flowType
+		var tubeFlowType
 		if (tubeReynoldsNumber>1e4){
-			flowType = "turbulent"
+			tubeFlowType = "turbulent"
 		} else if (tubeReynoldsNumber<2e3){
-			flowType = "laminar"
+			tubeFlowType = "laminar"
 		} else {
-			flowType = "transition"
+			tubeFlowType = "transition"
 		}
 		tubeReynoldsNumber = tubeReynoldsNumber.cutZero()
 		tubePrandtlNumber = tubePrandtlNumber.cutZero()
 		lengthOverInnerDiameter = lengthOverInnerDiameter.cutZero()
 		tubeNusseltNumber = tubeNusseltNumber.cutZero()
 		tubeInsideCoefficient = tubeInsideCoefficient.cutZero()
-		document.getElementById('results').innerHTML += "<br>Reynolds number, Re: " + tubeReynoldsNumber.truncated() + " (hence, " + flowType + " region)<br>"
+		document.getElementById('results').innerHTML += "<br>Reynolds number, Re: " + tubeReynoldsNumber.truncated() + " (hence, " + tubeFlowType + " region)<br>"
 		document.getElementById('results').innerHTML += "Prandtl number, Pr: " + tubePrandtlNumber.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Ratio of tube length to tube inner diameter: " + lengthOverInnerDiameter.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Nusselt number, Nu: " + tubeNusseltNumber.truncated() + "<br>"
@@ -266,13 +266,21 @@
 		shellHeatTransferFactor = shellHeatTransferFactor.cutZero()
 		var shellReynoldsNumber = shellStreamMeanDensity*shellVelocity*hydraulicDiameter/shellStreamMeanViscosity
 		shellReynoldsNumber = shellReynoldsNumber.cutZero()
+		var shellFlowType
+		if (shellReynoldsNumber>1e4){
+			shellFlowType = "turbulent"
+		} else if (shellReynoldsNumber<2e3){
+			shellFlowType = "laminar"
+		} else {
+			shellFlowType = "transition"
+		}
 		var shellPrandtlNumber = shellStreamMeanSHC*shellStreamMeanViscosity/shellStreamMeanTC
 		shellPrandtlNumber = shellPrandtlNumber.cutZero()
 		var shellNusseltNumber = shellHeatTransferFactor * shellReynoldsNumber * Math.pow(shellPrandtlNumber,.33)
 		shellNusseltNumber = shellNusseltNumber.cutZero()
 		var shellHeatTransCoeff = shellNusseltNumber/hydraulicDiameter*shellStreamMeanTC
 		shellHeatTransCoeff = shellHeatTransCoeff.cutZero()
-		document.getElementById('results').innerHTML += "<br>Reynolds number, Re: " + shellReynoldsNumber.truncated() + " (hence, " + flowType + " region)<br>"
+		document.getElementById('results').innerHTML += "<br>Reynolds number, Re: " + shellReynoldsNumber.truncated() + " (hence, " + shellFlowType + " region)<br>"
 		document.getElementById('results').innerHTML += "Prandtl number, Pr: " + shellPrandtlNumber.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Nusselt number, Nu: " + shellNusseltNumber.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Heat-transfer coefficient, hs: " + shellHeatTransCoeff.truncated() + " W/m^2 °C<br>"
