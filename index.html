@@ -21,7 +21,7 @@
 		while (n<1000){
 			n++
 			var lastChar = numberString.slice(-1)
-			if (lastChar=="0"){
+			if (lastChar=="0"||lastChar=="."){
 				numberString=numberString.slice(0,-1)
 			} else {
 				break
