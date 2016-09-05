@@ -280,7 +280,7 @@
 	}
 	</script>
 	
-	<p class="hotFluid"><br>Properties of Stream 1 (Shellside) [This stream cools down]<br>
+	<p class="hotFluid"><br><b>Stream 1 (Shellside) Properties and Conditions</b> [This stream cools down]<br>
 	Mass Flow: <input type="text" class="inputText" id="stream1MassFlow" value="2e4/3600"> kg/s<br>
 	Inlet Temperature, T1: <input type="text" class="inputText" id="stream1InletTemp" value="200"> °C<br>
 	Outlet Temperature, T2: <input type="text" class="inputText" id="stream1OutletTemp" value="90"> °C<br>
@@ -297,7 +297,7 @@
 	Inlet Viscosity, Mu1: <input type="text" class="inputText" id="stream1InletViscosity" value="0.22"> mNs/m^2 [cP]<br>
 	Outlet Viscosity, Mu2: <input type="text" class="inputText" id="stream1OutletViscosity" value="0.80"> mNs/m^2 [cP]<br></p>
 	
-	<p class="coldFluid"><br>Properties of Stream 2 (Tubeside) [This stream heats up]<br>
+	<p class="coldFluid"><br><b>Stream 2 (Tubeside) Properties and Conditions</b> [This stream heats up]<br>
 	<!--Mass Flow: <input type="text" class="inputText" id="stream2MassFlow" value="7e4/3600"> kg/s<br>-->
 	Inlet Temperature, t1: <input type="text" class="inputText" id="stream2InletTemp" value="40"> °C<br>
 	Outlet Temperature, t2: <input type="text" class="inputText" id="stream2OutletTemp" value="50"> °C<br>
@@ -314,7 +314,7 @@
 	Inlet Viscosity, mu1: <input type="text" class="inputText" id="stream2InletViscosity" value="4.3"> mNs/m^2 [cP]<br>
 	Outlet Viscosity, mu2: <input type="text" class="inputText" id="stream2OutletViscosity" value="2.4"> mNs/m^2 [cP]<br></p>
 	
-	<p class="hEx"><br>Heat Exchanger<br>
+	<p class="hEx"><br><b>Heat Exchanger</b><br>
 	Estimated Overall Coefficient, U: <input type="text" class="inputText" id="estOverCoeff" value="300"> W/m^2 °C<br>
 	Mode: <select id = "currentMode">
 		<option value="counterCurrent">Counter-current</option>
@@ -343,7 +343,7 @@
 	Baffle spacing: <input type="text" class="inputText" id="baffleSpace" value="0.2"> Ds<br>
 	Heat Transfer Factor, jh: <input type="text" class="inputText" id="shellHeatTransFac" value="4.52e-3"><br></p>
 	
-	<p>Other<br>
+	<p><b>Other</b><br>
 	Significant figures: <input type="text" class="inputText" id="signif" value="10"> (inaccurate for significant figures higher than 14)<br></p>
 	
 	<br><input type=button value="Calculate" onClick="calculate_this()"><br>
