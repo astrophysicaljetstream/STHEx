@@ -226,8 +226,8 @@
 		baffleSpacing = baffleSpacing.cutZero()
 		var areaCrossFlow = (tubePitch - outerDiameter)*shellsideDiameter*baffleSpacing/tubePitch
 		areaCrossFlow = areaCrossFlow.cutZero()
-		document.getElementById('results').innerHTML += "Baffle spacing, lB: " + baffleSpacing.truncated() + " m<br>"
-		document.getElementById('results').innerHTML += "Area for cross-flow, As: " + areaCrossFlow.truncated() + " m<br>"
+		document.getElementById('results').innerHTML += "<br>Baffle spacing, lB: " + baffleSpacing.truncated() + " m<br>"
+		document.getElementById('results').innerHTML += "Area for cross-flow, As: " + areaCrossFlow.truncated() + " m^2<br>"
 		
 	}
 	</script>
