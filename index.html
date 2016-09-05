@@ -43,10 +43,10 @@
 		var tubeStreamMeanDensity = (tubeStreamInletDensity + tubeStreamOutletDensity)/2
 		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Density: " + tubeStreamMeanDensity + " kg/m^3<br>"
 		
-		var tubeStreamInletViscosity = eval(document.getElementById("stream2InletViscosity").value)
-		var tubeStreamOutletViscosity = eval(document.getElementById("stream2OutletViscosity").value)
+		var tubeStreamInletViscosity = eval(document.getElementById("stream2InletViscosity").value*1e-3)
+		var tubeStreamOutletViscosity = eval(document.getElementById("stream2OutletViscosity").value*1e-3)
 		var tubeStreamMeanViscosity = (tubeStreamInletViscosity + tubeStreamOutletViscosity)/2
-		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Viscosity: " + tubeStreamMeanViscosity + " mNs/m^2 [cP]<br>"
+		document.getElementById('results').innerHTML += "Stream 2 [Tubeside] Mean Viscosity: " + tubeStreamMeanViscosity*1e3 + " mNs/m^2 [cP]<br>"
 		
 		var stream2OutletTemp = stream2InletTemp-duty/(stream2MassFlow*tubeStreamMeanSHC)
 		var stream2MeanTemp=(stream2InletTemp+stream2OutletTemp)/2
