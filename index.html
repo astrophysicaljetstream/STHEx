@@ -132,7 +132,7 @@
 		document.getElementById('results').innerHTML += "R: " + R.toPrecision(3) + "<br>"
 		document.getElementById('results').innerHTML += "S (aka P on chart): " + S.toPrecision(3) + "<br><br>"
 		
-		document.getElementById('results').innerHTML += "(╯°□°)╯︵ ┻━┻ [Check and insert Ft]<br from Fig.12.19 or 12.20><br>"
+		document.getElementById('results').innerHTML += "[Check and insert Ft from Figure 12.19 or 12.20]"
 		
 		var U = eval(document.getElementById("estOverCoeff").value)
 		var Ft = eval(document.getElementById("Ft").value)
@@ -162,7 +162,10 @@
 		var tubeLength = eval(document.getElementById("tubeLength").value)
 		var areaPerTube = outerDiameter * tubeLength * Math.PI
 		areaPerTube = areaPerTube.cutZero()
-		var nTube = Math.ceil(heatTransferArea/areaPerTube)
+		var nTube = eval(document.getElementById("numberTubes").value)
+		if (nTube<0){
+			nTube = Math.ceil(heatTransferArea/areaPerTube)
+		}
 		for (i=0;i<nTubePass;i++){
 			var nTubePerPass = nTube/nTubePass
 			if (nTubePerPass%1==0){
@@ -247,12 +250,12 @@
 		document.getElementById('results').innerHTML += "Prandtl number, Pr: " + tubePrandtlNumber.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Ratio of tube length to tube inner diameter: " + lengthOverInnerDiameter.truncated() + "<br>"
 		
-		document.getElementById('results').innerHTML += "<br>(╯°□°)╯︵ ┻━┻ [Check and insert jH for tubeside]<br><br>"
+		document.getElementById('results').innerHTML += "<br>[Check and insert jH for tubeside from Figure 12.23]<br><br>"
 		
 		document.getElementById('results').innerHTML += "Nusselt number, Nu: " + tubeNusseltNumber.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Inside coefficient, hi: " + tubeInsideCoefficient.truncated() + " W/m^2 °C<br>"
 		
-		document.getElementById('results').innerHTML += "<br>(╯°□°)╯︵ ┻━┻ [Make adjustments for number of tube passes if needed]<br>"
+		document.getElementById('results').innerHTML += "<br>[Make adjustments for number of tube passes if needed]<br>"
 		
 		var baffleSpacingRatio = eval(document.getElementById("baffleSpace").value)
 		var baffleSpacing = baffleSpacingRatio*shellsideDiameter
@@ -290,7 +293,7 @@
 		document.getElementById('results').innerHTML += "<br>Reynolds number, Re: " + shellReynoldsNumber.truncated() + " (hence, " + shellFlowType + " region)<br>"
 		document.getElementById('results').innerHTML += "Prandtl number, Pr: " + shellPrandtlNumber.truncated() + "<br>"
 		
-		document.getElementById('results').innerHTML += "<br>(╯°□°)╯︵ ┻━┻ [Check and insert jH for shellside]<br><br>"
+		document.getElementById('results').innerHTML += "<br>[Check and insert jH for shellside from Figure 12.29]<br><br>"
 		
 		document.getElementById('results').innerHTML += "Nusselt number, Nu: " + shellNusseltNumber.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Heat-transfer coefficient, hs: " + shellHeatTransCoeff.truncated() + " W/m^2 °C<br>"
@@ -310,6 +313,28 @@
 		overallCoefficient = overallCoefficient.cutZero()
 		document.getElementById('results').innerHTML += "<br>Reciprocal of U, 1/U: " + reciprU.truncated() + " (W/m^2 °C)^-1<br>"
 		document.getElementById('results').innerHTML += "Overall heat-transfer coefficient, U: " + overallCoefficient.truncated() + " W/m^2 °C<br>"
+		
+		document.getElementById('results').innerHTML += "<br>[Check and insert jF for tubeside from Figure 12.24]<br><br>"
+		
+		var tubeFrictionFactor = eval(document.getElementById("tubeFricFac").value)
+		var tubePressDrop = nTubePass * (8*tubeFrictionFactor*tubeLength/innerDiameter + 2.5) * tubeStreamInletDensity * tubeVelocity * tubeVelocity / 2
+		tubePressDrop = tubePressDrop.cutZero()
+		var recommendedTubeNumber = Math.ceil(nTube/Math.sqrt(((tubePressDrop-0.7*1e5-0.1*1e5)/tubePressDrop)))
+		for (i=0;i<nTubePass;i++){
+			var nTubePerPass = recommendedTubeNumber/nTubePass
+			if (nTubePerPass%1==0){
+				break;
+			} else {
+				recommendedTubeNumber++
+			}
+		}
+		document.getElementById('results').innerHTML += "<br>Tubeside pressure drop, ΔPt: " + tubePressDrop.truncated() + " N/m^2<br>"
+		document.getElementById('results').innerHTML += "Possible number of tubes need: "
+		
+		document.getElementById('results').innerHTML += "<br>[Does the pressure drop exceed specifications? If so, insert desired number of tubes]<br><br>"
+		
+		//var customTubeNumber = eval(document.getElementById("numberTubes").value)
+		//document.getElementById('results').innerHTML += "<br>Using a custom tube number: " + customTubeNumber.truncated() + " N/m^2<br>"
 	}
 	</script>
 	
@@ -368,6 +393,7 @@
 	</select><br>
 	
 	<br><u>Tubeside parameters</u><br>
+	Number of tubes, Nt: <input type="text" class="inputText" id="numberTubes" value="-1"> (Will be automatically generated if -1)<br>
 	Outer diameter, do: <input type="text" class="inputText" id="outerDiameter" value="19.05"> mm<br>
 	Inner diameter, di: <input type="text" class="inputText" id="innerDiameter" value="14.83"> mm<br>
 	Tube length, L: <input type="text" class="inputText" id="tubeLength" value="5"> m<br>
@@ -376,12 +402,14 @@
 		<option value="square">Square</option>
 	</select><br>
 	Heat Transfer Factor, jh: <input type="text" class="inputText" id="tubeHeatTransFac" value="3.2e-3"><br>
+	Friction Factor, jF: <input type="text" class="inputText" id="tubeFricFac" value="4.3e-3"><br>
 	Tube wall material thermal conductivity, kw: <input type="text" class="inputText" id="tubeWallTC" value="55"> W/m °C<br>
 	
 	<br><u>Shellside parameters</u><br>
 	Shell clearance: <input type="text" class="inputText" id="shellClear" value="56"> mm<br>
 	Baffle spacing: <input type="text" class="inputText" id="baffleSpace" value="0.2"> Ds<br>
-	Heat Transfer Factor, jh: <input type="text" class="inputText" id="shellHeatTransFac" value="4.52e-3"><br></p>
+	Heat Transfer Factor, jh: <input type="text" class="inputText" id="shellHeatTransFac" value="4.52e-3"><br>
+	Friction Factor, jF: <input type="text" class="inputText" id="shellFricFac" value="4e-2"><br></p>
 	
 	<p><b>Other</b><br>
 	Significant figures: <input type="text" class="inputText" id="signif" value="10"> (inaccurate for significant figures higher than 14)<br></p>
