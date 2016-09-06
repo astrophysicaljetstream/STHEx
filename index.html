@@ -108,6 +108,9 @@
 		
 		var flowConfig = document.getElementById("flowConfig").value
 		if (flowConfig=="T1S2"){
+			var tubeStreamMassFlow = stream1MassFlow
+			var shellStreamMassFlow = stream2MassFlow
+			
 			var tubeStreamMeanSHC = stream1MeanSHC
 			var tubeStreamMeanTC = stream1MeanTC
 			var tubeStreamMeanDensity = stream1MeanDensity
@@ -120,8 +123,14 @@
 			
 			var tubeFoulFactor = eval(document.getElementById("stream1FoulFact").value)
 			var shellFoulFactor = eval(document.getElementById("stream2FoulFact").value)
+			
+			var tubeAllowPress = eval(document.getElementById("stream1AllowPress").value)
+			var shellAllowPress = eval(document.getElementById("stream2AllowPress").value)
 		}
 		if (flowConfig=="T2S1"){
+			var tubeStreamMassFlow = stream2MassFlow
+			var shellStreamMassFlow = stream1MassFlow
+			
 			var tubeStreamMeanSHC = stream2MeanSHC
 			var tubeStreamMeanTC = stream2MeanTC
 			var tubeStreamMeanDensity = stream2MeanDensity
@@ -134,6 +143,9 @@
 			
 			var shellFoulFactor = eval(document.getElementById("stream1FoulFact").value)
 			var tubeFoulFactor = eval(document.getElementById("stream2FoulFact").value)
+			
+			var shellAllowPress = eval(document.getElementById("stream1AllowPress").value)
+			var tubeAllowPress = eval(document.getElementById("stream2AllowPress").value)
 		}
 		
 		var currentMode = document.getElementById("currentMode").value
@@ -213,7 +225,7 @@
 		var innerDiameter = eval(document.getElementById("innerDiameter").value)*1e-3
 		var tubeCrossArea = Math.pow(innerDiameter,2)*Math.PI/4
 		var areaPerPass = tubeCrossArea*nTubePerPass
-		var tubeVolumetricFlow = stream2MassFlow/tubeStreamMeanDensity
+		var tubeVolumetricFlow = tubeStreamMassFlow/tubeStreamMeanDensity
 		var tubeVelocity = tubeVolumetricFlow/areaPerPass
 		tubeCrossArea = tubeCrossArea.cutZero()
 		areaPerPass = areaPerPass.cutZero()
@@ -294,7 +306,7 @@
 		baffleSpacing = baffleSpacing.cutZero()
 		var areaCrossFlow = (tubePitch - outerDiameter)*shellsideDiameter*baffleSpacing/tubePitch
 		areaCrossFlow = areaCrossFlow.cutZero()
-		var shellVolumetricFlow = stream1MassFlow/shellStreamMeanDensity
+		var shellVolumetricFlow = shellStreamMassFlow/shellStreamMeanDensity
 		shellVolumetricFlow = shellVolumetricFlow.cutZero()
 		var shellVelocity = shellVolumetricFlow/areaCrossFlow
 		shellVelocity = shellVelocity.cutZero()
@@ -348,7 +360,6 @@
 		var tubeFrictionFactor = eval(document.getElementById("tubeFricFac").value)
 		var tubePressDrop = nTubePass * (8*tubeFrictionFactor*tubeLength/innerDiameter + 2.5) * tubeStreamMeanDensity * tubeVelocity * tubeVelocity / 2
 		tubePressDrop = tubePressDrop.cutZero()
-		var tubeAllowPress = eval(document.getElementById("stream2AllowPress").value)
 		var recommendedTubeNumber
 		if ((tubePressDrop-tubeAllowPress)>0){
 			recommendedTubeNumber = Math.ceil(nTube/Math.sqrt((tubePressDrop-tubeAllowPress)/tubePressDrop))
@@ -372,7 +383,6 @@
 		var shellFrictionFactor = eval(document.getElementById("shellFricFac").value)
 		var shellPressDrop = (tubeLength/baffleSpacing) * (8*shellFrictionFactor*shellsideDiameter/hydraulicDiameter) * shellStreamMeanDensity * shellVelocity * shellVelocity / 2
 		shellPressDrop = shellPressDrop.cutZero()
-		var shellAllowPress = eval(document.getElementById("stream1AllowPress").value)
 		document.getElementById('results').innerHTML += "<br>Shellside pressure drop, ΔP<sub>s</sub>: " + shellPressDrop.truncated() + " N/m<sup>2</sup><br>"
 		
 		document.getElementById('results').innerHTML += "<br>[Does the shellside pressure drop exceed specifications? If so, increase baffle spacing]<br>"
