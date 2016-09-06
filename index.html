@@ -321,7 +321,8 @@
 		var tubeFrictionFactor = eval(document.getElementById("tubeFricFac").value)
 		var tubePressDrop = nTubePass * (8*tubeFrictionFactor*tubeLength/innerDiameter + 2.5) * tubeStreamInletDensity * tubeVelocity * tubeVelocity / 2
 		tubePressDrop = tubePressDrop.cutZero()
-		var recommendedTubeNumber = Math.ceil(nTube/Math.sqrt(((tubePressDrop-0.7*1e5-0.1*1e5)/tubePressDrop)))
+		var tubeAllowPress = eval(document.getElementById("stream1AllowPress").value)
+		var recommendedTubeNumber = Math.ceil(nTube/Math.sqrt((tubePressDrop-tubeAllowPress)/tubePressDrop))
 		for (i=0;i<nTubePass;i++){
 			var nTubePerPass = recommendedTubeNumber/nTubePass
 			if (nTubePerPass%1==0){
@@ -358,7 +359,9 @@
 	Inlet Viscosity, Mu1: <input type="text" class="inputText" id="stream1InletViscosity" value="0.43"> mNs/m^2 [cP]<br>
 	Outlet Viscosity, Mu2: <input type="text" class="inputText" id="stream1OutletViscosity" value="0.43"> mNs/m^2 [cP]<br>
 	
-	Fouling factor: <input type="text" class="inputText" id="stream1FoulFact" value="0.0002"> (W/m^2 °C)^-1<br></p>
+	Fouling factor: <input type="text" class="inputText" id="stream1FoulFact" value="0.0002"> (W/m^2 °C)^-1<br>
+	
+	Allowable pressure drop: <input type="text" class="inputText" id="stream1AllowPress" value="0.8e5"> N/m^2<br></p>
 	
 	<p class="coldFluid"><br><b>Stream 2 (Tubeside) Properties and Conditions</b> [This stream heats up]<br>
 	<!--Mass Flow: <input type="text" class="inputText" id="stream2MassFlow" value="7e4/3600"> kg/s<br>-->
@@ -377,7 +380,9 @@
 	Inlet Viscosity, mu1: <input type="text" class="inputText" id="stream2InletViscosity" value="3.2"> mNs/m^2 [cP]<br>
 	Outlet Viscosity, mu2: <input type="text" class="inputText" id="stream2OutletViscosity" value="3.2"> mNs/m^2 [cP]<br>
 	
-	Fouling factor: <input type="text" class="inputText" id="stream2FoulFact" value="0.00035"> (W/m^2 °C)^-1<br></p>
+	Fouling factor: <input type="text" class="inputText" id="stream2FoulFact" value="0.00035"> (W/m^2 °C)^-1<br>
+	
+	Allowable pressure drop: <input type="text" class="inputText" id="stream2AllowPress" value="0.8e5"> N/m^2<br></p>
 	
 	<p class="hEx"><br><b>Heat Exchanger</b><br>
 	Estimated Overall Coefficient, U: <input type="text" class="inputText" id="estOverCoeff" value="300"> W/m^2 °C<br>
