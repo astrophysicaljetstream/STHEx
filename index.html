@@ -320,7 +320,7 @@
 		document.getElementById('results').innerHTML += "<br>Reciprocal of U, 1/U: " + reciprU.truncated() + " (W/m<sup>2</sup> °C)<sup>-1</sup><br>"
 		document.getElementById('results').innerHTML += "Overall heat-transfer coefficient, U: " + overallCoefficient.truncated() + " W/m<sup>2</sup> °C<br>"
 		
-		document.getElementById('results').innerHTML += "<br>[Check and insert j<sub>F</sub> for shellside from Figure 12.24]<br>"
+		document.getElementById('results').innerHTML += "<br>[Check and insert j<sub>F</sub> for shellside from Figure 12.30]<br>"
 		
 		var tubeFrictionFactor = eval(document.getElementById("tubeFricFac").value)
 		var tubePressDrop = nTubePass * (8*tubeFrictionFactor*tubeLength/innerDiameter + 2.5) * tubeStreamMeanDensity * tubeVelocity * tubeVelocity / 2
