@@ -226,7 +226,7 @@
 		document.getElementById('results').innerHTML += "Bundle diameter, Db: " + bundleDiameter.truncated() + " m<br>"
 		document.getElementById('results').innerHTML += "Shell side diameter, Ds: " + shellsideDiameter.truncated() + " m<br>"
 		
-		document.getElementById('results').innerHTML += "<br>[Insert clearance from Figure 12.10]<br><br>"
+		document.getElementById('results').innerHTML += "<br>[Insert clearance from Figure 12.10]<br>"
 		
 		var tubeHeatTransferFactor = eval(document.getElementById("tubeHeatTransFac").value)
 		var tubeReynoldsNumber = tubeStreamMeanDensity*tubeVelocity*innerDiameter/tubeStreamMeanViscosity
@@ -322,21 +322,22 @@
 		var tubePressDrop = nTubePass * (8*tubeFrictionFactor*tubeLength/innerDiameter + 2.5) * tubeStreamInletDensity * tubeVelocity * tubeVelocity / 2
 		tubePressDrop = tubePressDrop.cutZero()
 		var tubeAllowPress = eval(document.getElementById("stream1AllowPress").value)
-		var recommendedTubeNumber = Math.ceil(nTube/Math.sqrt((tubePressDrop-tubeAllowPress)/tubePressDrop))
-		for (i=0;i<nTubePass;i++){
-			var nTubePerPass = recommendedTubeNumber/nTubePass
-			if (nTubePerPass%1==0){
-				break;
-			} else {
-				recommendedTubeNumber++
+		var recommendedTubeNumber
+		if ((tubePressDrop-tubeAllowPress)>0){
+			recommendedTubeNumber = Math.ceil(nTube/Math.sqrt((tubePressDrop-tubeAllowPress)/tubePressDrop))
+			for (i=0;i<nTubePass;i++){
+				var nTubePerPass = recommendedTubeNumber/nTubePass
+				if (nTubePerPass%1==0){
+					break;
+				} else {
+					recommendedTubeNumber++
+				}
 			}
+		} else {
+			recommendedTubeNumber = "not available; calculated pressure drop is lower than allowable pressure drop."
 		}
 		document.getElementById('results').innerHTML += "<br>Tubeside pressure drop, ΔPt: " + tubePressDrop.truncated() + " N/m^2<br>"
-		//document.getElementById('results').innerHTML += "Possible number of tubes need: " + recommendedTubeNumber +"<br>"
-		document.getElementById('results').innerHTML += nTube+"<br>"
-		document.getElementById('results').innerHTML += tubePressDrop+"<br>"
-		document.getElementById('results').innerHTML += tubeAllowPress+"<br>"
-		document.getElementById('results').innerHTML += "Calculation of number of tubes suggested is not fully understood.<br>"
+		document.getElementById('results').innerHTML += "Possible number of tubes needed: " + recommendedTubeNumber +"<br>"
 		
 		document.getElementById('results').innerHTML += "<br>[Does the pressure drop exceed specifications? If so, insert desired number of tubes]<br><br>"
 		
