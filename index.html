@@ -323,7 +323,7 @@
 		document.getElementById('results').innerHTML += "<br>[Check and insert j<sub>F</sub> for shellside from Figure 12.24]<br>"
 		
 		var tubeFrictionFactor = eval(document.getElementById("tubeFricFac").value)
-		var tubePressDrop = nTubePass * (8*tubeFrictionFactor*tubeLength/innerDiameter + 2.5) * tubeStreamInletDensity * tubeVelocity * tubeVelocity / 2
+		var tubePressDrop = nTubePass * (8*tubeFrictionFactor*tubeLength/innerDiameter + 2.5) * tubeStreamMeanDensity * tubeVelocity * tubeVelocity / 2
 		tubePressDrop = tubePressDrop.cutZero()
 		var tubeAllowPress = eval(document.getElementById("stream2AllowPress").value)
 		var recommendedTubeNumber
@@ -347,7 +347,7 @@
 		document.getElementById('results').innerHTML += "<br>[Does the tubeside pressure drop exceed specifications? If so, increase number of tubes]<br>"
 		
 		var shellFrictionFactor = eval(document.getElementById("shellFricFac").value)
-		var shellPressDrop = (tubeLength/baffleSpacing) * (8*shellFrictionFactor*shellsideDiameter/hydraulicDiameter) * shellStreamInletDensity * shellVelocity * shellVelocity / 2
+		var shellPressDrop = (tubeLength/baffleSpacing) * (8*shellFrictionFactor*shellsideDiameter/hydraulicDiameter) * shellStreamMeanDensity * shellVelocity * shellVelocity / 2
 		shellPressDrop = shellPressDrop.cutZero()
 		var shellAllowPress = eval(document.getElementById("stream1AllowPress").value)
 		document.getElementById('results').innerHTML += "<br>Shellside pressure drop, ΔP<sub>s</sub>: " + shellPressDrop.truncated() + " N/m<sup>2</sup><br>"
