@@ -259,8 +259,8 @@
 		
 		document.getElementById('results').innerHTML += "<br>[Make adjustments for number of tube passes if needed]<br>"
 		
-		var baffleSpacingRatio = eval(document.getElementById("baffleSpace").value)
-		var baffleSpacing = baffleSpacingRatio*shellsideDiameter
+		//var baffleSpacingRatio = baffleSpacingRatio*shellsideDiameter
+		var baffleSpacing = eval(document.getElementById("baffleSpace").value)*1e-3
 		baffleSpacing = baffleSpacing.cutZero()
 		var areaCrossFlow = (tubePitch - outerDiameter)*shellsideDiameter*baffleSpacing/tubePitch
 		areaCrossFlow = areaCrossFlow.cutZero()
@@ -419,7 +419,7 @@
 	
 	<br><u>Shellside parameters</u><br>
 	Shell clearance: <input type="text" class="inputText" id="shellClear" value="56"> mm<br>
-	Baffle spacing: <input type="text" class="inputText" id="baffleSpace" value="0.2"> Ds<br>
+	Baffle spacing: <input type="text" class="inputText" id="baffleSpace" value="100"> mm<br>
 	Heat Transfer Factor, jh: <input type="text" class="inputText" id="shellHeatTransFac" value="4.52e-3"><br>
 	Friction Factor, jF: <input type="text" class="inputText" id="shellFricFac" value="4e-2"><br></p>
 	
