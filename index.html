@@ -336,6 +336,7 @@
 		} else {
 			recommendedTubeNumber = "not available; calculated pressure drop is lower than allowable pressure drop."
 		}
+		document.getElementById('results').innerHTML += "<br><b>Pressure Drop</b><br>"
 		document.getElementById('results').innerHTML += "<br>Tubeside pressure drop, ΔPt: " + tubePressDrop.truncated() + " N/m^2<br>"
 		document.getElementById('results').innerHTML += "Possible number of tubes needed: " + recommendedTubeNumber +"<br>"
 		
