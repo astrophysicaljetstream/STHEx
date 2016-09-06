@@ -201,13 +201,17 @@
 		if (currentPitch=="triangular"){
 			var Klist=[.319,.249,.175,.0743,.0365];
 			var nlist=[2.142,2.207,2.285,2.499,2.675];
-			hyDiamNum = 4*(tubePitch/2*.87*tubePitch-outerDiameter*outerDiameter/2/4*Math.PI)
-			hyDiamDenom = outerDiameter/2*Math.PI
+			//hyDiamNum = 4*(tubePitch/2*.87*tubePitch-outerDiameter*outerDiameter/2/4*Math.PI)
+			//hyDiamDenom = outerDiameter/2*Math.PI
+			hyDiamNum = 1.1*(tubePitch*tubePitch-.917*outerDiameter*outerDiameter)
+			hyDiamDenom = outerDiameter
 		} else if (currentPitch=="square"){
 			var Klist=[.215,.156,.158,.0402,.0331];
 			var nlist=[2.207,2.291,2.263,2.617,2.643];
-			hyDiamNum = tubePitch*tubePitch-Math.PI*outerDiameter*outerDiameter*Math.PI
-			hyDiamDenom = outerDiameter*Math.PI
+			//hyDiamNum = tubePitch*tubePitch-outerDiameter*outerDiameter*Math.PI
+			//hyDiamDenom = outerDiameter*Math.PI
+			hyDiamNum = 1.27*(tubePitch*tubePitch-.785*outerDiameter*outerDiameter)
+			hyDiamDenom = outerDiameter
 		}
 		var hydraulicDiameter = hyDiamNum/hyDiamDenom
 		hydraulicDiameter = hydraulicDiameter.cutZero()
