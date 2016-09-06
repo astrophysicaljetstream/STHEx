@@ -339,7 +339,7 @@
 		document.getElementById('results').innerHTML += "<br>Tubeside pressure drop, ΔPt: " + tubePressDrop.truncated() + " N/m^2<br>"
 		document.getElementById('results').innerHTML += "Possible number of tubes needed: " + recommendedTubeNumber +"<br>"
 		
-		document.getElementById('results').innerHTML += "<br>[Does the pressure drop exceed specifications? If so, change number of tubes]<br>"
+		document.getElementById('results').innerHTML += "<br>[Does the pressure drop exceed specifications? If so, increase number of tubes]<br>"
 		
 		var shellFrictionFactor = eval(document.getElementById("shellFricFac").value)
 		var shellPressDrop = (tubeLength/baffleSpacing) * (8*shellFrictionFactor*shellsideDiameter/hydraulicDiameter) * shellStreamInletDensity * shellVelocity * shellVelocity / 2
@@ -347,14 +347,16 @@
 		var shellAllowPress = eval(document.getElementById("stream1AllowPress").value)
 		document.getElementById('results').innerHTML += "<br>Shellside pressure drop, ΔPs: " + shellPressDrop.truncated() + " N/m^2<br>"
 		
-		document.getElementById('results').innerHTML += "<br>[Does the pressure drop exceed specifications? If so, change baffle spacing]<br>"
+		document.getElementById('results').innerHTML += "<br>[Does the pressure drop exceed specifications? If so, increase baffle spacing]<br>"
 		
 		var reqArea = nTube*areaPerTube
 		reqArea.cutZero()
 		var reqUo = Math.abs(duty/(reqArea*dTm))
 		reqUo.cutZero()
 		document.getElementById('results').innerHTML += "<br>Required Area, Ao: " + reqArea.truncated() + " m^2<br>"
-		document.getElementById('results').innerHTML += "<br>Required overall coefficient, Uo: " + reqUo.truncated() + "W/m^2 °C<br>"
+		document.getElementById('results').innerHTML += "Required overall coefficient, Uo: " + reqUo.truncated() + "W/m^2 °C<br>"
+		
+		document.getElementById('results').innerHTML += "<br>[Are the above values good enough?]<br>"
 		
 	}
 	</script>
