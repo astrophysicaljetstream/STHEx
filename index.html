@@ -358,6 +358,15 @@
 		
 		document.getElementById('results').innerHTML += "<br>[Are the above values good enough?]<br>"
 		
+		document.getElementById('results').innerHTML += "<br><b>Summary</b>"
+		document.getElementById('results').innerHTML += "Heat transfer area: " + reqArea.truncated() + " m^2<br>"
+		document.getElementById('results').innerHTML += "Tubeside coefficient: " + tubeInsideCoefficient.truncated() + " W/m^2 °C<br>"
+		document.getElementById('results').innerHTML += "Shellside coefficient: " + "" + " W/m^2 °C<br>"
+		document.getElementById('results').innerHTML += "Overall coefficient, estimated: " + overallCoefficient.truncated() + " W/m^2 °C<br>"
+		document.getElementById('results').innerHTML += "Overall coefficient, required: " + reqUo.truncated() + "W/m^2 °C<br>"
+		document.getElementById('results').innerHTML += "Tubeside pressure drop: " + tubePressDrop.truncated() + " N/m^2<br>"
+		document.getElementById('results').innerHTML += "Shellside pressure drop: " + shellPressDrop.truncated() + " N/m^2<br>"
+		
 	}
 	</script>
 	
