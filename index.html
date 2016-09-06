@@ -162,7 +162,7 @@
 		var tubeLength = eval(document.getElementById("tubeLength").value)
 		var areaPerTube = outerDiameter * tubeLength * Math.PI
 		areaPerTube = areaPerTube.cutZero()
-		var nTube = eval(document.getElementById("numberTubes").value)
+		var nTube = Math.ceil(eval(document.getElementById("numberTubes").value))
 		if (nTube<0){
 			nTube = Math.ceil(heatTransferArea/areaPerTube)
 		}
@@ -321,7 +321,7 @@
 		var tubeFrictionFactor = eval(document.getElementById("tubeFricFac").value)
 		var tubePressDrop = nTubePass * (8*tubeFrictionFactor*tubeLength/innerDiameter + 2.5) * tubeStreamInletDensity * tubeVelocity * tubeVelocity / 2
 		tubePressDrop = tubePressDrop.cutZero()
-		var tubeAllowPress = eval(document.getElementById("stream1AllowPress").value)
+		var tubeAllowPress = eval(document.getElementById("stream2AllowPress").value)
 		var recommendedTubeNumber
 		if ((tubePressDrop-tubeAllowPress)>0){
 			recommendedTubeNumber = Math.ceil(nTube/Math.sqrt((tubePressDrop-tubeAllowPress)/tubePressDrop))
@@ -341,8 +341,13 @@
 		
 		document.getElementById('results').innerHTML += "<br>[Does the pressure drop exceed specifications? If so, insert desired number of tubes]<br><br>"
 		
-		//var customTubeNumber = eval(document.getElementById("numberTubes").value)
-		//document.getElementById('results').innerHTML += "<br>Using a custom tube number: " + customTubeNumber.truncated() + " N/m^2<br>"
+		var shellFrictionFactor = eval(document.getElementById("shellFricFac").value)
+		var shellPressDrop = (tubeLength/baffleSpacing) * (8*shellFrictionFactor*shellsideDiameter/hydraulicDiameter) * shellStreamInletDensity * shellVelocity * shellVelocity / 2
+		shellPressDrop = shellPressDrop.cutZero()
+		var shellAllowPress = eval(document.getElementById("stream1AllowPress").value)
+		document.getElementById('results').innerHTML += "<br>Shellside pressure drop, ΔPs: " + shellPressDrop.truncated() + " N/m^2<br>"
+		
+		document.getElementById('results').innerHTML += "<br>[Does the pressure drop exceed specifications?]<br><br>"
 	}
 	</script>
 	
