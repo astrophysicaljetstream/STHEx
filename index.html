@@ -332,7 +332,10 @@
 			}
 		}
 		document.getElementById('results').innerHTML += "<br>Tubeside pressure drop, ΔPt: " + tubePressDrop.truncated() + " N/m^2<br>"
-		document.getElementById('results').innerHTML += "Possible number of tubes need: " + recommendedTubeNumber +"<br>"
+		//document.getElementById('results').innerHTML += "Possible number of tubes need: " + recommendedTubeNumber +"<br>"
+		document.getElementById('results').innerHTML += nTube+"<br>"
+		document.getElementById('results').innerHTML += tubePressDrop+"<br>"
+		document.getElementById('results').innerHTML += tubeAllowPress+"<br>"
 		document.getElementById('results').innerHTML += "Calculation of number of tubes suggested is not fully understood.<br>"
 		
 		document.getElementById('results').innerHTML += "<br>[Does the pressure drop exceed specifications? If so, insert desired number of tubes]<br><br>"
