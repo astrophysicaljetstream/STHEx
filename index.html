@@ -339,7 +339,7 @@
 		document.getElementById('results').innerHTML += "<br>Tubeside pressure drop, ΔPt: " + tubePressDrop.truncated() + " N/m^2<br>"
 		document.getElementById('results').innerHTML += "Possible number of tubes needed: " + recommendedTubeNumber +"<br>"
 		
-		document.getElementById('results').innerHTML += "<br>[Does the pressure drop exceed specifications? If so, insert desired number of tubes]<br><br>"
+		document.getElementById('results').innerHTML += "<br>[Does the pressure drop exceed specifications? If so, change number of tubes]<br>"
 		
 		var shellFrictionFactor = eval(document.getElementById("shellFricFac").value)
 		var shellPressDrop = (tubeLength/baffleSpacing) * (8*shellFrictionFactor*shellsideDiameter/hydraulicDiameter) * shellStreamInletDensity * shellVelocity * shellVelocity / 2
@@ -347,7 +347,15 @@
 		var shellAllowPress = eval(document.getElementById("stream1AllowPress").value)
 		document.getElementById('results').innerHTML += "<br>Shellside pressure drop, ΔPs: " + shellPressDrop.truncated() + " N/m^2<br>"
 		
-		document.getElementById('results').innerHTML += "<br>[Does the pressure drop exceed specifications?]<br><br>"
+		document.getElementById('results').innerHTML += "<br>[Does the pressure drop exceed specifications? If so, change baffle spacing]<br>"
+		
+		var reqArea = nTube*areaPerTube
+		reqArea.cutZero()
+		var reqUo = Math.abs(duty/(reqArea*dTm))
+		reqUo.cutZero()
+		document.getElementById('results').innerHTML += "<br>Required Area, Ao: " + reqArea.truncated() + " m^2<br>"
+		document.getElementById('results').innerHTML += "<br>Required overall coefficient, Uo: " + reqUo.truncated() + "W/m^2 °C<br>"
+		
 	}
 	</script>
 	
@@ -419,14 +427,14 @@
 		<option value="square">Square</option>
 	</select><br>
 	Heat Transfer Factor, jh: <input type="text" class="inputText" id="tubeHeatTransFac" value="3.2e-3"><br>
-	Friction Factor, jF: <input type="text" class="inputText" id="tubeFricFac" value="5e-3"><br>
+	Friction Factor, jF: <input type="text" class="inputText" id="tubeFricFac" value="5.0e-3"><br>
 	Tube wall material thermal conductivity, kw: <input type="text" class="inputText" id="tubeWallTC" value="55"> W/m °C<br>
 	
 	<br><u>Shellside parameters</u><br>
 	Shell clearance: <input type="text" class="inputText" id="shellClear" value="56"> mm<br>
 	Baffle spacing: <input type="text" class="inputText" id="baffleSpace" value="100"> mm<br>
 	Heat Transfer Factor, jh: <input type="text" class="inputText" id="shellHeatTransFac" value="4.52e-3"><br>
-	Friction Factor, jF: <input type="text" class="inputText" id="shellFricFac" value="4e-2"><br></p>
+	Friction Factor, jF: <input type="text" class="inputText" id="shellFricFac" value="4.0e-2"><br></p>
 	
 	<p><b>Other</b><br>
 	Significant figures: <input type="text" class="inputText" id="signif" value="10"> (inaccurate for significant figures higher than 14)<br></p>
