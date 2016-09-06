@@ -38,7 +38,7 @@
 		var stream1MeanTemp=(stream1InletTemp+stream1OutletTemp)/2
 		var stream1TempDiff = stream1OutletTemp - stream1InletTemp
 		stream1MeanTemp = stream1MeanTemp.cutZero()
-		document.getElementById('results').innerHTML = "<u>Stream 1</u> [Shellside]<br>Mean Temperature: " + stream1MeanTemp.truncated() + " °C<br>"
+		document.getElementById('results').innerHTML = "<u>Stream 1</u><br>Mean Temperature: " + stream1MeanTemp.truncated() + " °C<br>"
 		
 		var stream1InletSHC = eval(document.getElementById("stream1InletSHC").value)
 		var stream1OutletSHC = eval(document.getElementById("stream1OutletSHC").value)
@@ -83,7 +83,7 @@
 		var stream2MassFlow = -duty/(stream2TempDiff*stream2MeanSHC) ////////////////////
 		stream2MeanTemp=stream2MeanTemp.cutZero()
 		stream2TempDiff = stream2TempDiff.cutZero()
-		document.getElementById('results').innerHTML += "<u>Stream 2</u> [Tubeside]<br>Mass Flow: " + stream2MassFlow.truncated() + " kg/s<br>"
+		document.getElementById('results').innerHTML += "<u>Stream 2</u><br>Mass Flow: " + stream2MassFlow.truncated() + " kg/s<br>"
 		//document.getElementById('results').innerHTML += "Outlet Temperature: " + stream2OutletTemp.truncated() + " °C<br>"
 		document.getElementById('results').innerHTML += "Mean Temperature: " + stream2MeanTemp.truncated() + " °C<br>"
 		document.getElementById('results').innerHTML += "Mean Spec Heat Capacity: " + stream2MeanSHC.truncated() + " J/kgK<br>"
