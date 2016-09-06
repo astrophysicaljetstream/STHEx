@@ -56,13 +56,13 @@
 		var shellStreamOutletDensity = eval(document.getElementById("stream1OutletDensity").value)
 		var shellStreamMeanDensity = shellStreamInletDensity-(stream1InletTemp-stream1MeanTemp)/(stream1InletTemp-stream1OutletTemp)*(shellStreamInletDensity-shellStreamOutletDensity)
 		shellStreamMeanDensity = shellStreamMeanDensity.cutZero()
-		document.getElementById('results').innerHTML += "Mean Density: " + shellStreamMeanDensity.truncated() + " kg/m^3<br>"
+		document.getElementById('results').innerHTML += "Mean Density: " + shellStreamMeanDensity.truncated() + " kg/m<sup>3</sup><br>"
 		
 		var shellStreamInletViscosity = eval(document.getElementById("stream1InletViscosity").value*1e-3)
 		var shellStreamOutletViscosity = eval(document.getElementById("stream1OutletViscosity").value*1e-3)
 		var shellStreamMeanViscosity = shellStreamInletViscosity-(stream1InletTemp-stream1MeanTemp)/(stream1InletTemp-stream1OutletTemp)*(shellStreamInletViscosity-shellStreamOutletViscosity)
 		shellStreamMeanViscosity = shellStreamMeanViscosity.cutZero()
-		document.getElementById('results').innerHTML += "Mean Viscosity: " + (shellStreamMeanViscosity*1e3).truncated() + " mNs/m^2 [cP]<br>"
+		document.getElementById('results').innerHTML += "Mean Viscosity: " + (shellStreamMeanViscosity*1e3).truncated() + " mNs/m<sup>2</sup> [cP]<br>"
 		
 		var duty = stream1MassFlow*shellStreamMeanSHC*stream1TempDiff
 		duty = duty.cutZero()
@@ -98,13 +98,13 @@
 		var tubeStreamOutletDensity = eval(document.getElementById("stream2OutletDensity").value)
 		var tubeStreamMeanDensity = tubeStreamInletDensity-(stream2InletTemp-stream2MeanTemp)/(stream2InletTemp-stream2OutletTemp)*(tubeStreamInletDensity-tubeStreamOutletDensity)
 		tubeStreamMeanDensity = tubeStreamMeanDensity.cutZero()
-		document.getElementById('results').innerHTML += "Mean Density: " + tubeStreamMeanDensity.truncated() + " kg/m^3<br>"
+		document.getElementById('results').innerHTML += "Mean Density: " + tubeStreamMeanDensity.truncated() + " kg/m<sup>3</sup><br>"
 		
 		var tubeStreamInletViscosity = eval(document.getElementById("stream2InletViscosity").value*1e-3)
 		var tubeStreamOutletViscosity = eval(document.getElementById("stream2OutletViscosity").value*1e-3)
 		var tubeStreamMeanViscosity = tubeStreamInletViscosity-(stream2InletTemp-stream2MeanTemp)/(stream2InletTemp-stream2OutletTemp)*(tubeStreamInletViscosity-tubeStreamOutletViscosity)
 		tubeStreamMeanViscosity = tubeStreamMeanViscosity.cutZero()
-		document.getElementById('results').innerHTML += "Mean Viscosity: " + (tubeStreamMeanViscosity*1e3).truncated() + " mNs/m^2 [cP]<br>"
+		document.getElementById('results').innerHTML += "Mean Viscosity: " + (tubeStreamMeanViscosity*1e3).truncated() + " mNs/m<sup>2</sup> [cP]<br>"
 		
 		var currentMode = document.getElementById("currentMode").value
 		var currentModeString
@@ -141,7 +141,7 @@
 		dTm = dTm.cutZero()
 		heatTransferArea = heatTransferArea.cutZero()
 		document.getElementById('results').innerHTML += "Actual Temperature Difference, ΔTm: " + dTm.truncated() + " °C<br>"
-		document.getElementById('results').innerHTML += "Heat Transfer Area: " + heatTransferArea.truncated() + " m^2<br>"
+		document.getElementById('results').innerHTML += "Heat Transfer Area: " + heatTransferArea.truncated() + " m<sup>2</sup><br>"
 		
 		var nShellPass = parseInt(document.getElementById("nShellPass").value)
 		var nTubePass = parseInt(document.getElementById("nTubePass").value)
@@ -176,7 +176,7 @@
 		}
 		document.getElementById('results').innerHTML += "<br><b>Tubeside Calculations</b><br>"
 		document.getElementById('results').innerHTML += "If pitch/diameter = 1.25, then tube pitch, pt = " + (tubePitch*1e3).truncated() + " mm<br>"
-		document.getElementById('results').innerHTML += "Area of one tube, neglecting thickness of tube sheet: " + areaPerTube.truncated() + " m^2<br>"
+		document.getElementById('results').innerHTML += "Area of one tube, neglecting thickness of tube sheet: " + areaPerTube.truncated() + " m<sup>2</sup><br>"
 		document.getElementById('results').innerHTML += "Number of tubes required, Nt: " + nTube + "<br>"
 		document.getElementById('results').innerHTML += "For " + nTubePass + " passes, number of tubes per pass: " + nTubePerPass + "<br>"
 		
@@ -189,9 +189,9 @@
 		areaPerPass = areaPerPass.cutZero()
 		tubeVolumetricFlow = tubeVolumetricFlow.cutZero()
 		tubeVelocity = tubeVelocity.cutZero()
-		document.getElementById('results').innerHTML += "<br>Tube Cross-sectional Area: " + tubeCrossArea.truncated() + " m^2<br>"
-		document.getElementById('results').innerHTML += "Area per pass: " + areaPerPass.truncated() + " m^2<br>"
-		document.getElementById('results').innerHTML += "Volumetric Flow of tubeside fluid: " + tubeVolumetricFlow.truncated() + " m^3/s<br>"
+		document.getElementById('results').innerHTML += "<br>Tube Cross-sectional Area: " + tubeCrossArea.truncated() + " m<sup>2</sup><br>"
+		document.getElementById('results').innerHTML += "Area per pass: " + areaPerPass.truncated() + " m<sup>2</sup><br>"
+		document.getElementById('results').innerHTML += "Volumetric Flow of tubeside fluid: " + tubeVolumetricFlow.truncated() + " m<sup>3</sup>/s<br>"
 		document.getElementById('results').innerHTML += "Tubeside velocity: " + tubeVelocity.truncated() + " m/s (hopefully between 1 and 2 m/s)<br>"
 		
 		var listedPassesInTable12point3 = [1,2,4,6,8]
@@ -255,7 +255,7 @@
 		document.getElementById('results').innerHTML += "<br>[Check and insert jH for tubeside from Figure 12.23]<br><br>"
 		
 		document.getElementById('results').innerHTML += "Nusselt number, Nu: " + tubeNusseltNumber.truncated() + "<br>"
-		document.getElementById('results').innerHTML += "Inside coefficient, hi: " + tubeInsideCoefficient.truncated() + " W/m^2 °C<br>"
+		document.getElementById('results').innerHTML += "Inside coefficient, hi: " + tubeInsideCoefficient.truncated() + " W/m<sup>2</sup> °C<br>"
 		
 		document.getElementById('results').innerHTML += "<br>[Make adjustments for number of tube passes if needed]<br>"
 		
@@ -269,9 +269,9 @@
 		var shellVelocity = shellVolumetricFlow/areaCrossFlow
 		shellVelocity = shellVelocity.cutZero()
 		document.getElementById('results').innerHTML += "<br><b>Shellside Calculations</b><br>Baffle spacing, lB: " + baffleSpacing.truncated() + " m<br>"
-		document.getElementById('results').innerHTML += "Area for cross-flow, As: " + areaCrossFlow.truncated() + " m^2<br>"
+		document.getElementById('results').innerHTML += "Area for cross-flow, As: " + areaCrossFlow.truncated() + " m<sup>2</sup><br>"
 		document.getElementById('results').innerHTML += "Hydraulic Diameter, de: " + hydraulicDiameter.truncated() + " m<br>"
-		document.getElementById('results').innerHTML += "Volumetric Flow of shellside fluid: " + shellVolumetricFlow.truncated() + " m^3/s<br>"
+		document.getElementById('results').innerHTML += "Volumetric Flow of shellside fluid: " + shellVolumetricFlow.truncated() + " m<sup>3</sup>/s<br>"
 		document.getElementById('results').innerHTML += "Shellside velocity: " + shellVelocity.truncated() + " m/s<br>"
 		
 		var shellHeatTransferFactor = eval(document.getElementById("shellHeatTransFac").value)
@@ -298,7 +298,7 @@
 		document.getElementById('results').innerHTML += "<br>[Check and insert jH for shellside from Figure 12.29]<br><br>"
 		
 		document.getElementById('results').innerHTML += "Nusselt number, Nu: " + shellNusseltNumber.truncated() + "<br>"
-		document.getElementById('results').innerHTML += "Heat-transfer coefficient, hs: " + shellHeatTransCoeff.truncated() + " W/m^2 °C<br>"
+		document.getElementById('results').innerHTML += "Heat-transfer coefficient, hs: " + shellHeatTransCoeff.truncated() + " W/m<sup>2</sup> °C<br>"
 		
 		var shellFoulFactor = eval(document.getElementById("stream1FoulFact").value)
 		var tubeFoulFactor = eval(document.getElementById("stream2FoulFact").value)
@@ -313,8 +313,8 @@
 		reciprU = reciprU.cutZero()
 		var overallCoefficient = 1/reciprU
 		overallCoefficient = overallCoefficient.cutZero()
-		document.getElementById('results').innerHTML += "<br>Reciprocal of U, 1/U: " + reciprU.truncated() + " (W/m^2 °C)^-1<br>"
-		document.getElementById('results').innerHTML += "Overall heat-transfer coefficient, U: " + overallCoefficient.truncated() + " W/m^2 °C<br>"
+		document.getElementById('results').innerHTML += "<br>Reciprocal of U, 1/U: " + reciprU.truncated() + " (W/m<sup>2</sup> °C)<sup>-1</sup><br>"
+		document.getElementById('results').innerHTML += "Overall heat-transfer coefficient, U: " + overallCoefficient.truncated() + " W/m<sup>2</sup> °C<br>"
 		
 		document.getElementById('results').innerHTML += "<br>[Check and insert jF for shellside from Figure 12.24]<br>"
 		
@@ -337,7 +337,7 @@
 			recommendedTubeNumber = "not available; calculated pressure drop is lower than allowable pressure drop."
 		}
 		document.getElementById('results').innerHTML += "<br><b>Pressure Drop</b><br>"
-		document.getElementById('results').innerHTML += "<br>Tubeside pressure drop, ΔPt: " + tubePressDrop.truncated() + " N/m^2<br>"
+		document.getElementById('results').innerHTML += "<br>Tubeside pressure drop, ΔPt: " + tubePressDrop.truncated() + " N/m<sup>2</sup><br>"
 		document.getElementById('results').innerHTML += "Possible number of tubes needed: " + recommendedTubeNumber +"<br>"
 		
 		document.getElementById('results').innerHTML += "<br>[Does the tubeside pressure drop exceed specifications? If so, increase number of tubes]<br>"
@@ -346,7 +346,7 @@
 		var shellPressDrop = (tubeLength/baffleSpacing) * (8*shellFrictionFactor*shellsideDiameter/hydraulicDiameter) * shellStreamInletDensity * shellVelocity * shellVelocity / 2
 		shellPressDrop = shellPressDrop.cutZero()
 		var shellAllowPress = eval(document.getElementById("stream1AllowPress").value)
-		document.getElementById('results').innerHTML += "<br>Shellside pressure drop, ΔPs: " + shellPressDrop.truncated() + " N/m^2<br>"
+		document.getElementById('results').innerHTML += "<br>Shellside pressure drop, ΔPs: " + shellPressDrop.truncated() + " N/m<sup>2</sup><br>"
 		
 		document.getElementById('results').innerHTML += "<br>[Does the shellside pressure drop exceed specifications? If so, increase baffle spacing]<br>"
 		
@@ -354,19 +354,19 @@
 		reqArea.cutZero()
 		var reqUo = Math.abs(duty/(reqArea*dTm))
 		reqUo.cutZero()
-		document.getElementById('results').innerHTML += "<br>Required Area, Ao: " + reqArea.truncated() + " m^2<br>"
-		document.getElementById('results').innerHTML += "Required overall coefficient, Uo: " + reqUo.truncated() + "W/m^2 °C<br>"
+		document.getElementById('results').innerHTML += "<br>Required Area, Ao: " + reqArea.truncated() + " m<sup>2</sup><br>"
+		document.getElementById('results').innerHTML += "Required overall coefficient, Uo: " + reqUo.truncated() + "W/m<sup>2</sup> °C<br>"
 		
 		document.getElementById('results').innerHTML += "<br>[Are the above values good enough?]<br>"
 		
 		document.getElementById('results').innerHTML += "<br><b><u>Summary</u></b><br>"
-		document.getElementById('results').innerHTML += "Heat transfer area: " + reqArea.truncated() + " m^2<br>"
-		document.getElementById('results').innerHTML += "Tubeside coefficient: " + tubeInsideCoefficient.truncated() + " W/m^2 °C<br>"
-		document.getElementById('results').innerHTML += "Shellside coefficient: " + "" + " W/m^2 °C<br>"
-		document.getElementById('results').innerHTML += "Overall coefficient, estimated: " + overallCoefficient.truncated() + " W/m^2 °C<br>"
-		document.getElementById('results').innerHTML += "Overall coefficient, required: " + reqUo.truncated() + "W/m^2 °C<br>"
-		document.getElementById('results').innerHTML += "Tubeside pressure drop: " + tubePressDrop.truncated() + " N/m^2<br>"
-		document.getElementById('results').innerHTML += "Shellside pressure drop: " + shellPressDrop.truncated() + " N/m^2<br>"
+		document.getElementById('results').innerHTML += "Heat transfer area: " + reqArea.truncated() + " m<sup>2</sup><br>"
+		document.getElementById('results').innerHTML += "Tubeside coefficient: " + tubeInsideCoefficient.truncated() + " W/m<sup>2</sup> °C<br>"
+		document.getElementById('results').innerHTML += "Shellside coefficient: " + "" + " W/m<sup>2</sup> °C<br>"
+		document.getElementById('results').innerHTML += "Overall coefficient, estimated: " + overallCoefficient.truncated() + " W/m<sup>2</sup> °C<br>"
+		document.getElementById('results').innerHTML += "Overall coefficient, required: " + reqUo.truncated() + "W/m<sup>2</sup> °C<br>"
+		document.getElementById('results').innerHTML += "Tubeside pressure drop: " + tubePressDrop.truncated() + " N/m<sup>2</sup><br>"
+		document.getElementById('results').innerHTML += "Shellside pressure drop: " + shellPressDrop.truncated() + " N/m<sup>2</sup><br>"
 		
 	}
 	</script>
@@ -382,15 +382,15 @@
 	Inlet Thermal Conductivity, K1: <input type="text" class="inputText" id="stream1InletThermCond" value=".132"> W/m °C<br>
 	Outlet Thermal Conductivity, K2: <input type="text" class="inputText" id="stream1OutletThermCond" value=".132"> W/m °C<br>
 	
-	Inlet Density, Rho1: <input type="text" class="inputText" id="stream1InletDensity" value="730"> kg/m^3<br>
-	Outlet Density, Rho2: <input type="text" class="inputText" id="stream1OutletDensity" value="730"> kg/m^3<br>
+	Inlet Density, Rho1: <input type="text" class="inputText" id="stream1InletDensity" value="730"> kg/m<sup>3</sup><br>
+	Outlet Density, Rho2: <input type="text" class="inputText" id="stream1OutletDensity" value="730"> kg/m<sup>3</sup><br>
 	
-	Inlet Viscosity, Mu1: <input type="text" class="inputText" id="stream1InletViscosity" value="0.43"> mNs/m^2 [cP]<br>
-	Outlet Viscosity, Mu2: <input type="text" class="inputText" id="stream1OutletViscosity" value="0.43"> mNs/m^2 [cP]<br>
+	Inlet Viscosity, Mu1: <input type="text" class="inputText" id="stream1InletViscosity" value="0.43"> mNs/m<sup>2</sup> [cP]<br>
+	Outlet Viscosity, Mu2: <input type="text" class="inputText" id="stream1OutletViscosity" value="0.43"> mNs/m<sup>2</sup> [cP]<br>
 	
-	Fouling factor: <input type="text" class="inputText" id="stream1FoulFact" value="0.0002"> (W/m^2 °C)^-1<br>
+	Fouling factor: <input type="text" class="inputText" id="stream1FoulFact" value="0.0002"> (W/m<sup>2</sup> °C)<sup>-1</sup><br>
 	
-	Allowable pressure drop: <input type="text" class="inputText" id="stream1AllowPress" value="0.8e5"> N/m^2<br></p>
+	Allowable pressure drop: <input type="text" class="inputText" id="stream1AllowPress" value="0.8e5"> N/m<sup>2</sup><br></p>
 	
 	<p class="coldFluid"><br><b>Stream 2 (Tubeside) Properties and Conditions</b> [This stream heats up]<br>
 	<!--Mass Flow: <input type="text" class="inputText" id="stream2MassFlow" value="7e4/3600"> kg/s<br>-->
@@ -403,18 +403,18 @@
 	Inlet Thermal Conductivity, k1: <input type="text" class="inputText" id="stream2InletThermCond" value=".134"> W/m °C<br>
 	Outlet Thermal Conductivity, k2: <input type="text" class="inputText" id="stream2OutletThermCond" value=".134"> W/m °C<br>
 	
-	Inlet Density, rho1: <input type="text" class="inputText" id="stream2InletDensity" value="820"> kg/m^3<br>
-	Outlet Density, rho2: <input type="text" class="inputText" id="stream2OutletDensity" value="820"> kg/m^3<br>
+	Inlet Density, rho1: <input type="text" class="inputText" id="stream2InletDensity" value="820"> kg/m<sup>3</sup><br>
+	Outlet Density, rho2: <input type="text" class="inputText" id="stream2OutletDensity" value="820"> kg/m<sup>3</sup><br>
 	
-	Inlet Viscosity, mu1: <input type="text" class="inputText" id="stream2InletViscosity" value="3.2"> mNs/m^2 [cP]<br>
-	Outlet Viscosity, mu2: <input type="text" class="inputText" id="stream2OutletViscosity" value="3.2"> mNs/m^2 [cP]<br>
+	Inlet Viscosity, mu1: <input type="text" class="inputText" id="stream2InletViscosity" value="3.2"> mNs/m<sup>2</sup> [cP]<br>
+	Outlet Viscosity, mu2: <input type="text" class="inputText" id="stream2OutletViscosity" value="3.2"> mNs/m<sup>2</sup> [cP]<br>
 	
-	Fouling factor: <input type="text" class="inputText" id="stream2FoulFact" value="0.00035"> (W/m^2 °C)^-1<br>
+	Fouling factor: <input type="text" class="inputText" id="stream2FoulFact" value="0.00035"> (W/m<sup>2</sup> °C)<sup>-1</sup><br>
 	
-	Allowable pressure drop: <input type="text" class="inputText" id="stream2AllowPress" value="0.8e5"> N/m^2<br></p>
+	Allowable pressure drop: <input type="text" class="inputText" id="stream2AllowPress" value="0.8e5"> N/m<sup>2</sup><br></p>
 	
 	<p class="hEx"><br><b>Heat Exchanger</b><br>
-	Estimated Overall Coefficient, U: <input type="text" class="inputText" id="estOverCoeff" value="300"> W/m^2 °C<br>
+	Estimated Overall Coefficient, U: <input type="text" class="inputText" id="estOverCoeff" value="300"> W/m<sup>2</sup> °C<br>
 	Mode: <select id = "currentMode">
 		<option value="counterCurrent">Counter-current</option>
 		<option value="coCurrent">Co-current</option>
