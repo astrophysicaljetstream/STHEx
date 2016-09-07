@@ -376,11 +376,11 @@
 		var typeFactor = eval(document.getElementById("typeFac").value)
 		var exchangerCost = eval(document.getElementById("exchCost").value)
 		var exchangeRate = eval(document.getElementById("exchRate").value)
-		var purchasedCost = Math.ceil(exchangerCost * typeFactor * pressFactor*100)/100
+		var purchasedCost = Math.ceil(exchangerCost * typeFactor * pressFactor * 573 / 444 * 100 )/100
 		purchasedCost = purchasedCost.cutZero()
 		var purchasedCostMYR = Math.ceil(purchasedCost * exchangeRate * 100)/100
 		purchasedCostMYR = purchasedCostMYR.cutZero()
-		document.getElementById('results').innerHTML += "<br>Purchased cost: $" + purchasedCost + " (RM" + purchasedCostMYR + ")<br>"
+		document.getElementById('results').innerHTML += "<br>Purchased cost in 2016: $" + purchasedCost + " (RM" + purchasedCostMYR + ")<br>"
 		
 	}
 	</script>
