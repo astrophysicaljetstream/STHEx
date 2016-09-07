@@ -372,6 +372,16 @@
 		document.getElementById('results').innerHTML += "Tubeside pressure drop: " + tubePressDrop.truncated() + " N/m<sup>2</sup><br>"
 		document.getElementById('results').innerHTML += "Shellside pressure drop: " + shellPressDrop.truncated() + " N/m<sup>2</sup><br>"
 		
+		var pressFactor = eval(document.getElementById("pressFac").value)
+		var typeFactor = eval(document.getElementById("typeFac").value)
+		var exchangerCost = eval(document.getElementById("exchCost").value)
+		var exchangeRate = eval(document.getElementById("exchRate").value)
+		var purchasedCost = Math.ceil(exchangerCost * typeFactor * pressFactor*100)/100
+		purchasedCost = purchasedCost.cutZero()
+		var purchasedCostMYR = Math.ceil(purchasedCost * exchangeRate * 100)/100
+		purchasedCostMYR = purchasedCostMYR.cutZero()
+		document.getElementById('results').innerHTML += "<br>Purchased cost: $" + purchasedCost + " (RM" + purchasedCostMYR + ")<br>"
+		
 	}
 	</script>
 	
@@ -432,6 +442,21 @@
 		<option value="6">6</option>
 		<option value="8">8</option>
 	</select><br>
+	Exchanger cost: <input type="text" class="inputText" id="exchCost" value="35e3"> $<br>
+	Pressure factor: <select id = "pressFac">
+		<option value="1" selected>1-10bar</option>
+		<option value="1.1">10-20bar</option>
+		<option value="1.25">20-30bar</option>
+		<option value="1.3">30-50bar</option>
+		<option value="1.5">50-70bar</option>
+	</select><br>
+	Type factor: <select id = "typeFac">
+		<option value="1" selected>Floating head</option>
+		<option value=".8">Fixed tube sheet</option>
+		<option value=".85">U tube</option>
+		<option value="1.3">Kettle</option>
+	</select><br>
+	Exchange rate: USD1 = MYR<input type="text" class="inputText" id="exchRate" value="4.06"><br>
 	
 	<br><u>Tubeside parameters</u><br>
 	Number of tubes, N<sub>t</sub>: <input type="text" class="inputText" id="numberTubes" value="-1"> (Will be automatically generated if -1)<br>
