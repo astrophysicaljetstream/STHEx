@@ -40,6 +40,14 @@ a {
   color: violet;
 }
 
+.hexTube {
+  color: blueviolet;
+}
+
+.hexShell {
+  color: plum;
+}
+
 .btn {
   display: inline-block;
   margin-bottom: 1rem;
