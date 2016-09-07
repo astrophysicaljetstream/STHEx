@@ -376,11 +376,14 @@
 		var typeFactor = eval(document.getElementById("typeFac").value)
 		var exchangerCost = eval(document.getElementById("exchCost").value)
 		var exchangeRate = eval(document.getElementById("exchRate").value)
-		var purchasedCost = Math.ceil(exchangerCost * typeFactor * pressFactor * 573 / 444 * 100 )/100
+		var ratioIndex = eval(document.getElementById("indexRatio").value)
+		var purchasedCost = Math.round(exchangerCost * typeFactor * pressFactor * 100)/100
 		purchasedCost = purchasedCost.cutZero()
-		var purchasedCostMYR = Math.ceil(purchasedCost * exchangeRate * 100)/100
-		purchasedCostMYR = purchasedCostMYR.cutZero()
-		document.getElementById('results').innerHTML += "<br>Purchased cost in 2016: $" + purchasedCost + " (RM" + purchasedCostMYR + ")<br>"
+		var currentPurchasedCost = Math.round(purchasedCost * ratioIndex * 100)/100
+		currentPurchasedCost = currentPurchasedCost.cutZero()
+		var currentPurchasedCostMYR = Math.round(currentPurchasedCost * exchangeRate * 100)/100
+		currentPurchasedCostMYR = currentPurchasedCostMYR.cutZero()
+		document.getElementById('results').innerHTML += "<br>Purchased cost in 2016: $" + currentPurchasedCost + " (RM" + currentPurchasedCostMYR + ")<br>"
 		
 	}
 	</script>
@@ -478,6 +481,7 @@
 	
 	<p><b>Other</b><br>
 	Exchange rate: 1 USD = <input type="text" class="inputText" id="exchRate" value="4.06"> MYR<br>
+	Ratio of current year to reference year index: <input type="text" class="inputText" id="indexRatio" value="573/7444"><br>
 	Significant figures: <input type="text" class="inputText" id="signif" value="10"> (inaccurate for significant figures higher than 14)<br></p>
 	
 	<br><input type=button value="Calculate" onClick="calculate_this()"><br>
