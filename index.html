@@ -137,6 +137,8 @@
 		document.getElementById('results').innerHTML += "Mean Density, ρ<sub>s</sub>: " + shellStreamMeanDensity.truncated() + " kg/m<sup>3</sup><br>"
 		document.getElementById('results').innerHTML += "Mean Viscosity, μ<sub>s</sub>: " + (shellStreamMeanViscosity*1e3).truncated() + " mNs/m<sup>2</sup> [cP]<br>"
 		
+		document.getElementById('results').innerHTML += "<br><u>Heat Exchanger</u><br>"
+		
 		document.getElementById('results').innerHTML += "<br>Duty: " + (Math.abs(duty)).truncated() + " W<br>"
 		
 		var currentMode = document.getElementById("currentMode").value
