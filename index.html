@@ -167,7 +167,7 @@
 		document.getElementById('results').innerHTML += "R: " + R.toPrecision(3) + "<br>"
 		document.getElementById('results').innerHTML += "S (aka P on chart): " + S.toPrecision(3) + "<br><br>"
 		
-		document.getElementById('results').innerHTML += "[Check and insert Ft from Figure 12.19 or 12.20]<br><br>"
+		document.getElementById('results').innerHTML += "--[Check and insert Ft from Figure 12.19 or 12.20]--<br><br>"
 		
 		var U = eval(document.getElementById("estOverCoeff").value)
 		var Ft = eval(document.getElementById("Ft").value)
@@ -276,7 +276,7 @@
 		document.getElementById('results').innerHTML += "Bundle diameter, D<sub>b</sub>: " + bundleDiameter.truncated() + " m<br>"
 		document.getElementById('results').innerHTML += "Shell side diameter, D<sub>s</sub>: " + shellsideDiameter.truncated() + " m<br>"
 		
-		document.getElementById('results').innerHTML += "<br>[Insert clearance from Figure 12.12]<br>"
+		document.getElementById('results').innerHTML += "<br>--[Insert clearance from Figure 12.12]--<br>"
 		
 		var tubeHeatTransferFactor = eval(document.getElementById("tubeHeatTransFac").value)
 		var tubeReynoldsNumber = tubeStreamMeanDensity*tubeVelocity*innerDiameter/tubeStreamMeanViscosity
@@ -302,12 +302,12 @@
 		document.getElementById('results').innerHTML += "Prandtl number, Pr: " + tubePrandtlNumber.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Ratio of tube length to tube inner diameter: " + lengthOverInnerDiameter.truncated() + "<br>"
 		
-		document.getElementById('results').innerHTML += "<br>[Check and insert j<sub>H</sub> for tubeside from Figure 12.23]<br><br>"
+		document.getElementById('results').innerHTML += "<br>--[Check and insert j<sub>H</sub> for tubeside from Figure 12.23]--<br><br>"
 		
 		document.getElementById('results').innerHTML += "Nusselt number, Nu: " + tubeNusseltNumber.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Inside coefficient, h<sub>i</sub>: " + tubeInsideCoefficient.truncated() + " W/m<sup>2</sup> °C<br>"
 		
-		document.getElementById('results').innerHTML += "<br>[Make adjustments for number of tube passes if needed]<br>"
+		document.getElementById('results').innerHTML += "<br>--[Make adjustments for number of tube passes if needed]--<br>"
 		
 		//var baffleSpacingRatio = baffleSpacingRatio*shellsideDiameter
 		var baffleSpacing = eval(document.getElementById("baffleSpace").value)*1e-3
@@ -345,7 +345,7 @@
 		document.getElementById('results').innerHTML += "<br>Reynolds number, Re: " + shellReynoldsNumber.truncated() + " (hence, " + shellFlowType + " region)<br>"
 		document.getElementById('results').innerHTML += "Prandtl number, Pr: " + shellPrandtlNumber.truncated() + "<br>"
 		
-		document.getElementById('results').innerHTML += "<br>[Check and insert j<sub>H</sub> for shellside from Figure 12.29]<br><br>"
+		document.getElementById('results').innerHTML += "<br>--[Check and insert j<sub>H</sub> for shellside from Figure 12.29]--<br><br>"
 		
 		document.getElementById('results').innerHTML += "Nusselt number, Nu: " + shellNusseltNumber.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Heat-transfer coefficient, h<sub>s</sub>: " + shellHeatTransCoeff.truncated() + " W/m<sup>2</sup> °C<br>"
@@ -364,7 +364,7 @@
 		document.getElementById('results').innerHTML += "<br>Reciprocal of U, 1/U: " + reciprU.truncated() + " (W/m<sup>2</sup> °C)<sup>-1</sup><br>"
 		document.getElementById('results').innerHTML += "Overall heat-transfer coefficient, U: " + overallCoefficient.truncated() + " W/m<sup>2</sup> °C<br>"
 		
-		document.getElementById('results').innerHTML += "<br>[Check and insert j<sub>F</sub> for shellside from Figure 12.30]<br>"
+		document.getElementById('results').innerHTML += "<br>--[Check and insert j<sub>F</sub> for shellside from Figure 12.30]--<br>"
 		
 		var tubeFrictionFactor = eval(document.getElementById("tubeFricFac").value)
 		var tubePressDrop = nTubePass * (8*tubeFrictionFactor*tubeLength/innerDiameter + 2.5) * tubeStreamMeanDensity * tubeVelocity * tubeVelocity / 2
@@ -387,14 +387,14 @@
 		document.getElementById('results').innerHTML += "<br>Tubeside pressure drop, ΔP<sub>t</sub>: " + tubePressDrop.truncated() + " N/m<sup>2</sup><br>"
 		document.getElementById('results').innerHTML += "Possible number of tubes needed: " + recommendedTubeNumber +"<br>"
 		
-		document.getElementById('results').innerHTML += "<br>[Does the tubeside pressure drop exceed specifications? If so, increase number of tubes]<br>"
+		document.getElementById('results').innerHTML += "<br>--[Does the tubeside pressure drop exceed specifications? If so, increase number of tubes]--<br>"
 		
 		var shellFrictionFactor = eval(document.getElementById("shellFricFac").value)
 		var shellPressDrop = (tubeLength/baffleSpacing) * (8*shellFrictionFactor*shellsideDiameter/hydraulicDiameter) * shellStreamMeanDensity * shellVelocity * shellVelocity / 2
 		shellPressDrop = shellPressDrop.cutZero()
 		document.getElementById('results').innerHTML += "<br>Shellside pressure drop, ΔP<sub>s</sub>: " + shellPressDrop.truncated() + " N/m<sup>2</sup><br>"
 		
-		document.getElementById('results').innerHTML += "<br>[Does the shellside pressure drop exceed specifications? If so, increase baffle spacing]<br>"
+		document.getElementById('results').innerHTML += "<br>--[Does the shellside pressure drop exceed specifications? If so, increase baffle spacing]--<br>"
 		
 		var reqArea = nTube*areaPerTube
 		reqArea.cutZero()
@@ -403,7 +403,7 @@
 		document.getElementById('results').innerHTML += "<br>Required Area, A<sub>o</sub>: " + reqArea.truncated() + " m<sup>2</sup><br>"
 		document.getElementById('results').innerHTML += "Required overall coefficient, U<sub>o</sub>: " + reqUo.truncated() + "W/m<sup>2</sup> °C<br>"
 		
-		document.getElementById('results').innerHTML += "<br>[Are the above values good enough?]<br>"
+		document.getElementById('results').innerHTML += "<br>--[Are the above values good enough?]--<br>"
 		
 		document.getElementById('results').innerHTML += "<br><b><u>Summary</u></b><br>"
 		document.getElementById('results').innerHTML += "Heat transfer area: " + reqArea.truncated() + " m<sup>2</sup><br>"
