@@ -38,33 +38,25 @@
 		var stream1MeanTemp=(stream1InletTemp+stream1OutletTemp)/2
 		var stream1TempDiff = stream1OutletTemp - stream1InletTemp
 		stream1MeanTemp = stream1MeanTemp.cutZero()
-		document.getElementById('results').innerHTML = "<u>Stream 1</u> [Shellside]<br>Mean Temperature: " + stream1MeanTemp.truncated() + " °C<br>"
+		document.getElementById('results').innerHTML = "<u>Stream 1</u><br>Mean Temperature: " + stream1MeanTemp.truncated() + " °C<br>"
 		
-		var shellStreamInletSHC = eval(document.getElementById("stream1InletSHC").value)
-		var shellStreamOutletSHC = eval(document.getElementById("stream1OutletSHC").value)
-		var shellStreamMeanSHC=shellStreamInletSHC-(stream1InletTemp-stream1MeanTemp)/(stream1InletTemp-stream1OutletTemp)*(shellStreamInletSHC-shellStreamOutletSHC)
-		shellStreamMeanSHC = shellStreamMeanSHC.cutZero()
-		document.getElementById('results').innerHTML += "Mean Spec Heat Capacity: " + shellStreamMeanSHC.truncated() + " J/kgK<br>"
+		var stream1MeanSHC=eval(document.getElementById("stream1MeanSHC").value)
+		stream1MeanSHC = stream1MeanSHC.cutZero()
+		document.getElementById('results').innerHTML += "Mean Spec Heat Capacity: " + stream1StreamMeanSHC.truncated() + " J/kgK<br>"
 		
-		var shellStreamInletTC = eval(document.getElementById("stream1InletThermCond").value)
-		var shellStreamOutletTC = eval(document.getElementById("stream1OutletThermCond").value)
-		var shellStreamMeanTC=shellStreamInletTC-(stream1InletTemp-stream1MeanTemp)/(stream1InletTemp-stream1OutletTemp)*(shellStreamInletTC-shellStreamOutletTC)
-		shellStreamMeanTC = shellStreamMeanTC.cutZero()
-		document.getElementById('results').innerHTML += "Mean Thermal Conductivity: " + shellStreamMeanTC.truncated() + " W/m °C<br>"
+		var stream1MeanTC=eval(document.getElementById("stream1MeanThermCond").value)
+		stream1MeanTC = stream1MeanTC.cutZero()
+		document.getElementById('results').innerHTML += "Mean Thermal Conductivity: " + stream1MeanTC.truncated() + " W/m °C<br>"
 		
-		var shellStreamInletDensity = eval(document.getElementById("stream1InletDensity").value)
-		var shellStreamOutletDensity = eval(document.getElementById("stream1OutletDensity").value)
-		var shellStreamMeanDensity = shellStreamInletDensity-(stream1InletTemp-stream1MeanTemp)/(stream1InletTemp-stream1OutletTemp)*(shellStreamInletDensity-shellStreamOutletDensity)
-		shellStreamMeanDensity = shellStreamMeanDensity.cutZero()
-		document.getElementById('results').innerHTML += "Mean Density: " + shellStreamMeanDensity.truncated() + " kg/m<sup>3</sup><br>"
+		var stream1MeanDensity = eval(document.getElementById("stream1MeanDensity").value)
+		stream1MeanDensity = stream1MeanDensity.cutZero()
+		document.getElementById('results').innerHTML += "Mean Density: " + stream1MeanDensity.truncated() + " kg/m<sup>3</sup><br>"
 		
-		var shellStreamInletViscosity = eval(document.getElementById("stream1InletViscosity").value*1e-3)
-		var shellStreamOutletViscosity = eval(document.getElementById("stream1OutletViscosity").value*1e-3)
-		var shellStreamMeanViscosity = shellStreamInletViscosity-(stream1InletTemp-stream1MeanTemp)/(stream1InletTemp-stream1OutletTemp)*(shellStreamInletViscosity-shellStreamOutletViscosity)
-		shellStreamMeanViscosity = shellStreamMeanViscosity.cutZero()
-		document.getElementById('results').innerHTML += "Mean Viscosity: " + (shellStreamMeanViscosity*1e3).truncated() + " mNs/m<sup>2</sup> [cP]<br>"
+		var stream1MeanViscosity = eval(document.getElementById("stream1MeanViscosity").value*1e-3)
+		stream1MeanViscosity = stream1MeanViscosity.cutZero()
+		document.getElementById('results').innerHTML += "Mean Viscosity: " + (stream1MeanViscosity*1e3).truncated() + " mNs/m<sup>2</sup> [cP]<br>"
 		
-		var duty = stream1MassFlow*shellStreamMeanSHC*stream1TempDiff
+		var duty = stream1MassFlow*stream1MeanSHC*stream1TempDiff
 		duty = duty.cutZero()
 		document.getElementById('results').innerHTML += "<br>Duty: " + (Math.abs(duty)).truncated() + " W<br><br>"
 		
@@ -75,36 +67,73 @@
 		//var stream2OutletTemp = stream2InletTemp-duty/(stream2MassFlow*tubeStreamMeanSHC)
 		var stream2MeanTemp=(stream2InletTemp+stream2OutletTemp)/2
 		var stream2TempDiff = stream2OutletTemp - stream2InletTemp
-		
-		var tubeStreamInletSHC = eval(document.getElementById("stream2InletSHC").value)
-		var tubeStreamOutletSHC = eval(document.getElementById("stream2OutletSHC").value)
-		var tubeStreamMeanSHC=tubeStreamInletSHC-(stream2InletTemp-stream2MeanTemp)/(stream2InletTemp-stream2OutletTemp)*(tubeStreamInletSHC-tubeStreamOutletSHC)
-		tubeStreamMeanSHC=tubeStreamMeanSHC.cutZero()
-		var stream2MassFlow = -duty/(stream2TempDiff*tubeStreamMeanSHC) ////////////////////
 		stream2MeanTemp=stream2MeanTemp.cutZero()
 		stream2TempDiff = stream2TempDiff.cutZero()
+		
+		var stream2MeanSHC = eval(document.getElementById("stream2MeanSHC").value)
+		stream2MeanSHC=stream2MeanSHC.cutZero()
+		var stream2MassFlow = -duty/(stream2TempDiff*tubeStreamMeanSHC) ////////////////////
 		document.getElementById('results').innerHTML += "<u>Stream 2</u> [Tubeside]<br>Mass Flow: " + stream2MassFlow.truncated() + " kg/s<br>"
 		//document.getElementById('results').innerHTML += "Outlet Temperature: " + stream2OutletTemp.truncated() + " °C<br>"
 		document.getElementById('results').innerHTML += "Mean Temperature: " + stream2MeanTemp.truncated() + " °C<br>"
-		document.getElementById('results').innerHTML += "Mean Spec Heat Capacity: " + tubeStreamMeanSHC.truncated() + " J/kgK<br>"
+		document.getElementById('results').innerHTML += "Mean Spec Heat Capacity: " + stream2MeanSHC.truncated() + " J/kgK<br>"
 		
-		var tubeStreamInletTC = eval(document.getElementById("stream2InletThermCond").value)
-		var tubeStreamOutletTC = eval(document.getElementById("stream2OutletThermCond").value)
-		var tubeStreamMeanTC=tubeStreamInletTC-(stream2InletTemp-stream2MeanTemp)/(stream2InletTemp-stream2OutletTemp)*(tubeStreamInletTC-tubeStreamOutletTC)
-		tubeStreamMeanTC = tubeStreamMeanTC.cutZero()
-		document.getElementById('results').innerHTML += "Mean Thermal Conductivity: " + tubeStreamMeanTC.truncated() + " W/m °C<br>"
+		var stream2MeanTC = eval(document.getElementById("stream2MeanThermCond").value)
+		stream2MeanTC.cutZero()
+		document.getElementById('results').innerHTML += "Mean Thermal Conductivity: " + stream2MeanTC.truncated() + " W/m °C<br>"
 		
-		var tubeStreamInletDensity = eval(document.getElementById("stream2InletDensity").value)
-		var tubeStreamOutletDensity = eval(document.getElementById("stream2OutletDensity").value)
-		var tubeStreamMeanDensity = tubeStreamInletDensity-(stream2InletTemp-stream2MeanTemp)/(stream2InletTemp-stream2OutletTemp)*(tubeStreamInletDensity-tubeStreamOutletDensity)
-		tubeStreamMeanDensity = tubeStreamMeanDensity.cutZero()
-		document.getElementById('results').innerHTML += "Mean Density: " + tubeStreamMeanDensity.truncated() + " kg/m<sup>3</sup><br>"
+		var stream2MeanDensity = eval(document.getElementById("stream2MeanDensity").value)
+		stream2MeanDensity = stream2MeanDensity.cutZero()
+		document.getElementById('results').innerHTML += "Mean Density: " + stream2MeanDensity.truncated() + " kg/m<sup>3</sup><br>"
 		
-		var tubeStreamInletViscosity = eval(document.getElementById("stream2InletViscosity").value*1e-3)
-		var tubeStreamOutletViscosity = eval(document.getElementById("stream2OutletViscosity").value*1e-3)
-		var tubeStreamMeanViscosity = tubeStreamInletViscosity-(stream2InletTemp-stream2MeanTemp)/(stream2InletTemp-stream2OutletTemp)*(tubeStreamInletViscosity-tubeStreamOutletViscosity)
-		tubeStreamMeanViscosity = tubeStreamMeanViscosity.cutZero()
-		document.getElementById('results').innerHTML += "Mean Viscosity: " + (tubeStreamMeanViscosity*1e3).truncated() + " mNs/m<sup>2</sup> [cP]<br>"
+		var stream2MeanViscosity = eval(document.getElementById("stream2MeanViscosity").value*1e-3)
+		stream2MeanViscosity = stream2MeanViscosity.cutZero()
+		document.getElementById('results').innerHTML += "Mean Viscosity: " + (stream2MeanViscosity*1e3).truncated() + " mNs/m<sup>2</sup> [cP]<br>"
+		
+		var flowConfig = document.getElementById("flowCon").value
+		
+		if (flowConfig="S1T2"){
+			var shellStreamMassFlow = stream1MassFlow
+			var shellStreamMeanTemp = stream1MeanTemp
+			var shellStreamMeanSHC = stream1MeanSHC
+			var shellStreamMeanTC = stream1MeanTC
+			var shellStreamMeanDensity = stream1MeanDensity
+			var shellStreamMeanViscosity = stream1MeanViscosity
+			
+			var tubeStreamMassFlow = stream2MassFlow
+			var tubeStreamMeanTemp = stream2MeanTemp
+			var tubeStreamMeanSHC = stream2MeanSHC
+			var tubeStreamMeanTC = stream2MeanTC
+			var tubeStreamMeanDensity = stream2MeanDensity
+			var tubeStreamMeanViscosity = stream2MeanViscosity
+			
+			var shellFoulFactor = eval(document.getElementById("stream1FoulFact").value)
+			var tubeFoulFactor = eval(document.getElementById("stream2FoulFact").value)
+			
+			var shellAllowPress = eval(document.getElementById("stream1AllowPress").value)
+			var tubeAllowPress = eval(document.getElementById("stream2AllowPress").value)
+		}
+		if (flowConfig="S2T1"){
+			var shellStreamMassFlow = stream2MassFlow
+			var shellStreamMeanTemp = stream2MeanTemp
+			var shellStreamMeanSHC = stream2MeanSHC
+			var shellStreamMeanTC = stream2MeanTC
+			var shellStreamMeanDensity = stream2MeanDensity
+			var shellStreamMeanViscosity = stream2MeanViscosity
+			
+			var tubeStreamMassFlow = stream1MassFlow
+			var tubeStreamMeanTemp = stream1MeanTemp
+			var tubeStreamMeanSHC = stream1MeanSHC
+			var tubeStreamMeanTC = stream1MeanTC
+			var tubeStreamMeanDensity = stream1MeanDensity
+			var tubeStreamMeanViscosity = stream1MeanViscosity
+			
+			var tubeFoulFactor = eval(document.getElementById("stream1FoulFact").value)
+			var shellFoulFactor = eval(document.getElementById("stream2FoulFact").value)
+			
+			var shellAllowPress = eval(document.getElementById("stream2AllowPress").value)
+			var tubeAllowPress = eval(document.getElementById("stream1AllowPress").value)
+		}
 		
 		var currentMode = document.getElementById("currentMode").value
 		var currentModeString
@@ -183,7 +212,7 @@
 		var innerDiameter = eval(document.getElementById("innerDiameter").value)*1e-3
 		var tubeCrossArea = Math.pow(innerDiameter,2)*Math.PI/4
 		var areaPerPass = tubeCrossArea*nTubePerPass
-		var tubeVolumetricFlow = stream2MassFlow/tubeStreamMeanDensity
+		var tubeVolumetricFlow = tubeStreamMassFlow/tubeStreamMeanDensity
 		var tubeVelocity = tubeVolumetricFlow/areaPerPass
 		tubeCrossArea = tubeCrossArea.cutZero()
 		areaPerPass = areaPerPass.cutZero()
@@ -268,7 +297,7 @@
 		baffleSpacing = baffleSpacing.cutZero()
 		var areaCrossFlow = (tubePitch - outerDiameter)*shellsideDiameter*baffleSpacing/tubePitch
 		areaCrossFlow = areaCrossFlow.cutZero()
-		var shellVolumetricFlow = stream1MassFlow/shellStreamMeanDensity
+		var shellVolumetricFlow = shellStreamMassFlow/shellStreamMeanDensity
 		shellVolumetricFlow = shellVolumetricFlow.cutZero()
 		var shellVelocity = shellVolumetricFlow/areaCrossFlow
 		shellVelocity = shellVelocity.cutZero()
@@ -304,8 +333,6 @@
 		document.getElementById('results').innerHTML += "Nusselt number, Nu: " + shellNusseltNumber.truncated() + "<br>"
 		document.getElementById('results').innerHTML += "Heat-transfer coefficient, h<sub>s</sub>: " + shellHeatTransCoeff.truncated() + " W/m<sup>2</sup> °C<br>"
 		
-		var shellFoulFactor = eval(document.getElementById("stream1FoulFact").value)
-		var tubeFoulFactor = eval(document.getElementById("stream2FoulFact").value)
 		var tubeWallTC = eval(document.getElementById("tubeWallTC").value)
 		var reciprUtermTube = (1/tubeInsideCoefficient+tubeFoulFactor)*outerDiameter/innerDiameter
 		var reciprUtermShell = 1/shellHeatTransCoeff+shellFoulFactor
@@ -325,7 +352,6 @@
 		var tubeFrictionFactor = eval(document.getElementById("tubeFricFac").value)
 		var tubePressDrop = nTubePass * (8*tubeFrictionFactor*tubeLength/innerDiameter + 2.5) * tubeStreamMeanDensity * tubeVelocity * tubeVelocity / 2
 		tubePressDrop = tubePressDrop.cutZero()
-		var tubeAllowPress = eval(document.getElementById("stream2AllowPress").value)
 		var recommendedTubeNumber
 		if ((tubePressDrop-tubeAllowPress)>0){
 			recommendedTubeNumber = Math.ceil(nTube/Math.sqrt((tubePressDrop-tubeAllowPress)/tubePressDrop))
@@ -349,7 +375,6 @@
 		var shellFrictionFactor = eval(document.getElementById("shellFricFac").value)
 		var shellPressDrop = (tubeLength/baffleSpacing) * (8*shellFrictionFactor*shellsideDiameter/hydraulicDiameter) * shellStreamMeanDensity * shellVelocity * shellVelocity / 2
 		shellPressDrop = shellPressDrop.cutZero()
-		var shellAllowPress = eval(document.getElementById("stream1AllowPress").value)
 		document.getElementById('results').innerHTML += "<br>Shellside pressure drop, ΔP<sub>s</sub>: " + shellPressDrop.truncated() + " N/m<sup>2</sup><br>"
 		
 		document.getElementById('results').innerHTML += "<br>[Does the shellside pressure drop exceed specifications? If so, increase baffle spacing]<br>"
@@ -388,43 +413,34 @@
 	}
 	</script>
 	
-	<p class="hotFluid"><br><b>Stream 1 (Shellside) Properties and Conditions</b> [This stream cools down]<br>
+	<p class="hotFluid"><br><b>Stream 1 Properties and Conditions</b> [Known mass flow]<br>
 	Mass Flow: <input type="text" class="inputText" id="stream1MassFlow" value="36500/3600"> kg/s<br>
 	Inlet Temperature, T<sub>1</sub>: <input type="text" class="inputText" id="stream1InletTemp" value="59.9"> °C<br>
 	Outlet Temperature, T<sub>2</sub>: <input type="text" class="inputText" id="stream1OutletTemp" value="40"> °C<br>
 	
-	Inlet Spec Heat Capacity, C<sub>1</sub>: <input type="text" class="inputText" id="stream1InletSHC" value="2616"> J/kgK<br>
-	Outlet Spec Heat Capacity, C<sub>2</sub>: <input type="text" class="inputText" id="stream1OutletSHC" value="2616"> J/kgK<br>
+	Mean Spec Heat Capacity, C: <input type="text" class="inputText" id="stream1MeanSHC" value="2616"> J/kgK<br>
 	
-	Inlet Thermal Conductivity, K<sub>1</sub>: <input type="text" class="inputText" id="stream1InletThermCond" value=".095793"> W/m °C<br>
-	Outlet Thermal Conductivity, K<sub>2</sub>: <input type="text" class="inputText" id="stream1OutletThermCond" value=".095793"> W/m °C<br>
+	Mean Thermal Conductivity, K: <input type="text" class="inputText" id="stream1MeanThermCond" value=".095793"> W/m °C<br>
 	
-	Inlet Density, Rho<sub>1</sub>: <input type="text" class="inputText" id="stream1InletDensity" value="541.34"> kg/m<sup>3</sup><br>
-	Outlet Density, Rho<sub>2</sub>: <input type="text" class="inputText" id="stream1OutletDensity" value="541.34"> kg/m<sup>3</sup><br>
+	Mean Density, Rho: <input type="text" class="inputText" id="stream1MeanDensity" value="541.34"> kg/m<sup>3</sup><br>
 	
-	Inlet Viscosity, Mu<sub>1</sub>: <input type="text" class="inputText" id="stream1InletViscosity" value="129.88e-3"> mNs/m<sup>2</sup> [cP]<br>
-	Outlet Viscosity, Mu<sub>2</sub>: <input type="text" class="inputText" id="stream1OutletViscosity" value="129.88e-3"> mNs/m<sup>2</sup> [cP]<br>
+	Mean Viscosity, Mu: <input type="text" class="inputText" id="stream1MeanViscosity" value="129.88e-3"> mNs/m<sup>2</sup> [cP]<br>
 	
 	Fouling factor: <input type="text" class="inputText" id="stream1FoulFact" value="0.0002"> (W/m<sup>2</sup> °C)<sup>-1</sup><br>
 	
 	Allowable pressure drop: <input type="text" class="inputText" id="stream1AllowPress" value="1e5"> N/m<sup>2</sup><br></p>
 	
-	<p class="coldFluid"><br><b>Stream 2 (Tubeside) Properties and Conditions</b> [This stream heats up]<br>
-	<!--Mass Flow: <input type="text" class="inputText" id="stream2MassFlow" value="7e4/3600"> kg/s<br>-->
+	<p class="coldFluid"><br><b>Stream 2 Properties and Conditions</b> [Unknown mass flow]<br>
 	Inlet Temperature, t<sub>1</sub>: <input type="text" class="inputText" id="stream2InletTemp" value="32"> °C<br>
 	Outlet Temperature, t<sub>2</sub>: <input type="text" class="inputText" id="stream2OutletTemp" value="40"> °C<br>
 	
-	Inlet Spec Heat Capacity, c<sub>1</sub>: <input type="text" class="inputText" id="stream2InletSHC" value="4185"> J/kgK<br>
-	Outlet Spec Heat Capacity, c<sub>2</sub>: <input type="text" class="inputText" id="stream2OutletSHC" value="4185"> J/kgK<br>
+	Mean Spec Heat Capacity, c: <input type="text" class="inputText" id="stream2MeanSHC" value="4185"> J/kgK<br>
 	
-	Inlet Thermal Conductivity, k<sub>1</sub>: <input type="text" class="inputText" id="stream2InletThermCond" value=".61881"> W/m °C<br>
-	Outlet Thermal Conductivity, k<sub>2</sub>: <input type="text" class="inputText" id="stream2OutletThermCond" value=".61881"> W/m °C<br>
+	Mean Thermal Conductivity, k<sub>1</sub>: <input type="text" class="inputText" id="stream2MeanThermCond" value=".61881"> W/m °C<br>
 	
-	Inlet Density, rho<sub>1</sub>: <input type="text" class="inputText" id="stream2InletDensity" value="992.13"> kg/m<sup>3</sup><br>
-	Outlet Density, rho<sub>2</sub>: <input type="text" class="inputText" id="stream2OutletDensity" value="992.13"> kg/m<sup>3</sup><br>
+	Mean Density, rho<sub>1</sub>: <input type="text" class="inputText" id="stream2MeanDensity" value="992.13"> kg/m<sup>3</sup><br>
 	
-	Inlet Viscosity, mu<sub>1</sub>: <input type="text" class="inputText" id="stream2InletViscosity" value="783.21e-3"> mNs/m<sup>2</sup> [cP]<br>
-	Outlet Viscosity, mu<sub>2</sub>: <input type="text" class="inputText" id="stream2OutletViscosity" value="783.21e-3"> mNs/m<sup>2</sup> [cP]<br>
+	Mean Viscosity, mu<sub>1</sub>: <input type="text" class="inputText" id="stream2MeanViscosity" value="783.21e-3"> mNs/m<sup>2</sup> [cP]<br>
 	
 	Fouling factor: <input type="text" class="inputText" id="stream2FoulFact" value="0.0003"> (W/m<sup>2</sup> °C)<sup>-1</sup><br>
 	
@@ -461,6 +477,10 @@
 	</select><br></p>
 	
 	<p class="hexTube"><br><u>Tubeside parameters</u><br>
+	Fluid flowing through the tubes: <select id="flowCon">
+		<option value="S2T1">Stream 1</option>
+		<option value="S1T2" selected>Stream 2</option>
+	</select><br>
 	Number of tubes, N<sub>t</sub>: <input type="text" class="inputText" id="numberTubes" value="-1"> (Will be automatically generated if -1)<br>
 	Outer diameter, d<sub>o</sub>: <input type="text" class="inputText" id="outerDiameter" value="16"> mm<br>
 	Inner diameter, d<sub>i</sub>: <input type="text" class="inputText" id="innerDiameter" value="11.8"> mm<br>
