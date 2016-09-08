@@ -72,7 +72,7 @@
 		
 		var stream2MeanSHC = eval(document.getElementById("stream2MeanSHC").value)
 		stream2MeanSHC=stream2MeanSHC.cutZero()
-		var stream2MassFlow = -duty/(stream2TempDiff*tubeStreamMeanSHC) ////////////////////
+		var stream2MassFlow = -duty/(stream2TempDiff*stream2MeanSHC) ////////////////////
 		document.getElementById('results').innerHTML += "<u>Stream 2</u> [Tubeside]<br>Mass Flow: " + stream2MassFlow.truncated() + " kg/s<br>"
 		//document.getElementById('results').innerHTML += "Outlet Temperature: " + stream2OutletTemp.truncated() + " °C<br>"
 		document.getElementById('results').innerHTML += "Mean Temperature: " + stream2MeanTemp.truncated() + " °C<br>"
