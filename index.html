@@ -122,14 +122,14 @@
 			var tubeAllowPress = eval(document.getElementById("stream1AllowPress").value)
 		}
 		
-		document.getElementById('results').innerHTML = "<u>Tubeside Fluid</u><br>Mean Temperature: " + tubeStreamMeanTemp.truncated() + " °C<br>"
+		document.getElementById('results').innerHTML = "<u>Tubeside Fluid</u><br>Mass Flow: " + tubeStreamMassFlow.truncated() + " kg/s<br>"
 		document.getElementById('results').innerHTML += "Mean Temperature, T<sub>t</sub>: " + tubeStreamMeanTemp.truncated() + " °C<br>"
 		document.getElementById('results').innerHTML += "Mean Spec Heat Capacity, c<sub>t</sub>: " + tubeStreamMeanSHC.truncated() + " J/kgK<br>"
 		document.getElementById('results').innerHTML += "Mean Thermal Conductivity, k<sub>t</sub>: " + tubeStreamMeanTC.truncated() + " W/m °C<br>"
 		document.getElementById('results').innerHTML += "Mean Density, ρ<sub>t</sub>: " + tubeStreamMeanDensity.truncated() + " kg/m<sup>3</sup><br>"
 		document.getElementById('results').innerHTML += "Mean Viscosity, μ<sub>t</sub>: " + (tubeStreamMeanViscosity*1e3).truncated() + " mNs/m<sup>2</sup> [cP]<br>"
 		
-		document.getElementById('results').innerHTML += "<u>Shellside Fluid</u><br>Mass Flow: " + shellStreamMassFlow.truncated() + " kg/s<br>"
+		document.getElementById('results').innerHTML += "<br><u>Shellside Fluid</u><br>Mass Flow: " + shellStreamMassFlow.truncated() + " kg/s<br>"
 		//document.getElementById('results').innerHTML += "Outlet Temperature: " + stream2OutletTemp.truncated() + " °C<br>"
 		document.getElementById('results').innerHTML += "Mean Temperature, T<sub>s</sub>: " + shellStreamMeanTemp.truncated() + " °C<br>"
 		document.getElementById('results').innerHTML += "Mean Spec Heat Capacity, c<sub>s</sub>: " + shellStreamMeanSHC.truncated() + " J/kgK<br>"
@@ -137,7 +137,7 @@
 		document.getElementById('results').innerHTML += "Mean Density, ρ<sub>s</sub>: " + shellStreamMeanDensity.truncated() + " kg/m<sup>3</sup><br>"
 		document.getElementById('results').innerHTML += "Mean Viscosity, μ<sub>s</sub>: " + (shellStreamMeanViscosity*1e3).truncated() + " mNs/m<sup>2</sup> [cP]<br>"
 		
-		document.getElementById('results').innerHTML += "<br>Duty: " + (Math.abs(duty)).truncated() + " W<br><br>"
+		document.getElementById('results').innerHTML += "<br>Duty: " + (Math.abs(duty)).truncated() + " W<br>"
 		
 		var currentMode = document.getElementById("currentMode").value
 		var currentModeString
