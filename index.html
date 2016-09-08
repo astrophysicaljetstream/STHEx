@@ -38,27 +38,21 @@
 		var stream1MeanTemp=(stream1InletTemp+stream1OutletTemp)/2
 		var stream1TempDiff = stream1OutletTemp - stream1InletTemp
 		stream1MeanTemp = stream1MeanTemp.cutZero()
-		document.getElementById('results').innerHTML = "<u>Stream 1</u><br>Mean Temperature: " + stream1MeanTemp.truncated() + " °C<br>"
 		
 		var stream1MeanSHC=eval(document.getElementById("stream1MeanSHC").value)
 		stream1MeanSHC = stream1MeanSHC.cutZero()
-		document.getElementById('results').innerHTML += "Mean Spec Heat Capacity: " + stream1MeanSHC.truncated() + " J/kgK<br>"
 		
 		var stream1MeanTC=eval(document.getElementById("stream1MeanThermCond").value)
 		stream1MeanTC = stream1MeanTC.cutZero()
-		document.getElementById('results').innerHTML += "Mean Thermal Conductivity: " + stream1MeanTC.truncated() + " W/m °C<br>"
 		
 		var stream1MeanDensity = eval(document.getElementById("stream1MeanDensity").value)
 		stream1MeanDensity = stream1MeanDensity.cutZero()
-		document.getElementById('results').innerHTML += "Mean Density: " + stream1MeanDensity.truncated() + " kg/m<sup>3</sup><br>"
 		
 		var stream1MeanViscosity = eval(document.getElementById("stream1MeanViscosity").value*1e-3)
 		stream1MeanViscosity = stream1MeanViscosity.cutZero()
-		document.getElementById('results').innerHTML += "Mean Viscosity: " + (stream1MeanViscosity*1e3).truncated() + " mNs/m<sup>2</sup> [cP]<br>"
 		
 		var duty = stream1MassFlow*stream1MeanSHC*stream1TempDiff
 		duty = duty.cutZero()
-		document.getElementById('results').innerHTML += "<br>Duty: " + (Math.abs(duty)).truncated() + " W<br><br>"
 		
 		//var stream2MassFlow = eval(document.getElementById("stream2MassFlow").value)
 		var stream2InletTemp = eval(document.getElementById("stream2InletTemp").value)
@@ -73,22 +67,15 @@
 		var stream2MeanSHC = eval(document.getElementById("stream2MeanSHC").value)
 		stream2MeanSHC=stream2MeanSHC.cutZero()
 		var stream2MassFlow = -duty/(stream2TempDiff*stream2MeanSHC) ////////////////////
-		document.getElementById('results').innerHTML += "<u>Stream 2</u><br>Mass Flow: " + stream2MassFlow.truncated() + " kg/s<br>"
-		//document.getElementById('results').innerHTML += "Outlet Temperature: " + stream2OutletTemp.truncated() + " °C<br>"
-		document.getElementById('results').innerHTML += "Mean Temperature: " + stream2MeanTemp.truncated() + " °C<br>"
-		document.getElementById('results').innerHTML += "Mean Spec Heat Capacity: " + stream2MeanSHC.truncated() + " J/kgK<br>"
 		
 		var stream2MeanTC = eval(document.getElementById("stream2MeanThermCond").value)
 		stream2MeanTC.cutZero()
-		document.getElementById('results').innerHTML += "Mean Thermal Conductivity: " + stream2MeanTC.truncated() + " W/m °C<br>"
 		
 		var stream2MeanDensity = eval(document.getElementById("stream2MeanDensity").value)
 		stream2MeanDensity = stream2MeanDensity.cutZero()
-		document.getElementById('results').innerHTML += "Mean Density: " + stream2MeanDensity.truncated() + " kg/m<sup>3</sup><br>"
 		
 		var stream2MeanViscosity = eval(document.getElementById("stream2MeanViscosity").value*1e-3)
 		stream2MeanViscosity = stream2MeanViscosity.cutZero()
-		document.getElementById('results').innerHTML += "Mean Viscosity: " + (stream2MeanViscosity*1e3).truncated() + " mNs/m<sup>2</sup> [cP]<br>"
 		
 		var flowConfig = document.getElementById("flowCon").value
 		
@@ -134,6 +121,23 @@
 			var shellAllowPress = eval(document.getElementById("stream2AllowPress").value)
 			var tubeAllowPress = eval(document.getElementById("stream1AllowPress").value)
 		}
+		
+		document.getElementById('results').innerHTML = "<u>Tubeside Fluid</u><br>Mean Temperature: " + tubeStreamMeanTemp.truncated() + " °C<br>"
+		document.getElementById('results').innerHTML += "Mean Temperature, T<sub>t</sub>: " + tubeStreamMeanTemp.truncated() + " °C<br>"
+		document.getElementById('results').innerHTML += "Mean Spec Heat Capacity, c<sub>t</sub>: " + tubeStreamMeanSHC.truncated() + " J/kgK<br>"
+		document.getElementById('results').innerHTML += "Mean Thermal Conductivity, k<sub>t</sub>: " + tubeStreamMeanTC.truncated() + " W/m °C<br>"
+		document.getElementById('results').innerHTML += "Mean Density, ρ<sub>t</sub>: " + tubeStreamMeanDensity.truncated() + " kg/m<sup>3</sup><br>"
+		document.getElementById('results').innerHTML += "Mean Viscosity, μ<sub>t</sub>: " + (tubeStreamMeanViscosity*1e3).truncated() + " mNs/m<sup>2</sup> [cP]<br>"
+		
+		document.getElementById('results').innerHTML += "<u>Shellside Fluid</u><br>Mass Flow: " + shellStreamMassFlow.truncated() + " kg/s<br>"
+		//document.getElementById('results').innerHTML += "Outlet Temperature: " + stream2OutletTemp.truncated() + " °C<br>"
+		document.getElementById('results').innerHTML += "Mean Temperature, T<sub>s</sub>: " + shellStreamMeanTemp.truncated() + " °C<br>"
+		document.getElementById('results').innerHTML += "Mean Spec Heat Capacity, c<sub>s</sub>: " + shellStreamMeanSHC.truncated() + " J/kgK<br>"
+		document.getElementById('results').innerHTML += "Mean Thermal Conductivity, k<sub>s</sub>: " + shellStreamMeanTC.truncated() + " W/m °C<br>"
+		document.getElementById('results').innerHTML += "Mean Density, ρ<sub>s</sub>: " + shellStreamMeanDensity.truncated() + " kg/m<sup>3</sup><br>"
+		document.getElementById('results').innerHTML += "Mean Viscosity, μ<sub>s</sub>: " + (shellStreamMeanViscosity*1e3).truncated() + " mNs/m<sup>2</sup> [cP]<br>"
+		
+		document.getElementById('results').innerHTML += "<br>Duty: " + (Math.abs(duty)).truncated() + " W<br><br>"
 		
 		var currentMode = document.getElementById("currentMode").value
 		var currentModeString
