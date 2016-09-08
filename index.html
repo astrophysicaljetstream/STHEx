@@ -385,7 +385,7 @@
 			recommendedTubeNumber = "not available; calculated pressure drop is lower than allowable pressure drop."
 		}
 		document.getElementById('results').innerHTML += "<br><b>Pressure Drop</b><br>"
-		document.getElementById('results').innerHTML += "<br>Tubeside pressure drop, ΔP<sub>t</sub>: " + (tubePressDrop.truncated())*1e-5 + " bar<br>"
+		document.getElementById('results').innerHTML += "<br>Tubeside pressure drop, ΔP<sub>t</sub>: " + (tubePressDrop*1e-5).truncated() + " bar<br>"
 		document.getElementById('results').innerHTML += "Possible number of tubes needed: " + recommendedTubeNumber +"<br>"
 		
 		document.getElementById('results').innerHTML += "<br>--[Does the tubeside pressure drop exceed specifications? If so, increase number of tubes.]--<br>"
@@ -393,7 +393,7 @@
 		var shellFrictionFactor = eval(document.getElementById("shellFricFac").value)
 		var shellPressDrop = (tubeLength/baffleSpacing) * (8*shellFrictionFactor*shellsideDiameter/hydraulicDiameter) * shellStreamMeanDensity * shellVelocity * shellVelocity / 2
 		shellPressDrop = shellPressDrop.cutZero()
-		document.getElementById('results').innerHTML += "<br>Shellside pressure drop, ΔP<sub>s</sub>: " + (shellPressDrop.truncated())*1e-5 + " bar<br>"
+		document.getElementById('results').innerHTML += "<br>Shellside pressure drop, ΔP<sub>s</sub>: " + (shellPressDrop*1e-5).truncated() + " bar<br>"
 		
 		document.getElementById('results').innerHTML += "<br>--[Does the shellside pressure drop exceed specifications? If so, increase baffle spacing.]--<br>"
 		
@@ -412,8 +412,8 @@
 		document.getElementById('results').innerHTML += "Shellside coefficient: " + "" + " W/m<sup>2</sup> °C<br>"
 		document.getElementById('results').innerHTML += "Overall coefficient, estimated: " + overallCoefficient.truncated() + " W/m<sup>2</sup> °C<br>"
 		document.getElementById('results').innerHTML += "Overall coefficient, required: " + reqUo.truncated() + " W/m<sup>2</sup> °C<br>"
-		document.getElementById('results').innerHTML += "Tubeside pressure drop: " + tubePressDrop.truncated() + " N/m<sup>2</sup><br>"
-		document.getElementById('results').innerHTML += "Shellside pressure drop: " + shellPressDrop.truncated() + " N/m<sup>2</sup><br>"
+		document.getElementById('results').innerHTML += "Tubeside pressure drop: " + (tubePressDrop*1e-5).truncated() + " bar<br>"
+		document.getElementById('results').innerHTML += "Shellside pressure drop: " + (shellPressDrop*1e-5).truncated() + " bar<br>"
 		
 		var pressFactor = eval(document.getElementById("pressFac").value)
 		var typeFactor = eval(document.getElementById("typeFac").value)
