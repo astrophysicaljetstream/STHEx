@@ -323,7 +323,7 @@
 		document.getElementById('results').innerHTML += "Area for cross-flow, A<sub>s</sub>: " + areaCrossFlow.truncated() + " m<sup>2</sup><br>"
 		document.getElementById('results').innerHTML += "Hydraulic Diameter, d<sub>e</sub>: " + hydraulicDiameter.truncated() + " m<br>"
 		document.getElementById('results').innerHTML += "Volumetric Flow of shellside fluid: " + shellVolumetricFlow.truncated() + " m<sup>3</sup>/s<br>"
-		document.getElementById('results').innerHTML += "Shellside velocity, <sub>s</sub>: " + shellVelocity.truncated() + " m/s<br>"
+		document.getElementById('results').innerHTML += "Shellside velocity, u<sub>s</sub>: " + shellVelocity.truncated() + " m/s<br>"
 		
 		var shellHeatTransferFactor = eval(document.getElementById("shellHeatTransFac").value)
 		shellHeatTransferFactor = shellHeatTransferFactor.cutZero()
