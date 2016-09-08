@@ -387,14 +387,14 @@
 		document.getElementById('results').innerHTML += "<br>Tubeside pressure drop, ΔP<sub>t</sub>: " + tubePressDrop.truncated() + " N/m<sup>2</sup><br>"
 		document.getElementById('results').innerHTML += "Possible number of tubes needed: " + recommendedTubeNumber +"<br>"
 		
-		document.getElementById('results').innerHTML += "<br>--[Does the tubeside pressure drop exceed specifications? If so, increase number of tubes]--<br>"
+		document.getElementById('results').innerHTML += "<br>--[Does the tubeside pressure drop exceed specifications? If so, increase number of tubes.]--<br>"
 		
 		var shellFrictionFactor = eval(document.getElementById("shellFricFac").value)
 		var shellPressDrop = (tubeLength/baffleSpacing) * (8*shellFrictionFactor*shellsideDiameter/hydraulicDiameter) * shellStreamMeanDensity * shellVelocity * shellVelocity / 2
 		shellPressDrop = shellPressDrop.cutZero()
 		document.getElementById('results').innerHTML += "<br>Shellside pressure drop, ΔP<sub>s</sub>: " + shellPressDrop.truncated() + " N/m<sup>2</sup><br>"
 		
-		document.getElementById('results').innerHTML += "<br>--[Does the shellside pressure drop exceed specifications? If so, increase baffle spacing]--<br>"
+		document.getElementById('results').innerHTML += "<br>--[Does the shellside pressure drop exceed specifications? If so, increase baffle spacing.]--<br>"
 		
 		var reqArea = nTube*areaPerTube
 		reqArea.cutZero()
