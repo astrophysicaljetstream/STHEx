@@ -426,8 +426,8 @@
 	
 	<p class="hotFluid"><br><b>Stream 1 Properties and Conditions</b> [Known mass flow]<br>
 	Mass Flow: <input type="text" class="inputText" id="stream1MassFlow" value="36500/3600"> kg/s<br>
-	Inlet Temperature, T<sub>1</sub>: <input type="text" class="inputText" id="stream1InletTemp" value="59.9"> °C<br>
-	Outlet Temperature, T<sub>2</sub>: <input type="text" class="inputText" id="stream1OutletTemp" value="40"> °C<br>
+	Inlet Temperature, T<sub>i</sub>: <input type="text" class="inputText" id="stream1InletTemp" value="59.9"> °C<br>
+	Outlet Temperature, T<sub>o</sub>: <input type="text" class="inputText" id="stream1OutletTemp" value="40"> °C<br>
 	
 	Mean Spec Heat Capacity, C: <input type="text" class="inputText" id="stream1MeanSHC" value="2616"> J/kgK<br>
 	
@@ -442,16 +442,16 @@
 	Allowable pressure drop: <input type="text" class="inputText" id="stream1AllowPress" value="1e5"> N/m<sup>2</sup><br></p>
 	
 	<p class="coldFluid"><br><b>Stream 2 Properties and Conditions</b> [Unknown mass flow]<br>
-	Inlet Temperature, t<sub>1</sub>: <input type="text" class="inputText" id="stream2InletTemp" value="32"> °C<br>
-	Outlet Temperature, t<sub>2</sub>: <input type="text" class="inputText" id="stream2OutletTemp" value="40"> °C<br>
+	Inlet Temperature, t<sub>i</sub>: <input type="text" class="inputText" id="stream2InletTemp" value="32"> °C<br>
+	Outlet Temperature, t<sub>o</sub>: <input type="text" class="inputText" id="stream2OutletTemp" value="40"> °C<br>
 	
 	Mean Spec Heat Capacity, c: <input type="text" class="inputText" id="stream2MeanSHC" value="4185"> J/kgK<br>
 	
-	Mean Thermal Conductivity, k<sub>1</sub>: <input type="text" class="inputText" id="stream2MeanThermCond" value=".61881"> W/m °C<br>
+	Mean Thermal Conductivity, k: <input type="text" class="inputText" id="stream2MeanThermCond" value=".61881"> W/m °C<br>
 	
-	Mean Density, rho<sub>1</sub>: <input type="text" class="inputText" id="stream2MeanDensity" value="992.13"> kg/m<sup>3</sup><br>
+	Mean Density, rho: <input type="text" class="inputText" id="stream2MeanDensity" value="992.13"> kg/m<sup>3</sup><br>
 	
-	Mean Viscosity, mu<sub>1</sub>: <input type="text" class="inputText" id="stream2MeanViscosity" value="783.21e-3"> mNs/m<sup>2</sup> [cP]<br>
+	Mean Viscosity, mu: <input type="text" class="inputText" id="stream2MeanViscosity" value="783.21e-3"> mNs/m<sup>2</sup> [cP]<br>
 	
 	Fouling factor: <input type="text" class="inputText" id="stream2FoulFact" value="0.0003"> (W/m<sup>2</sup> °C)<sup>-1</sup><br>
 	
@@ -513,7 +513,7 @@
 	<p><b>Other</b><br>
 	<!--Exchange rate: 1 USD = <input type="text" class="inputText" id="exchRate" value="4.06"> MYR<br>-->
 	Ratio of current year to reference year index: <input type="text" class="inputText" id="indexRatio" value="573/444"><br>
-	Significant figures: <input type="text" class="inputText" id="signif" value="10"> (inaccurate for significant figures higher than 14)<br></p>
+	Significant figures: <input type="text" class="inputText" id="signif" value="5"> (inaccurate for significant figures higher than 14)<br></p>
 	
 	<br><input type=button value="Calculate" onClick="calculate_this()"><br>
 	<br><span id="results">(click "Calculate")</span>
