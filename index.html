@@ -98,8 +98,8 @@
 			var shellFoulFactor = eval(document.getElementById("stream1FoulFact").value)
 			var tubeFoulFactor = eval(document.getElementById("stream2FoulFact").value)
 			
-			var shellAllowPress = eval(document.getElementById("stream1AllowPress").value)
-			var tubeAllowPress = eval(document.getElementById("stream2AllowPress").value)
+			var shellAllowPress = eval(document.getElementById("stream1AllowPress").value)*1e5
+			var tubeAllowPress = eval(document.getElementById("stream2AllowPress").value)*1e5
 		}
 		if (flowConfig=="S2T1"){
 			var shellStreamMassFlow = stream2MassFlow
@@ -119,8 +119,8 @@
 			var tubeFoulFactor = eval(document.getElementById("stream1FoulFact").value)
 			var shellFoulFactor = eval(document.getElementById("stream2FoulFact").value)
 			
-			var shellAllowPress = eval(document.getElementById("stream2AllowPress").value)
-			var tubeAllowPress = eval(document.getElementById("stream1AllowPress").value)
+			var shellAllowPress = eval(document.getElementById("stream2AllowPress").value)*1e5
+			var tubeAllowPress = eval(document.getElementById("stream1AllowPress").value)*1e5
 		}
 		
 		document.getElementById('results').innerHTML = "<u>Tubeside Fluid</u><br>Mass Flow: " + tubeStreamMassFlow.truncated() + " kg/s<br>"
@@ -385,7 +385,7 @@
 			recommendedTubeNumber = "not available; calculated pressure drop is lower than allowable pressure drop."
 		}
 		document.getElementById('results').innerHTML += "<br><b>Pressure Drop</b><br>"
-		document.getElementById('results').innerHTML += "<br>Tubeside pressure drop, ΔP<sub>t</sub>: " + tubePressDrop.truncated() + " N/m<sup>2</sup><br>"
+		document.getElementById('results').innerHTML += "<br>Tubeside pressure drop, ΔP<sub>t</sub>: " + (tubePressDrop.truncated())*1e-5 + " bar<br>"
 		document.getElementById('results').innerHTML += "Possible number of tubes needed: " + recommendedTubeNumber +"<br>"
 		
 		document.getElementById('results').innerHTML += "<br>--[Does the tubeside pressure drop exceed specifications? If so, increase number of tubes.]--<br>"
@@ -393,7 +393,7 @@
 		var shellFrictionFactor = eval(document.getElementById("shellFricFac").value)
 		var shellPressDrop = (tubeLength/baffleSpacing) * (8*shellFrictionFactor*shellsideDiameter/hydraulicDiameter) * shellStreamMeanDensity * shellVelocity * shellVelocity / 2
 		shellPressDrop = shellPressDrop.cutZero()
-		document.getElementById('results').innerHTML += "<br>Shellside pressure drop, ΔP<sub>s</sub>: " + shellPressDrop.truncated() + " N/m<sup>2</sup><br>"
+		document.getElementById('results').innerHTML += "<br>Shellside pressure drop, ΔP<sub>s</sub>: " + (shellPressDrop.truncated())*1e-5 + " bar<br>"
 		
 		document.getElementById('results').innerHTML += "<br>--[Does the shellside pressure drop exceed specifications? If so, increase baffle spacing.]--<br>"
 		
@@ -446,7 +446,7 @@
 	
 	Fouling factor: <input type="text" class="inputText" id="stream1FoulFact" value="0.0002"> (W/m<sup>2</sup> °C)<sup>-1</sup><br>
 	
-	Allowable pressure drop: <input type="text" class="inputText" id="stream1AllowPress" value="1e5"> N/m<sup>2</sup><br></p>
+	Allowable pressure drop: <input type="text" class="inputText" id="stream1AllowPress" value="1"> bar<br></p>
 	
 	<p class="coldFluid"><br><b>Stream 2 Properties and Conditions</b> [Unknown mass flow]<br>
 	Inlet Temperature, t<sub>i</sub>: <input type="text" class="inputText" id="stream2InletTemp" value="32"> °C<br>
@@ -462,7 +462,7 @@
 	
 	Fouling factor: <input type="text" class="inputText" id="stream2FoulFact" value="0.0003"> (W/m<sup>2</sup> °C)<sup>-1</sup><br>
 	
-	Allowable pressure drop: <input type="text" class="inputText" id="stream2AllowPress" value="1e5"> N/m<sup>2</sup><br></p>
+	Allowable pressure drop: <input type="text" class="inputText" id="stream2AllowPress" value="1"> bar<br></p>
 	
 	<p class="hEx"><br><b>Heat Exchanger</b><br>
 	Estimated Overall Coefficient, U: <input type="text" class="inputText" id="estOverCoeff" value="500"> W/m<sup>2</sup> °C<br>
