@@ -179,8 +179,15 @@
 		var Ftdenominator = (R-1)*Math.log((2-S*(R+ 1 - foo))/(2-S*(R+ 1 + foo)))
 		var FtCalculated = Ftnumerator/Ftdenominator
 		FtCalculated = FtCalculated.cutZero()
-		document.getElementById('results').innerHTML += "<br>For a heat exchanger with " + nShellPass + " shell passes and "
-		document.getElementById('results').innerHTML += nTubePass + " tube passes:<br>"
+		document.getElementById('results').innerHTML += "<br>For a heat exchanger with " + nShellPass + " shell pass"
+		if (nShellPass!==1){
+			document.getElementById('results').innerHTML += "es"
+		}
+		document.getElementById('results').innerHTML += " and " + nTubePass + " tube pass"
+		if (nTubePass!==1){
+			document.getElementById('results').innerHTML += "es"
+		}
+		document.getElementById('results').innerHTML += ":<br>"
 		if (nShellPass==1&&nTubePass==2){
 			document.getElementById('results').innerHTML += "Calculated F<sub>t</sub>: " + FtCalculated.truncated() + "<br>"
 		}
@@ -207,7 +214,11 @@
 		document.getElementById('results').innerHTML += "If pitch/diameter = 1.25, then tube pitch, p<sub>t</sub> = " + (tubePitch*1e3).truncated() + " mm<br>"
 		document.getElementById('results').innerHTML += "Area of one tube, neglecting thickness of tube sheet: " + areaPerTube.truncated() + " m<sup>2</sup><br>"
 		document.getElementById('results').innerHTML += "Number of tubes required, N<sub>t</sub>: " + nTube + "<br>"
-		document.getElementById('results').innerHTML += "For " + nTubePass + " passes, number of tubes per pass: " + nTubePerPass + "<br>"
+		document.getElementById('results').innerHTML += "For " + nTubePass + " tube pass"
+		if (nTubePass!==1){
+			document.getElementById('results').innerHTML += "es"
+		}
+		document.getElementById('results').innerHTML += ", number of tubes per pass: " + nTubePerPass + "<br>"
 		
 		var innerDiameter = eval(document.getElementById("innerDiameter").value)*1e-3
 		var tubeCrossArea = Math.pow(innerDiameter,2)*Math.PI/4
@@ -221,7 +232,7 @@
 		document.getElementById('results').innerHTML += "<br>Tube Cross-sectional Area: " + tubeCrossArea.truncated() + " m<sup>2</sup><br>"
 		document.getElementById('results').innerHTML += "Area per pass: " + areaPerPass.truncated() + " m<sup>2</sup><br>"
 		document.getElementById('results').innerHTML += "Volumetric Flow of tubeside fluid: " + tubeVolumetricFlow.truncated() + " m<sup>3</sup>/s<br>"
-		document.getElementById('results').innerHTML += "Tubeside velocity: " + tubeVelocity.truncated() + " m/s (hopefully between 1 and 2 m/s)<br>"
+		document.getElementById('results').innerHTML += "Tubeside velocity, u<sub>t</sub>: " + tubeVelocity.truncated() + " m/s (hopefully between 1 and 2 m/s)<br>"
 		
 		var listedPassesInTable12point3 = [1,2,4,6,8]
 		var currentPitch = document.getElementById("currentPitch").value
@@ -305,7 +316,7 @@
 		document.getElementById('results').innerHTML += "Area for cross-flow, A<sub>s</sub>: " + areaCrossFlow.truncated() + " m<sup>2</sup><br>"
 		document.getElementById('results').innerHTML += "Hydraulic Diameter, d<sub>e</sub>: " + hydraulicDiameter.truncated() + " m<br>"
 		document.getElementById('results').innerHTML += "Volumetric Flow of shellside fluid: " + shellVolumetricFlow.truncated() + " m<sup>3</sup>/s<br>"
-		document.getElementById('results').innerHTML += "Shellside velocity: " + shellVelocity.truncated() + " m/s<br>"
+		document.getElementById('results').innerHTML += "Shellside velocity, <sub>s</sub>: " + shellVelocity.truncated() + " m/s<br>"
 		
 		var shellHeatTransferFactor = eval(document.getElementById("shellHeatTransFac").value)
 		shellHeatTransferFactor = shellHeatTransferFactor.cutZero()
