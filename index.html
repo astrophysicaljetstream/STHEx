@@ -407,6 +407,15 @@
 		document.getElementById('results').innerHTML += "<br>--[Are the above values good enough?]--<br>"
 		
 		document.getElementById('results').innerHTML += "<br><b><u>Summary</u></b><br>"
+		document.getElementById('results').innerHTML += nShellPass + " shell pass"
+		if (nShellPass!==1){
+			document.getElementById('results').innerHTML += "es"
+		}
+		document.getElementById('results').innerHTML += ", " + nTubePass + " tube pass"
+		if (nTubePass!==1){
+			document.getElementById('results').innerHTML += "es"
+		}
+		document.getElementById('results').innerHTML += "<br>"
 		document.getElementById('results').innerHTML += nTube + " tubes, " + tubeLength + " m long, " + (outerDiameter*1e3).cutZero() + " mm outer diameter, " + (innerDiameter*1e3).cutZero() + " mm inner diameter, " + currentPitch + " pitch, " + "pitch " + (tubePitch*1e3).cutZero() + " mm<br>"
 		document.getElementById('results').innerHTML += "Heat transfer area: " + reqArea.truncated() + " m<sup>2</sup><br>"
 		document.getElementById('results').innerHTML += "Tubeside coefficient: " + tubeInsideCoefficient.truncated() + " W/m<sup>2</sup> °C<br>"
