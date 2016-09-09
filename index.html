@@ -2,6 +2,7 @@
 <html lang="en-us">
 	<title>Shell and Tube Heat Exchanger Calculator</title>
 	<head>
+		<LINK href="stylesheets/stylesheet.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
 	<script>
@@ -406,7 +407,7 @@
 		document.getElementById('results').innerHTML += "<br>--[Are the above values good enough?]--<br>"
 		
 		document.getElementById('results').innerHTML += "<br><b><u>Summary</u></b><br>"
-		document.getElementById('results').innerHTML += nTubes + "tubes, " + tubeLength + " m long, " + (outerDiameter*1e-3).cutZero() + " mm outer diameter, " + (innerDiameter*1e-3).cutZero() + " mm inner diameter, " + currentPitch + " pitch, " + "pitch " + (tubePitch*1e-3).cutZero() + " mm<br>"
+		document.getElementById('results').innerHTML += nTube + "tubes, " + tubeLength + " m long, " + (outerDiameter*1e-3).cutZero() + " mm outer diameter, " + (innerDiameter*1e-3).cutZero() + " mm inner diameter, " + currentPitch + " pitch, " + "pitch " + (tubePitch*1e-3).cutZero() + " mm<br>"
 		document.getElementById('results').innerHTML += "Heat transfer area: " + reqArea.truncated() + " m<sup>2</sup><br>"
 		document.getElementById('results').innerHTML += "Tubeside coefficient: " + tubeInsideCoefficient.truncated() + " W/m<sup>2</sup> °C<br>"
 		document.getElementById('results').innerHTML += "Shellside coefficient: " + tubeInsideCoefficient.truncated() + " W/m<sup>2</sup> °C<br>"
