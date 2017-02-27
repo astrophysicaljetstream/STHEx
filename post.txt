@@ -3,7 +3,7 @@ Persamaan yang berikut tidak sepenuhnya benar:
 i=√−1
 Walaupun persamaan itu berasal daripada
 i²=−1
-persamaan pertama mempunyai sebuah fungsi yang tidak disebut dalam persamaan kedua: fungsi punca kuasa dua. Definisi fungsi ini jelas dalam set nombor nyata tetapi tidak jelas dalam set nombor kompleks. Sebabnya fungsi punca kuasa dua ialah fungsi tidak selanjar. Kesannya kalis berikut, walaupun sah dalam set nombor nyata, tidak sah dalam set nombor kompleks:
+persamaan pertama mempunyai sebuah fungsi yang tidak disebut dalam persamaan kedua iaitu fungsi punca kuasa dua. Definisi fungsi ini jelas dalam set nombor nyata tetapi tidak jelas dalam set nombor kompleks. Sebabnya fungsi punca kuasa dua ialah fungsi tidak selanjar. Kesannya kalis berikut, walaupun sah dalam set nombor nyata, tidak sah dalam set nombor kompleks:
 √(ab)=(√a)(√b)
 Jika kalis ini digunakan dalam set nombor kompleks, kita boleh menulis bukti tidak sah yang berikut:
 −1=(√−1)(√−1)=√(−1×−1)=√1=1
